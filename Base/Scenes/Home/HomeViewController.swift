@@ -11,12 +11,16 @@
 import UIKit
 import RxSwift
 import RxCocoa
+import RxDataSources
 
 class HomeViewController: BaseViewController<HomeViewModel> {
 
+    @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var headerView: TabbarHeaderBaseView!
+    
     private let bag = DisposeBag()
     weak var routesDelegate: HomeRoutes?
-    @IBOutlet weak var tableView: UITableView!
+    private var dataSource: RxTableViewSectionedReloadDataSource<HomeSectionData>? = nil
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,11 +37,14 @@ class HomeViewController: BaseViewController<HomeViewModel> {
     }
     
     private func setupUI() {
-//        tableView.contentInsetAdjustmentBehavior = .never // show content de` len status bar cua tableview len superview
         tableView.registerHeaderFooterView(type: HomeHeaderFooterView.self)
         tableView.sectionFooterHeight = 0.01
         tableView.sectionHeaderHeight = 0.01
-//        tableView.delegate = self
+        tableView.registerCell(type: ComicTableViewCell.self)
+        tableView.separatorStyle = .none
+        tableView.showsVerticalScrollIndicator = false
+        tableView.delegate = self
+        headerView.configView(title: L10n.Home.tab)
     }
     
     override func bindViewModel() {
@@ -48,31 +55,37 @@ class HomeViewController: BaseViewController<HomeViewModel> {
         )
         let output = viewModel.transform(input: input)
         
-        output.hotComic
-            .drive { data in
-                print("my data \(data)")
+        dataSource = RxTableViewSectionedReloadDataSource<HomeSectionData>(
+            
+            configureCell: { datasource, tableView, indexPath, item in
+                let cell = tableView.dequeueReusableCell(type: ComicTableViewCell.self, forIndexPath: indexPath)
+                cell.configCell(data: item.data ?? [])
+                return cell
             }
-            .disposed(by: bag)
+        )
+        
+        if let dataSource = dataSource {
+            output.homeSection
+                .drive(tableView.rx.items(dataSource: dataSource))
+                .disposed(by: bag)
+        }
     }
 }
 
-//extension HomeViewController: UITableViewDelegate {
-//    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-//        let headerCell = tableView.dequeueReusableHeaderFooterView(type: HomeHeaderFooterView.self)
-//        viewModel.headerWeatherDataSubject.subscribe(onNext: {[weak self] data in
-//            headerCell.configHeader(data: data)
-//            self?.tableView.reloadData()
-//            self?.view.setNeedsLayout()
-//        })
-//        .disposed(by: bag)
-//        return headerCell
-//    }
-//
-//    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-//        return UITableView.automaticDimension
-//    }
-//
-//    func tableView(_ tableView: UITableView, estimatedHeightForHeaderInSection section: Int) -> CGFloat {
-//        return 300 // sử dụng height auto phải set estimate height bằng hoặc lớn hơn height theo design
-//    }
-//}
+extension HomeViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 200
+    }
+    
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let header = self.tableView.dequeueReusableHeaderFooterView(type: HomeHeaderFooterView.self)
+        header.configHeader(title: dataSource?[section].header ?? "")
+        return header
+    }
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 40
+    }
+    
+    
+}

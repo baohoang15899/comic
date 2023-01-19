@@ -31,6 +31,7 @@ class HomeCoordinator: Coordinator {
         let homeVM = HomeViewModel()
         homeVC.routesDelegate = self // gán delegate cho view contoller quản lý route nếu có
         homeVC.bind(to: homeVM)
+        self.navigator.title = "Profile Settings"
         navigator.pushViewController(homeVC, animated: true)
     }
 }

@@ -23,7 +23,7 @@ class HomeViewModel: BaseViewModel {
     }
     
     struct Output {
-        let hotComic: Driver<[ComicModel]>
+        let homeSection: Driver<[HomeSectionData]>
     }
     
     private let bag = DisposeBag()
@@ -33,6 +33,8 @@ class HomeViewModel: BaseViewModel {
     private let topMonthComicSubject = BehaviorSubject<[ComicModel]>(value: [])
     private let topWeekComicSubject = BehaviorSubject<[ComicModel]>(value: [])
     private let topDayComicSubject = BehaviorSubject<[ComicModel]>(value: [])
+    
+    var HomeSectionSubject = BehaviorSubject<[HomeSectionData]>(value: [])
     
     
     func transform(input: Input) -> Output {
@@ -136,12 +138,17 @@ class HomeViewModel: BaseViewModel {
         let allComic = Observable.zip(hotComicSubject.skip(1), topMonthComicSubject.skip(1), topWeekComicSubject.skip(1), topDayComicSubject.skip(1))
 
         allComic.subscribe {(hotComic, topMonth, topWeek, topDay) in
-            print(hotComic)
+            let hotSection = HomeSectionData(header: L10n.Home.Section.hot, items: [HomeSectionModel(data: hotComic)])
+            let topMonthSection = HomeSectionData(header: L10n.Home.Section.topMonth, items: [HomeSectionModel(data: topMonth)])
+            let topWeekSection = HomeSectionData(header: L10n.Home.Section.topWeek, items: [HomeSectionModel(data: topWeek)])
+            let topDaySection = HomeSectionData(header: L10n.Home.Section.topDay, items: [HomeSectionModel(data: topDay)])
+            self.HomeSectionSubject.onNext([hotSection, topMonthSection, topWeekSection, topDaySection])
+            
         }
         .disposed(by: bag)
         
-        let hotComicOutput = hotComicSubject.skip(1).asDriver(onErrorJustReturn: [])
+        let homeSectionOutput = HomeSectionSubject.skip(1).asDriver(onErrorJustReturn: [])
 
-        return Output(hotComic: hotComicOutput)
+        return Output(homeSection: homeSectionOutput)
     }
 }

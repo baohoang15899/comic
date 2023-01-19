@@ -10,15 +10,11 @@ import UIKit
 
 class HomeHeaderFooterView: UITableViewHeaderFooterView {
 
-    @IBOutlet weak var cityNameLabel: UILabel!
-    @IBOutlet weak var weatherStatusLabel: UILabel!
-    @IBOutlet weak var weatherCelsiusLabel: UILabel!
-    @IBOutlet weak var collectionView: UICollectionView!
+    @IBOutlet weak var sectionLabel: UILabel!
     
-    func configHeader(data: HomeHeaderWeatherModel?) {
-        cityNameLabel.text = data?.cityName ?? ""
-        weatherStatusLabel.text = data?.status ?? ""
-        weatherCelsiusLabel.text = "\(data?.celsius ?? "0")°"
+    func configHeader(title: String) {
+        sectionLabel.text = title
+        sectionLabel.font = UIFont.systemFont(ofSize: 20, weight: .bold)
     }
     
 }

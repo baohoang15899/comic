@@ -10,6 +10,23 @@ import Foundation
 // swiftlint:disable explicit_type_interface function_parameter_count identifier_name line_length
 // swiftlint:disable nesting type_body_length type_name vertical_whitespace_opening_braces
 internal enum L10n {
+  internal enum Home {
+    /// Trang chủ
+    internal static let tab = L10n.tr("Localizable", "home.tab", fallback: "Trang chủ")
+    internal enum Section {
+      /// Localizable.strings
+      ///   Base
+      /// 
+      ///   Created by BaoHoang on 15/10/2022.
+      internal static let hot = L10n.tr("Localizable", "home.section.hot", fallback: "Truyện Hot")
+      /// Top Ngày
+      internal static let topDay = L10n.tr("Localizable", "home.section.topDay", fallback: "Top Ngày")
+      /// Top Tháng
+      internal static let topMonth = L10n.tr("Localizable", "home.section.topMonth", fallback: "Top Tháng")
+      /// Top Tuần
+      internal static let topWeek = L10n.tr("Localizable", "home.section.topWeek", fallback: "Top Tuần")
+    }
+  }
 }
 // swiftlint:enable explicit_type_interface function_parameter_count identifier_name line_length
 // swiftlint:enable nesting type_body_length type_name vertical_whitespace_opening_braces

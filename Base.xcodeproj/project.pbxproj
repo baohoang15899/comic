@@ -3,14 +3,12 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 56;
+	objectVersion = 55;
 	objects = {
 
 /* Begin PBXBuildFile section */
 		291E17692935E98D00FCAAD9 /* GeoCoding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 291E17682935E98D00FCAAD9 /* GeoCoding.swift */; };
 		291E176B2935EB2E00FCAAD9 /* LocalName.swift in Sources */ = {isa = PBXBuildFile; fileRef = 291E176A2935EB2E00FCAAD9 /* LocalName.swift */; };
-		291E176E2935EF4400FCAAD9 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 291E176D2935EF4400FCAAD9 /* Images.xcassets */; };
-		291E17702935EF5200FCAAD9 /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 291E176F2935EF5200FCAAD9 /* Colors.xcassets */; };
 		291E17752936011100FCAAD9 /* GeoRepo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 291E17742936011100FCAAD9 /* GeoRepo.swift */; };
 		291E17772936014200FCAAD9 /* RepoFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 291E17762936014200FCAAD9 /* RepoFactory.swift */; };
 		291E1779293601C600FCAAD9 /* GeoUC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 291E1778293601C600FCAAD9 /* GeoUC.swift */; };
@@ -28,6 +26,21 @@
 		291E17922937443C00FCAAD9 /* NibExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 291E17912937443C00FCAAD9 /* NibExtension.swift */; };
 		297905DD2940862A0052F6BE /* HomeHeaderFooterView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 297905DC2940862A0052F6BE /* HomeHeaderFooterView.xib */; };
 		297905DF294086800052F6BE /* HomeHeaderFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 297905DE294086800052F6BE /* HomeHeaderFooterView.swift */; };
+		297FFD3129795C1700B8AD9A /* RxDataSources in Frameworks */ = {isa = PBXBuildFile; productRef = 297FFD3029795C1700B8AD9A /* RxDataSources */; };
+		297FFD3529795E2400B8AD9A /* ComicBaseView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 297FFD3429795E2400B8AD9A /* ComicBaseView.xib */; };
+		297FFD3829795E7500B8AD9A /* SDWebImage in Frameworks */ = {isa = PBXBuildFile; productRef = 297FFD3729795E7500B8AD9A /* SDWebImage */; };
+		297FFD3A29795E7500B8AD9A /* SDWebImageMapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 297FFD3929795E7500B8AD9A /* SDWebImageMapKit */; };
+		297FFD3C29795E9000B8AD9A /* ComicBaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 297FFD3B29795E9000B8AD9A /* ComicBaseView.swift */; };
+		297FFD422979649300B8AD9A /* ComicTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 297FFD402979649300B8AD9A /* ComicTableViewCell.swift */; };
+		297FFD432979649300B8AD9A /* ComicTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 297FFD412979649300B8AD9A /* ComicTableViewCell.xib */; };
+		297FFD4B2979677A00B8AD9A /* ComicCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 297FFD492979677A00B8AD9A /* ComicCollectionViewCell.swift */; };
+		297FFD4C2979677A00B8AD9A /* ComicCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 297FFD4A2979677A00B8AD9A /* ComicCollectionViewCell.xib */; };
+		297FFD4E29796CD200B8AD9A /* UIViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 297FFD4D29796CD200B8AD9A /* UIViewExtension.swift */; };
+		297FFD542979824C00B8AD9A /* MSPeekCollectionViewDelegateImplementation in Frameworks */ = {isa = PBXBuildFile; productRef = 297FFD532979824C00B8AD9A /* MSPeekCollectionViewDelegateImplementation */; };
+		297FFD572979A74600B8AD9A /* TabbarHeaderBaseView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 297FFD562979A74600B8AD9A /* TabbarHeaderBaseView.xib */; };
+		297FFD592979A7E000B8AD9A /* TabbarHeaderBaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 297FFD582979A7E000B8AD9A /* TabbarHeaderBaseView.swift */; };
+		29D4B81729781C0E00DE1E91 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 29D4B81629781C0E00DE1E91 /* Images.xcassets */; };
+		29D4B81929781C4200DE1E91 /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 29D4B81829781C4200DE1E91 /* Colors.xcassets */; };
 		29D508BB28F8EF5B00DD3D32 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29D508BA28F8EF5B00DD3D32 /* AppDelegate.swift */; };
 		29D508BF28F8EF5B00DD3D32 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29D508BE28F8EF5B00DD3D32 /* ViewController.swift */; };
 		29D508C228F8EF5B00DD3D32 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 29D508C028F8EF5B00DD3D32 /* Main.storyboard */; };
@@ -83,8 +96,6 @@
 /* Begin PBXFileReference section */
 		291E17682935E98D00FCAAD9 /* GeoCoding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeoCoding.swift; sourceTree = "<group>"; };
 		291E176A2935EB2E00FCAAD9 /* LocalName.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalName.swift; sourceTree = "<group>"; };
-		291E176D2935EF4400FCAAD9 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
-		291E176F2935EF5200FCAAD9 /* Colors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Colors.xcassets; sourceTree = "<group>"; };
 		291E17742936011100FCAAD9 /* GeoRepo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeoRepo.swift; sourceTree = "<group>"; };
 		291E17762936014200FCAAD9 /* RepoFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepoFactory.swift; sourceTree = "<group>"; };
 		291E1778293601C600FCAAD9 /* GeoUC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeoUC.swift; sourceTree = "<group>"; };
@@ -102,6 +113,17 @@
 		291E17912937443C00FCAAD9 /* NibExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NibExtension.swift; sourceTree = "<group>"; };
 		297905DC2940862A0052F6BE /* HomeHeaderFooterView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HomeHeaderFooterView.xib; sourceTree = "<group>"; };
 		297905DE294086800052F6BE /* HomeHeaderFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeHeaderFooterView.swift; sourceTree = "<group>"; };
+		297FFD3429795E2400B8AD9A /* ComicBaseView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ComicBaseView.xib; sourceTree = "<group>"; };
+		297FFD3B29795E9000B8AD9A /* ComicBaseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComicBaseView.swift; sourceTree = "<group>"; };
+		297FFD402979649300B8AD9A /* ComicTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComicTableViewCell.swift; sourceTree = "<group>"; };
+		297FFD412979649300B8AD9A /* ComicTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ComicTableViewCell.xib; sourceTree = "<group>"; };
+		297FFD492979677A00B8AD9A /* ComicCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComicCollectionViewCell.swift; sourceTree = "<group>"; };
+		297FFD4A2979677A00B8AD9A /* ComicCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ComicCollectionViewCell.xib; sourceTree = "<group>"; };
+		297FFD4D29796CD200B8AD9A /* UIViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewExtension.swift; sourceTree = "<group>"; };
+		297FFD562979A74600B8AD9A /* TabbarHeaderBaseView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TabbarHeaderBaseView.xib; sourceTree = "<group>"; };
+		297FFD582979A7E000B8AD9A /* TabbarHeaderBaseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabbarHeaderBaseView.swift; sourceTree = "<group>"; };
+		29D4B81629781C0E00DE1E91 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		29D4B81829781C4200DE1E91 /* Colors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Colors.xcassets; sourceTree = "<group>"; };
 		29D508B728F8EF5B00DD3D32 /* Base.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Base.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		29D508BA28F8EF5B00DD3D32 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		29D508BE28F8EF5B00DD3D32 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -145,10 +167,14 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				297FFD3829795E7500B8AD9A /* SDWebImage in Frameworks */,
 				29D508F128F8F0BF00DD3D32 /* Alamofire in Frameworks */,
 				29F5589A2975026500FE1386 /* SwiftSoup in Frameworks */,
 				29D508EE28F8F09100DD3D32 /* RxSwift in Frameworks */,
+				297FFD3129795C1700B8AD9A /* RxDataSources in Frameworks */,
+				297FFD3A29795E7500B8AD9A /* SDWebImageMapKit in Frameworks */,
 				29D508EC28F8F09100DD3D32 /* RxCocoa in Frameworks */,
+				297FFD542979824C00B8AD9A /* MSPeekCollectionViewDelegateImplementation in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -203,6 +229,7 @@
 				291E17892937351D00FCAAD9 /* ObservableExtension.swift */,
 				291E178F293743D400FCAAD9 /* UIColorExtension.swift */,
 				291E17912937443C00FCAAD9 /* NibExtension.swift */,
+				297FFD4D29796CD200B8AD9A /* UIViewExtension.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -216,11 +243,58 @@
 			path = HeaderCell;
 			sourceTree = "<group>";
 		};
-		291E17942937517100FCAAD9 /* Cell */ = {
+		297FFD3229795DE200B8AD9A /* BaseUIComponent */ = {
 			isa = PBXGroup;
 			children = (
+				297FFD552979A71300B8AD9A /* TabbarHeaderBaseView */,
+				297FFD3329795DF700B8AD9A /* ComicBaseView */,
 			);
-			path = Cell;
+			path = BaseUIComponent;
+			sourceTree = "<group>";
+		};
+		297FFD3329795DF700B8AD9A /* ComicBaseView */ = {
+			isa = PBXGroup;
+			children = (
+				297FFD3429795E2400B8AD9A /* ComicBaseView.xib */,
+				297FFD3B29795E9000B8AD9A /* ComicBaseView.swift */,
+			);
+			path = ComicBaseView;
+			sourceTree = "<group>";
+		};
+		297FFD3D2979644F00B8AD9A /* TableViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				297FFD402979649300B8AD9A /* ComicTableViewCell.swift */,
+				297FFD412979649300B8AD9A /* ComicTableViewCell.xib */,
+			);
+			path = TableViewCell;
+			sourceTree = "<group>";
+		};
+		297FFD482979675600B8AD9A /* CollectionViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				297FFD492979677A00B8AD9A /* ComicCollectionViewCell.swift */,
+				297FFD4A2979677A00B8AD9A /* ComicCollectionViewCell.xib */,
+			);
+			path = CollectionViewCell;
+			sourceTree = "<group>";
+		};
+		297FFD552979A71300B8AD9A /* TabbarHeaderBaseView */ = {
+			isa = PBXGroup;
+			children = (
+				297FFD562979A74600B8AD9A /* TabbarHeaderBaseView.xib */,
+				297FFD582979A7E000B8AD9A /* TabbarHeaderBaseView.swift */,
+			);
+			path = TabbarHeaderBaseView;
+			sourceTree = "<group>";
+		};
+		29D4B81529781BFB00DE1E91 /* Assets */ = {
+			isa = PBXGroup;
+			children = (
+				29D4B81629781C0E00DE1E91 /* Images.xcassets */,
+				29D4B81829781C4200DE1E91 /* Colors.xcassets */,
+			);
+			path = Assets;
 			sourceTree = "<group>";
 		};
 		29D508AE28F8EF5B00DD3D32 = {
@@ -246,6 +320,7 @@
 		29D508B928F8EF5B00DD3D32 /* Base */ = {
 			isa = PBXGroup;
 			children = (
+				297FFD3229795DE200B8AD9A /* BaseUIComponent */,
 				29F5589D29763F5700FE1386 /* Entity */,
 				291E17882937350900FCAAD9 /* Extension */,
 				291E1771293600D200FCAAD9 /* Domain */,
@@ -358,8 +433,8 @@
 		29EFDEF128FA408A0032CF22 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				29D4B81529781BFB00DE1E91 /* Assets */,
 				29EFDF0028FA42330032CF22 /* Generated */,
-				29EFDEF328FA40FE0032CF22 /* Assets */,
 				29EFDEF228FA40EF0032CF22 /* Localize */,
 			);
 			path = Resources;
@@ -371,15 +446,6 @@
 				29EFDEF828FA413A0032CF22 /* Localizable.strings */,
 			);
 			path = Localize;
-			sourceTree = "<group>";
-		};
-		29EFDEF328FA40FE0032CF22 /* Assets */ = {
-			isa = PBXGroup;
-			children = (
-				291E176D2935EF4400FCAAD9 /* Images.xcassets */,
-				291E176F2935EF5200FCAAD9 /* Colors.xcassets */,
-			);
-			path = Assets;
 			sourceTree = "<group>";
 		};
 		29EFDF0028FA42330032CF22 /* Generated */ = {
@@ -394,7 +460,8 @@
 		29EFDF0A28FA53C80032CF22 /* Home */ = {
 			isa = PBXGroup;
 			children = (
-				291E17942937517100FCAAD9 /* Cell */,
+				297FFD482979675600B8AD9A /* CollectionViewCell */,
+				297FFD3D2979644F00B8AD9A /* TableViewCell */,
 				291E17932937516400FCAAD9 /* HeaderCell */,
 				29EFDF0B28FA53D50032CF22 /* HomeCoordinator.swift */,
 				29EFDF0C28FA53D50032CF22 /* HomeViewController.swift */,
@@ -435,6 +502,10 @@
 				29D508ED28F8F09100DD3D32 /* RxSwift */,
 				29D508F028F8F0BF00DD3D32 /* Alamofire */,
 				29F558992975026500FE1386 /* SwiftSoup */,
+				297FFD3029795C1700B8AD9A /* RxDataSources */,
+				297FFD3729795E7500B8AD9A /* SDWebImage */,
+				297FFD3929795E7500B8AD9A /* SDWebImageMapKit */,
+				297FFD532979824C00B8AD9A /* MSPeekCollectionViewDelegateImplementation */,
 			);
 			productName = Base;
 			productReference = 29D508B728F8EF5B00DD3D32 /* Base.app */;
@@ -500,7 +571,7 @@
 				};
 			};
 			buildConfigurationList = 29D508B228F8EF5B00DD3D32 /* Build configuration list for PBXProject "Base" */;
-			compatibilityVersion = "Xcode 14.0";
+			compatibilityVersion = "Xcode 13.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -513,6 +584,9 @@
 				29D508EA28F8F09100DD3D32 /* XCRemoteSwiftPackageReference "RxSwift" */,
 				29D508EF28F8F0BF00DD3D32 /* XCRemoteSwiftPackageReference "Alamofire" */,
 				29F558982975026500FE1386 /* XCRemoteSwiftPackageReference "SwiftSoup" */,
+				297FFD2F29795C1700B8AD9A /* XCRemoteSwiftPackageReference "RxDataSources" */,
+				297FFD3629795E7500B8AD9A /* XCRemoteSwiftPackageReference "SDWebImage" */,
+				297FFD522979824C00B8AD9A /* XCRemoteSwiftPackageReference "MSPeekCollectionViewDelegateImplementation" */,
 			);
 			productRefGroup = 29D508B828F8EF5B00DD3D32 /* Products */;
 			projectDirPath = "";
@@ -530,14 +604,18 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				29D4B81929781C4200DE1E91 /* Colors.xcassets in Resources */,
+				297FFD3529795E2400B8AD9A /* ComicBaseView.xib in Resources */,
 				29EFDF0628FA45E20032CF22 /* Swiftgen in Resources */,
+				29D4B81729781C0E00DE1E91 /* Images.xcassets in Resources */,
+				297FFD572979A74600B8AD9A /* TabbarHeaderBaseView.xib in Resources */,
 				29D508C728F8EF5C00DD3D32 /* LaunchScreen.storyboard in Resources */,
-				291E176E2935EF4400FCAAD9 /* Images.xcassets in Resources */,
 				29EFDEF628FA413A0032CF22 /* Localizable.strings in Resources */,
 				297905DD2940862A0052F6BE /* HomeHeaderFooterView.xib in Resources */,
+				297FFD432979649300B8AD9A /* ComicTableViewCell.xib in Resources */,
 				29EFDF1428FA53D50032CF22 /* HomeViewController.xib in Resources */,
-				291E17702935EF5200FCAAD9 /* Colors.xcassets in Resources */,
 				29D508C428F8EF5C00DD3D32 /* Assets.xcassets in Resources */,
+				297FFD4C2979677A00B8AD9A /* ComicCollectionViewCell.xib in Resources */,
 				29D508C228F8EF5B00DD3D32 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -588,6 +666,7 @@
 				291E17832937037300FCAAD9 /* WeatherInfoModel.swift in Sources */,
 				29D508BF28F8EF5B00DD3D32 /* ViewController.swift in Sources */,
 				29D508BB28F8EF5B00DD3D32 /* AppDelegate.swift in Sources */,
+				297FFD3C29795E9000B8AD9A /* ComicBaseView.swift in Sources */,
 				29EFDEEB28F9674D0032CF22 /* AppCoordinator.swift in Sources */,
 				29D5091228F95C0400DD3D32 /* BindableType.swift in Sources */,
 				29D5091028F95B9D00DD3D32 /* BaseViewController.swift in Sources */,
@@ -595,11 +674,13 @@
 				29EFDF1128FA53D50032CF22 /* HomeViewController.swift in Sources */,
 				291E17922937443C00FCAAD9 /* NibExtension.swift in Sources */,
 				29F5589F29763F7C00FE1386 /* ComicModel.swift in Sources */,
+				297FFD4B2979677A00B8AD9A /* ComicCollectionViewCell.swift in Sources */,
 				29EFDF1328FA53D50032CF22 /* HomeViewModel.swift in Sources */,
 				29D5092028F960CE00DD3D32 /* Coordinator.swift in Sources */,
 				291E177F2937018F00FCAAD9 /* CloudsModel.swift in Sources */,
 				291E178E2937362D00FCAAD9 /* TopComicRouter.swift in Sources */,
 				29D508F428F8F5C000DD3D32 /* APIInputBase.swift in Sources */,
+				297FFD4E29796CD200B8AD9A /* UIViewExtension.swift in Sources */,
 				291E1785293705A900FCAAD9 /* RainModel.swift in Sources */,
 				29D5090E28F95B4D00DD3D32 /* BaseViewModel.swift in Sources */,
 				29EFDF0228FA42670032CF22 /* GeneratedStrings.swift in Sources */,
@@ -613,9 +694,11 @@
 				29EFDF1028FA53D50032CF22 /* HomeCoordinator.swift in Sources */,
 				297905DF294086800052F6BE /* HomeHeaderFooterView.swift in Sources */,
 				29EFDF1228FA53D50032CF22 /* HomeModel.swift in Sources */,
+				297FFD592979A7E000B8AD9A /* TabbarHeaderBaseView.swift in Sources */,
 				29D508FE28F91FAF00DD3D32 /* APIError.swift in Sources */,
 				29D5090B28F94EB900DD3D32 /* Constants.swift in Sources */,
 				291E1779293601C600FCAAD9 /* GeoUC.swift in Sources */,
+				297FFD422979649300B8AD9A /* ComicTableViewCell.swift in Sources */,
 				291E17812937025500FCAAD9 /* WindModel.swift in Sources */,
 				291E17752936011100FCAAD9 /* GeoRepo.swift in Sources */,
 				291E176B2935EB2E00FCAAD9 /* LocalName.swift in Sources */,
@@ -814,7 +897,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Base/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_KEY_UILaunchStoryboardName = "";
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
@@ -841,7 +924,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Base/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_KEY_UILaunchStoryboardName = "";
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
@@ -972,6 +1055,30 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		297FFD2F29795C1700B8AD9A /* XCRemoteSwiftPackageReference "RxDataSources" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/RxSwiftCommunity/RxDataSources.git";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
+		297FFD3629795E7500B8AD9A /* XCRemoteSwiftPackageReference "SDWebImage" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SDWebImage/SDWebImage.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.0.0;
+			};
+		};
+		297FFD522979824C00B8AD9A /* XCRemoteSwiftPackageReference "MSPeekCollectionViewDelegateImplementation" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/MaherKSantina/MSPeekCollectionViewDelegateImplementation.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 3.0.0;
+			};
+		};
 		29D508EA28F8F09100DD3D32 /* XCRemoteSwiftPackageReference "RxSwift" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/ReactiveX/RxSwift.git";
@@ -999,6 +1106,26 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		297FFD3029795C1700B8AD9A /* RxDataSources */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 297FFD2F29795C1700B8AD9A /* XCRemoteSwiftPackageReference "RxDataSources" */;
+			productName = RxDataSources;
+		};
+		297FFD3729795E7500B8AD9A /* SDWebImage */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 297FFD3629795E7500B8AD9A /* XCRemoteSwiftPackageReference "SDWebImage" */;
+			productName = SDWebImage;
+		};
+		297FFD3929795E7500B8AD9A /* SDWebImageMapKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 297FFD3629795E7500B8AD9A /* XCRemoteSwiftPackageReference "SDWebImage" */;
+			productName = SDWebImageMapKit;
+		};
+		297FFD532979824C00B8AD9A /* MSPeekCollectionViewDelegateImplementation */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 297FFD522979824C00B8AD9A /* XCRemoteSwiftPackageReference "MSPeekCollectionViewDelegateImplementation" */;
+			productName = MSPeekCollectionViewDelegateImplementation;
+		};
 		29D508EB28F8F09100DD3D32 /* RxCocoa */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 29D508EA28F8F09100DD3D32 /* XCRemoteSwiftPackageReference "RxSwift" */;

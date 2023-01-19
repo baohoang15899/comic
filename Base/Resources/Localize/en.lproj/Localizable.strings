@@ -7,3 +7,9 @@
 */
 
 
+//Home
+"home.section.hot" = "Truyện Hot";
+"home.section.topMonth" = "Top Tháng";
+"home.section.topWeek" = "Top Tuần";
+"home.section.topDay" = "Top Ngày";
+"home.tab" = "Trang chủ";
