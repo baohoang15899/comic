@@ -37,7 +37,7 @@ class AppCoordinator: Coordinator {
         test3.tabBarItem = UITabBarItem(tabBarSystemItem: .favorites, tag: 3)
  
         tabbarController.setViewControllers([homeNavigationContoller, test1, test2 ,test3], animated: true)
-        navigationController.pushViewController(tabbarController, animated: true)
+        navigationController.pushViewController(tabbarController, animated: true) // nếu có authen có thể check token ở đây, nếu có thì push vào login
         
         window.makeKeyAndVisible()
     }

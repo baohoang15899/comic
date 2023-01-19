@@ -8,6 +8,7 @@
 
 
 //Home
+"home.section.nominate" = "Truyện đề cử";
 "home.section.hot" = "Truyện Hot";
 "home.section.topMonth" = "Top Tháng";
 "home.section.topWeek" = "Top Tuần";

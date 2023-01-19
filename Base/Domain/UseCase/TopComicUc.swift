@@ -10,6 +10,7 @@ import RxSwift
 import SwiftSoup
 
 struct TopComicUc: TopComicRepo {
+
     func getHotComic(param: [String : Any]) -> Observable<Document> {
         return Service.shared.request(input: TopComicRouter.hot(param: param))
             .asObservable()
@@ -18,6 +19,12 @@ struct TopComicUc: TopComicRepo {
     
     func getTopComic(param: [String : Any]) -> Observable<Document> {
         return Service.shared.request(input: TopComicRouter.top(param: param))
+            .asObservable()
+            .handleErr()
+    }
+    
+    func getNominate() -> Observable<Document> {
+        return Service.shared.request(input: TopComicRouter.nominate)
             .asObservable()
             .handleErr()
     }

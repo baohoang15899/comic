@@ -11,6 +11,11 @@
 import UIKit
 import RxDataSources
 
+enum SectionType {
+    case normal
+    case banner
+}
+
 struct HomeHeaderWeatherModel {
     let cityName: String?
     let status: String?
@@ -24,6 +29,7 @@ struct HomeSectionModel {
 struct HomeSectionData {
   var header: String?
   var items: [Item]
+  var type: SectionType
 }
 
 extension HomeSectionData: SectionModelType {

@@ -20,6 +20,7 @@ class HomeViewModel: BaseViewModel {
         let getTopMonth: Driver<Void>
         let getTopWeek: Driver<Void>
         let getTopDay: Driver<Void>
+        let getNominate: Driver<Void>
     }
     
     struct Output {
@@ -29,6 +30,7 @@ class HomeViewModel: BaseViewModel {
     private let bag = DisposeBag()
     private var geoData: GeoCodingModel?
     private let getCurrentWeatherSubject = PublishSubject<Void>()
+    private let nominateSubject = BehaviorSubject<[ComicModel]>(value: [])
     private let hotComicSubject = BehaviorSubject<[ComicModel]>(value: [])
     private let topMonthComicSubject = BehaviorSubject<[ComicModel]>(value: [])
     private let topWeekComicSubject = BehaviorSubject<[ComicModel]>(value: [])
@@ -38,6 +40,30 @@ class HomeViewModel: BaseViewModel {
     
     
     func transform(input: Input) -> Output {
+        
+        input.getNominate
+            .asObservable()
+            .flatMap { _ in
+                return RepoFactory.TopComicRepo().getNominate()
+            }
+            .map({ data -> [ComicModel] in
+                var comics: [ComicModel]?
+                let results = SwiftSoupService.shared.getAllElements(document: data,
+                                                                     className: "div.items-slide div.item")
+                comics = results?.map({ value in
+                    let imgUrl = SwiftSoupService.shared.getAttrFromHtml(element: value,
+                                                                      className: "a img",
+                                                                      attr: "data-src")
+                    let title = SwiftSoupService.shared.elementToString(element: value,
+                                                                     className: "h3 a")
+                    return ComicModel(image: ComicModel.getUrlImg(img: imgUrl), title: title)
+                })
+                return comics ?? []
+            })
+            .subscribe(onNext: { data in
+                self.nominateSubject.onNext(data)
+            })
+            .disposed(by: bag)
         
         input.getHotComic
             .asObservable()
@@ -135,14 +161,15 @@ class HomeViewModel: BaseViewModel {
             })
             .disposed(by: bag)
         
-        let allComic = Observable.zip(hotComicSubject.skip(1), topMonthComicSubject.skip(1), topWeekComicSubject.skip(1), topDayComicSubject.skip(1))
+        let allComic = Observable.zip(nominateSubject.skip(1), hotComicSubject.skip(1), topMonthComicSubject.skip(1), topWeekComicSubject.skip(1), topDayComicSubject.skip(1))
 
-        allComic.subscribe {(hotComic, topMonth, topWeek, topDay) in
-            let hotSection = HomeSectionData(header: L10n.Home.Section.hot, items: [HomeSectionModel(data: hotComic)])
-            let topMonthSection = HomeSectionData(header: L10n.Home.Section.topMonth, items: [HomeSectionModel(data: topMonth)])
-            let topWeekSection = HomeSectionData(header: L10n.Home.Section.topWeek, items: [HomeSectionModel(data: topWeek)])
-            let topDaySection = HomeSectionData(header: L10n.Home.Section.topDay, items: [HomeSectionModel(data: topDay)])
-            self.HomeSectionSubject.onNext([hotSection, topMonthSection, topWeekSection, topDaySection])
+        allComic.subscribe {(nominate, hotComic, topMonth, topWeek, topDay) in
+            let nominateSection = HomeSectionData(header: L10n.Home.Section.nominate, items: [HomeSectionModel(data: nominate)], type: .banner)
+            let hotSection = HomeSectionData(header: L10n.Home.Section.hot, items: [HomeSectionModel(data: hotComic)], type: .normal)
+            let topMonthSection = HomeSectionData(header: L10n.Home.Section.topMonth, items: [HomeSectionModel(data: topMonth)], type: .normal)
+            let topWeekSection = HomeSectionData(header: L10n.Home.Section.topWeek, items: [HomeSectionModel(data: topWeek)], type: .normal)
+            let topDaySection = HomeSectionData(header: L10n.Home.Section.topDay, items: [HomeSectionModel(data: topDay)], type: .normal)
+            self.HomeSectionSubject.onNext([nominateSection, hotSection, topMonthSection, topWeekSection, topDaySection])
             
         }
         .disposed(by: bag)

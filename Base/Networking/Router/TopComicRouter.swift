@@ -14,6 +14,7 @@ import Alamofire
 enum TopComicRouter {
     case hot(param: [String : Any]?)
     case top(param: [String: Any]?)
+    case nominate
 }
 
 extension TopComicRouter: APIInputBase {
@@ -28,6 +29,8 @@ extension TopComicRouter: APIInputBase {
             return "\(BaseApiRequest.url)\(nettruyenPath.hotPath)"
         case .top:
             return "\(BaseApiRequest.url)\(nettruyenPath.hotPath)"
+        case .nominate:
+            return "\(BaseApiRequest.url)"
         }
     }
     
@@ -36,6 +39,8 @@ extension TopComicRouter: APIInputBase {
         case .hot:
             return .get
         case .top:
+            return .get
+        case .nominate:
             return .get
         }
     }
@@ -51,6 +56,8 @@ extension TopComicRouter: APIInputBase {
             return param
         case .top(let param):
             return param
+        case .nominate:
+            return [:]
         }
     }
 }

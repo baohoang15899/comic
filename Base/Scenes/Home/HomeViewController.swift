@@ -18,8 +18,9 @@ class HomeViewController: BaseViewController<HomeViewModel> {
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var headerView: TabbarHeaderBaseView!
     
-    private let bag = DisposeBag()
     weak var routesDelegate: HomeRoutes?
+    
+    private let bag = DisposeBag()
     private var dataSource: RxTableViewSectionedReloadDataSource<HomeSectionData>? = nil
     
     override func viewDidLoad() {
@@ -38,9 +39,10 @@ class HomeViewController: BaseViewController<HomeViewModel> {
     
     private func setupUI() {
         tableView.registerHeaderFooterView(type: HomeHeaderFooterView.self)
+        tableView.registerCell(type: ComicTableViewCell.self)
+        tableView.registerCell(type: BannerTableViewCell.self)
         tableView.sectionFooterHeight = 0.01
         tableView.sectionHeaderHeight = 0.01
-        tableView.registerCell(type: ComicTableViewCell.self)
         tableView.separatorStyle = .none
         tableView.showsVerticalScrollIndicator = false
         tableView.delegate = self
@@ -51,16 +53,28 @@ class HomeViewController: BaseViewController<HomeViewModel> {
         let input = HomeViewModel.Input(getHotComic: Driver.just(()),
                                         getTopMonth: Driver.just(()),
                                         getTopWeek: Driver.just(()),
-                                        getTopDay: Driver.just(())
+                                        getTopDay: Driver.just(()),
+                                        getNominate: Driver.just(())
         )
         let output = viewModel.transform(input: input)
         
         dataSource = RxTableViewSectionedReloadDataSource<HomeSectionData>(
             
             configureCell: { datasource, tableView, indexPath, item in
-                let cell = tableView.dequeueReusableCell(type: ComicTableViewCell.self, forIndexPath: indexPath)
-                cell.configCell(data: item.data ?? [])
-                return cell
+                switch datasource[indexPath.section].type {
+        
+                case .normal:
+                    let cell = tableView.dequeueReusableCell(type: ComicTableViewCell.self, forIndexPath: indexPath)
+                    cell.configCell(data: item.data ?? [])
+                    return cell
+                    
+                case .banner:
+                    let cell = tableView.dequeueReusableCell(type: BannerTableViewCell.self, forIndexPath: indexPath)
+                    cell.configCell(data: item.data ?? [])
+                    return cell
+                    
+                }
+
             }
         )
         
@@ -74,7 +88,14 @@ class HomeViewController: BaseViewController<HomeViewModel> {
 
 extension HomeViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 200
+        switch dataSource?[indexPath.section].type {
+        case .normal:
+            return 200
+        case .banner:
+            return 300
+        default:
+            return 200
+        }
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {

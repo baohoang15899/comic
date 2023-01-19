@@ -14,11 +14,13 @@ internal enum L10n {
     /// Trang chủ
     internal static let tab = L10n.tr("Localizable", "home.tab", fallback: "Trang chủ")
     internal enum Section {
+      /// Truyện Hot
+      internal static let hot = L10n.tr("Localizable", "home.section.hot", fallback: "Truyện Hot")
       /// Localizable.strings
       ///   Base
       /// 
       ///   Created by BaoHoang on 15/10/2022.
-      internal static let hot = L10n.tr("Localizable", "home.section.hot", fallback: "Truyện Hot")
+      internal static let nominate = L10n.tr("Localizable", "home.section.nominate", fallback: "Truyện đề cử")
       /// Top Ngày
       internal static let topDay = L10n.tr("Localizable", "home.section.topDay", fallback: "Top Ngày")
       /// Top Tháng
