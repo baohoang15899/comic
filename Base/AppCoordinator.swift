@@ -19,7 +19,7 @@ class AppCoordinator: Coordinator {
         self.navigationController = UINavigationController()
         self.tabbarController = UITabBarController()
     }
-    //ádsadsakdjakljaldjasd
+
     func start() {
         window.rootViewController = self.tabbarController
         
