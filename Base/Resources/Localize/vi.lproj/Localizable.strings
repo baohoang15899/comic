@@ -7,9 +7,9 @@
 */
 //home
 "home.section.nominate" = "Truyện đề cử";
-"home.section.hot" = "Truyện Hot";
-"home.section.topMonth" = "Top Tháng";
-"home.section.topWeek" = "Top Tuần";
-"home.section.topDay" = "Top Ngày";
+"home.section.hot" = "Truyện hot";
+"home.section.topMonth" = "Top tháng";
+"home.section.topWeek" = "Top tuần";
+"home.section.topDay" = "Top ngày";
 "home.tab" = "Trang chủ";
 
