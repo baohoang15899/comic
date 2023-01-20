@@ -13,6 +13,7 @@ import UIKit
 struct ComicModel {
     let image: String?
     let title: String?
+    let detailUrl: URL?
     
     static func getUrlImg(img: String?) -> String {
         let url = img?.replacingOccurrences(of: "//", with: "https://") ?? ""

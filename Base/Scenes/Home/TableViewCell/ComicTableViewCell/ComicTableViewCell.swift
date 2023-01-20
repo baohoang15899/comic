@@ -15,6 +15,8 @@ class ComicTableViewCell: UITableViewCell {
     private var behavior = MSCollectionViewPeekingBehavior()
     private var comics: [ComicModel] = []
     
+    var didSelectComic: (() -> ())?
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         setupUI()
@@ -49,7 +51,7 @@ extension ComicTableViewCell: UICollectionViewDelegate, UICollectionViewDataSour
     
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-
+        didSelectComic?()
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {

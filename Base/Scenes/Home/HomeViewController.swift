@@ -66,6 +66,9 @@ class HomeViewController: BaseViewController<HomeViewModel> {
                 case .normal:
                     let cell = tableView.dequeueReusableCell(type: ComicTableViewCell.self, forIndexPath: indexPath)
                     cell.configCell(data: item.data ?? [])
+                    cell.didSelectComic = { [weak self] in
+                        self?.routesDelegate?.navigateToComicDetail()
+                    }
                     return cell
                     
                 case .banner:

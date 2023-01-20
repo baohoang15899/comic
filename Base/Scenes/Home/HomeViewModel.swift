@@ -54,9 +54,14 @@ class HomeViewModel: BaseViewModel {
                     let imgUrl = SwiftSoupService.shared.getAttrFromHtml(element: value,
                                                                       className: "a img",
                                                                       attr: "data-src")
+                    
+                    let comicDetailUrl = SwiftSoupService.shared.getAttrFromHtml(element: value,
+                                                                                 className: "a",
+                                                                                 attr: "href")
+
                     let title = SwiftSoupService.shared.elementToString(element: value,
                                                                      className: "h3 a")
-                    return ComicModel(image: ComicModel.getUrlImg(img: imgUrl), title: title)
+                    return ComicModel(image: ComicModel.getUrlImg(img: imgUrl), title: title, detailUrl: URL(string: comicDetailUrl ?? ""))
                 })
                 return comics ?? []
             })
@@ -78,9 +83,14 @@ class HomeViewModel: BaseViewModel {
                     let imgUrl = SwiftSoupService.shared.getAttrFromHtml(element: value,
                                                                       className: "div.image img",
                                                                       attr: "data-original")
+                    
+                    let comicDetailUrl = SwiftSoupService.shared.getAttrFromHtml(element: value,
+                                                                                 className: "div.image a",
+                                                                                 attr: "href")
+                    
                     let title = SwiftSoupService.shared.elementToString(element: value,
                                                                      className: "h3 a")
-                    return ComicModel(image: ComicModel.getUrlImg(img: imgUrl), title: title)
+                    return ComicModel(image: ComicModel.getUrlImg(img: imgUrl), title: title, detailUrl: URL(string: comicDetailUrl ?? ""))
                 })
                 return comics ?? []
             })
@@ -102,9 +112,14 @@ class HomeViewModel: BaseViewModel {
                     let imgUrl = SwiftSoupService.shared.getAttrFromHtml(element: value,
                                                                       className: "div.image img",
                                                                       attr: "data-original")
+                    
+                    let comicDetailUrl = SwiftSoupService.shared.getAttrFromHtml(element: value,
+                                                                                 className: "div.image a",
+                                                                                 attr: "href")
+
                     let title = SwiftSoupService.shared.elementToString(element: value,
                                                                      className: "h3 a")
-                    return ComicModel(image: ComicModel.getUrlImg(img: imgUrl), title: title)
+                    return ComicModel(image: ComicModel.getUrlImg(img: imgUrl), title: title, detailUrl: URL(string: comicDetailUrl ?? ""))
                 })
                 return comics ?? []
             })
@@ -126,9 +141,14 @@ class HomeViewModel: BaseViewModel {
                     let imgUrl = SwiftSoupService.shared.getAttrFromHtml(element: value,
                                                                       className: "div.image img",
                                                                       attr: "data-original")
+                    
+                    let comicDetailUrl = SwiftSoupService.shared.getAttrFromHtml(element: value,
+                                                                                 className: "div.image a",
+                                                                                 attr: "href")
+                   
                     let title = SwiftSoupService.shared.elementToString(element: value,
                                                                      className: "h3 a")
-                    return ComicModel(image: ComicModel.getUrlImg(img: imgUrl), title: title)
+                    return ComicModel(image: ComicModel.getUrlImg(img: imgUrl), title: title, detailUrl: URL(string: comicDetailUrl ?? ""))
                 })
                 return comics ?? []
             })
@@ -150,9 +170,14 @@ class HomeViewModel: BaseViewModel {
                     let imgUrl = SwiftSoupService.shared.getAttrFromHtml(element: value,
                                                                       className: "div.image img",
                                                                       attr: "data-original")
+                    
+                    let comicDetailUrl = SwiftSoupService.shared.getAttrFromHtml(element: value,
+                                                                                 className: "div.image a",
+                                                                                 attr: "href")
+                    
                     let title = SwiftSoupService.shared.elementToString(element: value,
                                                                      className: "h3 a")
-                    return ComicModel(image: ComicModel.getUrlImg(img: imgUrl), title: title)
+                    return ComicModel(image: ComicModel.getUrlImg(img: imgUrl), title: title, detailUrl: URL(string: comicDetailUrl ?? ""))
                 })
                 return comics ?? []
             })

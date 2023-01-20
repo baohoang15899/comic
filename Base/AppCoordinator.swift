@@ -13,6 +13,7 @@ class AppCoordinator: Coordinator {
     private let window: UIWindow
     private let navigationController: UINavigationController
     private let tabbarController: UITabBarController
+    private var homeCoor: HomeCoordinator?
     
     init(window: UIWindow) {
         self.window = window
@@ -21,24 +22,28 @@ class AppCoordinator: Coordinator {
     }
 
     func start() {
-        window.rootViewController = self.tabbarController
+        window.rootViewController = self.navigationController
         
         // khởi tạo màn home
         let homeNavigationContoller = UINavigationController()
         homeNavigationContoller.tabBarItem = UITabBarItem(tabBarSystemItem: .bookmarks, tag: 0)
-        let homeCoordinator = HomeCoordinator(navigator: homeNavigationContoller)
-        homeCoordinator.start()
+        self.homeCoor = HomeCoordinator(navigator: homeNavigationContoller)
+        homeCoor?.start()
         
         let test1 = UINavigationController(rootViewController: HomeViewController())
         test1.tabBarItem = UITabBarItem(tabBarSystemItem: .downloads, tag: 1)
+        
         let test2 = UINavigationController(rootViewController: HomeViewController())
         test2.tabBarItem = UITabBarItem(tabBarSystemItem: .featured, tag: 2)
+        
         let test3 = UINavigationController(rootViewController: HomeViewController())
         test3.tabBarItem = UITabBarItem(tabBarSystemItem: .favorites, tag: 3)
- 
-        tabbarController.setViewControllers([homeNavigationContoller, test1, test2 ,test3], animated: true)
-        navigationController.pushViewController(tabbarController, animated: true) // nếu có authen có thể check token ở đây, nếu có thì push vào login
+
+        tabbarController.setViewControllers( [homeNavigationContoller, test1, test2 ,test3], animated: false)
         
+        navigationController.setNavigationBarHidden(true, animated: false)
+        navigationController.pushViewController(tabbarController, animated: true) // nếu có authen có thể check token ở đây, nếu có thì push vào login
+//
         window.makeKeyAndVisible()
     }
 }
