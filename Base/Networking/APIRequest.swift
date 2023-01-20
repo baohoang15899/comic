@@ -82,6 +82,35 @@ class APIService {
         }
     }
     
+    func requestImage(input: APIInputBase) -> Single<Data> {
+        return Single.create { single in
+            
+            self.networkManager.request(
+                input.url,
+                method: input.method,
+                parameters: input.parameters,
+                headers: input.headers
+            )
+            .validate(statusCode: 200..<500)
+            .responseData(completionHandler: { response in
+                switch response.result {
+                case .success(let data):
+                    guard let data = response.data else {
+                        return single(.failure(APIError.invalidResponseData(data: data)))
+                    }
+                    return single(.success(data))
+                case .failure(let error):
+                    return single(.failure(APIError.error(code: error.responseCode ?? 401, message: error.localizedDescription)))
+                }
+            })
+            
+            return Disposables.create {
+                self.cancelRequest(url: URL(fileURLWithPath: input.url))
+            }
+            
+        }
+    }
+    
     func request(input: APIInputBase) -> Single<Document> {
         return Single.create { single in
             

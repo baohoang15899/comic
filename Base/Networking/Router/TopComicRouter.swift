@@ -15,12 +15,20 @@ enum TopComicRouter {
     case hot(param: [String : Any]?)
     case top(param: [String: Any]?)
     case nominate
+    case getChaper
 }
 
 extension TopComicRouter: APIInputBase {
     
     var headers: Alamofire.HTTPHeaders? {
-        return nil
+        switch self {
+        case .getChaper:
+            let headers: HTTPHeaders = ["Referer":"https://www.nettruyenking.com"]
+            print(headers)
+            return headers
+        default:
+            return nil
+        }
     }
     
     var url: String {
@@ -31,6 +39,8 @@ extension TopComicRouter: APIInputBase {
             return "\(BaseApiRequest.url)\(nettruyenPath.hotPath)"
         case .nominate:
             return "\(BaseApiRequest.url)"
+        case .getChaper:
+            return "https://p.ntcdntempv26.com/content/image.jpg?data=Iq3+174PFlzsdGolQ82GVrlEpb/Sd7Xo00CGOy0uu4FClwcJOnnSoWbAJeAPgWFhFOomKlcq61BjSXvOAB6pMA==" // gán url ảnh
         }
     }
     
@@ -41,6 +51,8 @@ extension TopComicRouter: APIInputBase {
         case .top:
             return .get
         case .nominate:
+            return .get
+        case .getChaper:
             return .get
         }
     }
@@ -57,6 +69,8 @@ extension TopComicRouter: APIInputBase {
         case .top(let param):
             return param
         case .nominate:
+            return [:]
+        case .getChaper:
             return [:]
         }
     }

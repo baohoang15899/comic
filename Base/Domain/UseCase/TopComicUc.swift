@@ -29,4 +29,10 @@ struct TopComicUc: TopComicRepo {
             .handleErr()
     }
     
+    func getChapter() -> Observable<Data> {
+        return Service.shared.requestImage(input: TopComicRouter.getChaper)
+            .asObservable()
+            .handleErr()
+    }
+    
 }
