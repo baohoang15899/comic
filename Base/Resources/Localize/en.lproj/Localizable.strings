@@ -14,3 +14,10 @@
 "home.section.topWeek" = "Top tuần";
 "home.section.topDay" = "Top ngày";
 "home.tab" = "Trang chủ";
+//comic detail
+"ComicDetail.author" = "Tên tác giả: %@";
+"ComicDetail.title" = "Tên truyện: %@";
+"ComicDetail.status" = "Trạng thái: %@";
+"ComicDetail.section.category" = "Thể loại";
+"ComicDetail.section.content" = "Nội dung";
+"ComicDetail.section.chapter" = "Danh sách chương";

@@ -1,15 +1,15 @@
 //
-//  WeatherRepo.swift
+//  TopComicUC.swift
 //  Base
 //
-//  Created by BaoHoang on 30/11/2022.
+//  Created by baohoang on 22/01/2023.
 //
 
 import Foundation
 import RxSwift
 import SwiftSoup
 
-struct TopComicUc: TopComicRepo {
+struct TopComicUC: TopComicRepo {
 
     func getHotComic(param: [String : Any]) -> Observable<Document> {
         return Service.shared.request(input: TopComicRouter.hot(param: param))
@@ -25,12 +25,6 @@ struct TopComicUc: TopComicRepo {
     
     func getNominate() -> Observable<Document> {
         return Service.shared.request(input: TopComicRouter.nominate)
-            .asObservable()
-            .handleErr()
-    }
-    
-    func getChapter() -> Observable<Data> {
-        return Service.shared.requestImage(input: TopComicRouter.getChaper)
             .asObservable()
             .handleErr()
     }

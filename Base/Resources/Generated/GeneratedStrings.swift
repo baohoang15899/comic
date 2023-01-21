@@ -10,6 +10,28 @@ import Foundation
 // swiftlint:disable explicit_type_interface function_parameter_count identifier_name line_length
 // swiftlint:disable nesting type_body_length type_name vertical_whitespace_opening_braces
 internal enum L10n {
+  internal enum ComicDetail {
+    /// Tên tác giả: %@
+    internal static func author(_ p1: Any) -> String {
+      return L10n.tr("Localizable", "ComicDetail.author", String(describing: p1), fallback: "Tên tác giả: %@")
+    }
+    /// Trạng thái: %@
+    internal static func status(_ p1: Any) -> String {
+      return L10n.tr("Localizable", "ComicDetail.status", String(describing: p1), fallback: "Trạng thái: %@")
+    }
+    /// Tên truyện: %@
+    internal static func title(_ p1: Any) -> String {
+      return L10n.tr("Localizable", "ComicDetail.title", String(describing: p1), fallback: "Tên truyện: %@")
+    }
+    internal enum Section {
+      /// Thể loại
+      internal static let category = L10n.tr("Localizable", "ComicDetail.section.category", fallback: "Thể loại")
+      /// Danh sách chương
+      internal static let chapter = L10n.tr("Localizable", "ComicDetail.section.chapter", fallback: "Danh sách chương")
+      /// Nội dung
+      internal static let content = L10n.tr("Localizable", "ComicDetail.section.content", fallback: "Nội dung")
+    }
+  }
   internal enum Home {
     /// Trang chủ
     internal static let tab = L10n.tr("Localizable", "home.tab", fallback: "Trang chủ")

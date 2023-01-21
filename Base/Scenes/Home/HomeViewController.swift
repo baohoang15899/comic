@@ -33,12 +33,17 @@ class HomeViewController: BaseViewController<HomeViewModel> {
         navigationController?.setNavigationBarHidden(true, animated: false)
     }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        self.navigationItem.title = " "
+    }
+    
     deinit {
         print("HomeViewController deinit ✅")
     }
     
     private func setupUI() {
-        tableView.registerHeaderFooterView(type: HomeHeaderFooterView.self)
+        tableView.registerHeaderFooterView(type: BaseSectionHeaderFooterView.self)
         tableView.registerCell(type: ComicTableViewCell.self)
         tableView.registerCell(type: BannerTableViewCell.self)
         tableView.sectionFooterHeight = 0.01
@@ -66,8 +71,10 @@ class HomeViewController: BaseViewController<HomeViewModel> {
                 case .normal:
                     let cell = tableView.dequeueReusableCell(type: ComicTableViewCell.self, forIndexPath: indexPath)
                     cell.configCell(data: item.data ?? [])
-                    cell.didSelectComic = { [weak self] in
-                        self?.routesDelegate?.navigateToComicDetail()
+                    cell.didSelectComic = { [weak self] comic in
+                        if let url = comic.detailUrl, let title = comic.title {
+                            self?.routesDelegate?.navigateToComicDetail(comicDetailUrl: url, title: title)
+                        }
                     }
                     return cell
                     
@@ -102,7 +109,7 @@ extension HomeViewController: UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let header = self.tableView.dequeueReusableHeaderFooterView(type: HomeHeaderFooterView.self)
+        let header = self.tableView.dequeueReusableHeaderFooterView(type: BaseSectionHeaderFooterView.self)
         header.configHeader(title: dataSource?[section].header ?? "")
         return header
     }

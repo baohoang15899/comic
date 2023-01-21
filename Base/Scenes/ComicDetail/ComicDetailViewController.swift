@@ -11,13 +11,17 @@
 import UIKit
 import RxSwift
 import RxCocoa
+import RxDataSources
 
 class ComicDetailViewController: BaseViewController<ComicDetailViewModel> {
     
-    private let bag = DisposeBag()
-    weak var routesDelegate: ComicDetailRoutes?
-    @IBOutlet weak var button: UIButton!
+    @IBOutlet weak var tableView: UITableView!
     
+    private let bag = DisposeBag()
+    private var dataSource: RxTableViewSectionedReloadDataSource<ComicDetailSectionData>? = nil
+    
+    weak var routesDelegate: ComicDetailRoutes?
+
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
@@ -33,15 +37,97 @@ class ComicDetailViewController: BaseViewController<ComicDetailViewModel> {
     }
     
     private func setupUI() {
+        tableView.delegate = self
+        tableView.registerHeaderFooterView(type: BaseSectionHeaderFooterView.self)
+        tableView.registerCell(type: MainInfoTableViewCell.self)
+        tableView.registerCell(type: ContentTableViewCell.self)
+        tableView.registerCell(type: ChapterTableViewCell.self)
+        tableView.registerCell(type: CategoryTableViewCell.self)
+        tableView.sectionFooterHeight = 0.01
+        tableView.sectionHeaderHeight = 0.01
+        tableView.separatorStyle = .none
+        tableView.showsVerticalScrollIndicator = false
+        tableView.estimatedRowHeight = 300
+    }
+
+    override func bindViewModel() {
+        let input = ComicDetailViewModel.Input(getComicDetail: Driver.just(()))
+        let output = viewModel.transform(input: input)
+        
+        dataSource = RxTableViewSectionedReloadDataSource<ComicDetailSectionData>(
+            
+            configureCell: { datasource, tableView, indexPath, item in
+                switch datasource[indexPath.section].type {
+                    
+                case .info:
+                    let cell = tableView.dequeueReusableCell(type: MainInfoTableViewCell.self, forIndexPath: indexPath)
+                    let data = item as? ComicDetailMainInfoModel
+                    if let data = data {
+                        cell.configCell(data: data)
+                    }
+                    return cell
+                
+                case .category:
+                    let cell = tableView.dequeueReusableCell(type: CategoryTableViewCell.self, forIndexPath: indexPath)
+                    let data = item as? ComicDetailCategoryModel
+                    if let data = data {
+                        cell.configCell(data: data.categories ?? [])
+                    }
+                    return cell
+                    
+                case .content:
+                    let cell = tableView.dequeueReusableCell(type: ContentTableViewCell.self, forIndexPath: indexPath)
+                    let data = item as? ComicDetailContentModel
+                    if let data = data {
+                        cell.configCell(data: data)
+                    }
+                    return cell
+                    
+                case .chapter:
+                    let cell = tableView.dequeueReusableCell(type: ChapterTableViewCell.self, forIndexPath: indexPath)
+                    let data = item as? ComicDetailChapterModel
+                    if let data = data, let chapter = data.chapter {
+                        cell.configCell(data: chapter)
+                    }
+                    return cell
+                    
+                }
+            }
+        )
+        
+        if let dataSource = dataSource {
+            output.comicDetailSection
+                .drive(tableView.rx.items(dataSource: dataSource))
+                .disposed(by: bag)
+        }
         
     }
-    
-    @IBAction func toChapterDetail(_ sender: Any) {
-        routesDelegate?.navigateToChapterDetail()
+}
+
+extension ComicDetailViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return UITableView.automaticDimension
     }
     
-    override func bindViewModel() {
-        let input = ComicDetailViewModel.Input()
-        let output = viewModel.transform(input: input)
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        switch dataSource?[section].type {
+        case .info:
+            return UITableViewHeaderFooterView()
+        default:
+            let header = self.tableView.dequeueReusableHeaderFooterView(type: BaseSectionHeaderFooterView.self)
+            header.configHeader(title: dataSource?[section].header ?? "")
+            return header
+        }
     }
+
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        switch dataSource?[section].type {
+        case .info:
+            return 1
+        default:
+            return 40
+        }
+    }
+    
+    
 }

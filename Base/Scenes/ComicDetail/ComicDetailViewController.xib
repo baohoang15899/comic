@@ -11,7 +11,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ComicDetailViewController" customModule="Base" customModuleProvider="target">
             <connections>
-                <outlet property="button" destination="16G-hl-4dz" id="pvt-C0-enl"/>
+                <outlet property="tableView" destination="mnS-wY-rXk" id="SdC-Qb-y2U"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -20,22 +20,18 @@
             <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="16G-hl-4dz">
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" estimatedSectionHeaderHeight="-1" sectionFooterHeight="18" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="mnS-wY-rXk">
                     <rect key="frame" x="0.0" y="44" width="414" height="818"/>
-                    <state key="normal" title="Button"/>
-                    <buttonConfiguration key="configuration" style="plain" title="Button"/>
-                    <connections>
-                        <action selector="toChapterDetail:" destination="-1" eventType="touchUpInside" id="eWT-UX-FsA"/>
-                    </connections>
-                </button>
+                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                </tableView>
             </subviews>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
             <constraints>
-                <constraint firstItem="16G-hl-4dz" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="DvZ-LD-ov6"/>
-                <constraint firstItem="16G-hl-4dz" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="Yip-vg-gvG"/>
-                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="16G-hl-4dz" secondAttribute="bottom" id="rAq-KH-r2D"/>
-                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="16G-hl-4dz" secondAttribute="trailing" id="xHu-ci-acB"/>
+                <constraint firstItem="mnS-wY-rXk" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="QfF-i2-Okz"/>
+                <constraint firstItem="mnS-wY-rXk" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="dHa-fs-Yxo"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="mnS-wY-rXk" secondAttribute="trailing" id="g2v-LB-Hb9"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="mnS-wY-rXk" secondAttribute="bottom" id="ouW-dJ-ebS"/>
             </constraints>
             <point key="canvasLocation" x="141" y="88"/>
         </view>

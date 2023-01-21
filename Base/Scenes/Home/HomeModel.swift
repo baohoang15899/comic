@@ -11,7 +11,7 @@
 import UIKit
 import RxDataSources
 
-enum SectionType {
+enum HomeSectionType {
     case normal
     case banner
 }
@@ -29,7 +29,7 @@ struct HomeSectionModel {
 struct HomeSectionData {
   var header: String?
   var items: [Item]
-  var type: SectionType
+  var type: HomeSectionType
 }
 
 extension HomeSectionData: SectionModelType {

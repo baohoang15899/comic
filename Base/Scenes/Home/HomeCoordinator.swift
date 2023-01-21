@@ -13,7 +13,7 @@ import UIKit
 
 // khai báo các phương thức điều hướng
 protocol HomeRoutes: AnyObject {
-    func navigateToComicDetail()
+    func navigateToComicDetail(comicDetailUrl: String, title: String)
 }
 
 class HomeCoordinator: Coordinator {
@@ -38,8 +38,10 @@ class HomeCoordinator: Coordinator {
 // logic các phương thức điều hướng
 extension HomeCoordinator: HomeRoutes {
     // chuyển coordinator thì làm như dưới, điều hướng các màn thuộc coordinator thì push bình thường
-    func navigateToComicDetail() {
-        let comicDetailCoordinator = ComicDetailCoordinator(navigator: navigator)
+    func navigateToComicDetail(comicDetailUrl: String, title: String) {
+        let comicDetailCoordinator = ComicDetailCoordinator(navigator: navigator,
+                                                            comicDetailUrl: comicDetailUrl,
+                                                            title: title)
         comicDetailCoordinator.start()
         self.ComicCoordinator = comicDetailCoordinator
 //        self.comicDetailCoordinator = comicDetailCoordinator

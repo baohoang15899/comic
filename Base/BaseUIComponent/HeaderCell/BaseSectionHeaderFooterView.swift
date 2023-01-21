@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-class HomeHeaderFooterView: UITableViewHeaderFooterView {
+class BaseSectionHeaderFooterView: UITableViewHeaderFooterView {
 
     @IBOutlet weak var sectionLabel: UILabel!
     

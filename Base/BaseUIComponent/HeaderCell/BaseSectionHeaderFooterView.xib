@@ -10,7 +10,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <view contentMode="scaleToFill" restorationIdentifier="HomeHeaderFooterView" id="iN0-l3-epB" customClass="HomeHeaderFooterView" customModule="Base" customModuleProvider="target">
+        <view contentMode="scaleToFill" restorationIdentifier="HomeHeaderFooterView" id="iN0-l3-epB" customClass="BaseSectionHeaderFooterView" customModule="Base" customModuleProvider="target">
             <rect key="frame" x="0.0" y="0.0" width="586" height="380"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
