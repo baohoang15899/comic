@@ -79,10 +79,14 @@ class ComicDetailViewModel: BaseViewModel {
                 let chapters: [ChapterModel] = listChapterInfo?.map({ value -> ChapterModel in
                     let title = SwiftSoupService.shared.elementToString(element: value,
                                                                         className: "div.col-xs-5.chapter a")
+                 
                     let chapterUrl = SwiftSoupService.shared.getAttrFromHtml(element: value,
                                                                             className: "div.col-xs-5.chapter a",
                                                                              attr: "href")
-                    return ChapterModel(title: title, chapterUrl: chapterUrl)
+                    
+                    let date = SwiftSoupService.shared.elementToString(element: value, className: "div.col-xs-4.text-center.no-wrap.small")
+
+                    return ChapterModel(title: title, chapterUrl: chapterUrl, date: date)
                 }) ?? []
 
                 let content = SwiftSoupService.shared.elementToString(element: contentInfo,

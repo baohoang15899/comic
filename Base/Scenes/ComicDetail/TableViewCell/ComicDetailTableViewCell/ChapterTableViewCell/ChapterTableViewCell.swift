@@ -11,6 +11,7 @@ class ChapterTableViewCell: UITableViewCell {
 
     @IBOutlet weak var seperatorView: UIView!
     @IBOutlet weak var chapterLabel: UILabel!
+    @IBOutlet weak var dateLabel: UILabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -22,7 +23,8 @@ class ChapterTableViewCell: UITableViewCell {
     }
     
     func configCell(data: ChapterModel) {
-        chapterLabel.text = data.title
+        chapterLabel.text = data.title ?? ""
+        dateLabel.text = data.date ?? ""
     }
     
 }

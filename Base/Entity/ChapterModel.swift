@@ -12,4 +12,5 @@ struct ChapterModel {
     let title: String?
     let chapterUrl: String?
     let chap: String? = ""
+    let date: String?
 }
