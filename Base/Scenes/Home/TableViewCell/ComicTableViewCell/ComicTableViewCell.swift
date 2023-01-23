@@ -30,7 +30,6 @@ class ComicTableViewCell: UITableViewCell {
         collectionView.registerCell(type: ComicCollectionViewCell.self)
         behavior.cellPeekWidth = 10
         behavior.cellSpacing = 0
-        behavior.maximumItemsToScroll = 3
         behavior.numberOfItemsToShow = 3
         behavior.cellSpacing = 10
         collectionView.configureForPeekingBehavior(behavior: behavior)
@@ -46,7 +45,7 @@ class ComicTableViewCell: UITableViewCell {
 extension ComicTableViewCell: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return Array(comics[0...7]).count
+        return Array(comics[0...18]).count
     }
     
     

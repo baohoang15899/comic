@@ -45,6 +45,12 @@ internal enum L10n {
       internal static let nominate = L10n.tr("Localizable", "home.section.nominate", fallback: "Truyện đề cử")
       /// Top ngày
       internal static let topDay = L10n.tr("Localizable", "home.section.topDay", fallback: "Top ngày")
+      /// Top manga
+      internal static let topManga = L10n.tr("Localizable", "home.section.topManga", fallback: "Top manga")
+      /// Top manhua
+      internal static let topManhua = L10n.tr("Localizable", "home.section.topManhua", fallback: "Top manhua")
+      /// Top manhwa
+      internal static let topManhwa = L10n.tr("Localizable", "home.section.topManhwa", fallback: "Top manhwa")
       /// Top tháng
       internal static let topMonth = L10n.tr("Localizable", "home.section.topMonth", fallback: "Top tháng")
       /// Top tuần

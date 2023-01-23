@@ -17,8 +17,8 @@ class HomeViewModel: BaseViewModel {
     
     struct Input {
         let getHotComic: Driver<Void>
-        let getTopMonth: Driver<Void>
-        let getTopWeek: Driver<Void>
+        let getTopManga: Driver<Void>
+        let getTopManhwa: Driver<Void>
         let getTopDay: Driver<Void>
         let getNominate: Driver<Void>
     }
@@ -32,8 +32,8 @@ class HomeViewModel: BaseViewModel {
     private let getCurrentWeatherSubject = PublishSubject<Void>()
     private let nominateSubject = BehaviorSubject<[ComicModel]>(value: [])
     private let hotComicSubject = BehaviorSubject<[ComicModel]>(value: [])
-    private let topMonthComicSubject = BehaviorSubject<[ComicModel]>(value: [])
-    private let topWeekComicSubject = BehaviorSubject<[ComicModel]>(value: [])
+    private let topMangaSubject = BehaviorSubject<[ComicModel]>(value: [])
+    private let topManhwaSubject = BehaviorSubject<[ComicModel]>(value: [])
     private let topDayComicSubject = BehaviorSubject<[ComicModel]>(value: [])
     
     var HomeSectionSubject = BehaviorSubject<[HomeSectionData]>(value: [])
@@ -99,10 +99,10 @@ class HomeViewModel: BaseViewModel {
             })
             .disposed(by: bag)
         
-        input.getTopMonth
+        input.getTopManga
             .asObservable()
             .flatMap { _ in
-                return RepoFactory.TopComicRepo().getTopComic(param: ["status": -1, "sort": 11])
+                return RepoFactory.TopComicRepo().getTopManga(param: ["status": -1, "sort": 11])
             }
             .map({ data -> [ComicModel] in
                 var comics: [ComicModel]?
@@ -124,14 +124,14 @@ class HomeViewModel: BaseViewModel {
                 return comics ?? []
             })
             .subscribe(onNext: { data in
-                self.topMonthComicSubject.onNext(data)
+                self.topMangaSubject.onNext(data)
             })
             .disposed(by: bag)
         
-        input.getTopWeek
+        input.getTopManhwa
             .asObservable()
             .flatMap { _ in
-                return RepoFactory.TopComicRepo().getTopComic(param: ["status": -1, "sort": 12])
+                return RepoFactory.TopComicRepo().getTopManhwa(param: ["status": -1, "sort": 11])
             }
             .map({ data -> [ComicModel] in
                 var comics: [ComicModel]?
@@ -153,14 +153,14 @@ class HomeViewModel: BaseViewModel {
                 return comics ?? []
             })
             .subscribe(onNext: { data in
-                self.topWeekComicSubject.onNext(data)
+                self.topManhwaSubject.onNext(data)
             })
             .disposed(by: bag)
         
         input.getTopDay
             .asObservable()
             .flatMap { _ in
-                return RepoFactory.TopComicRepo().getTopComic(param: ["status": -1, "sort": 13])
+                return RepoFactory.TopComicRepo().getTopManhua(param: ["status": -1, "sort": 11])
             }
             .map({ data -> [ComicModel] in
                 var comics: [ComicModel]?
@@ -186,14 +186,14 @@ class HomeViewModel: BaseViewModel {
             })
             .disposed(by: bag)
         
-        let allComic = Observable.zip(nominateSubject.skip(1), hotComicSubject.skip(1), topMonthComicSubject.skip(1), topWeekComicSubject.skip(1), topDayComicSubject.skip(1))
+        let allComic = Observable.zip(nominateSubject.skip(1), hotComicSubject.skip(1), topMangaSubject.skip(1), topManhwaSubject.skip(1), topDayComicSubject.skip(1))
 
-        allComic.subscribe {(nominate, hotComic, topMonth, topWeek, topDay) in
+        allComic.subscribe {(nominate, hotComic, topManga, topManhwa, topManhua) in
             let nominateSection = HomeSectionData(header: L10n.Home.Section.nominate, items: [HomeSectionModel(data: nominate)], type: .banner)
             let hotSection = HomeSectionData(header: L10n.Home.Section.hot, items: [HomeSectionModel(data: hotComic)], type: .normal)
-            let topMonthSection = HomeSectionData(header: L10n.Home.Section.topMonth, items: [HomeSectionModel(data: topMonth)], type: .normal)
-            let topWeekSection = HomeSectionData(header: L10n.Home.Section.topWeek, items: [HomeSectionModel(data: topWeek)], type: .normal)
-            let topDaySection = HomeSectionData(header: L10n.Home.Section.topDay, items: [HomeSectionModel(data: topDay)], type: .normal)
+            let topMonthSection = HomeSectionData(header: L10n.Home.Section.topManga, items: [HomeSectionModel(data: topManga)], type: .normal)
+            let topWeekSection = HomeSectionData(header: L10n.Home.Section.topManhwa, items: [HomeSectionModel(data: topManhwa)], type: .normal)
+            let topDaySection = HomeSectionData(header: L10n.Home.Section.topManhua, items: [HomeSectionModel(data: topManhua)], type: .normal)
             self.HomeSectionSubject.onNext([nominateSection, hotSection, topMonthSection, topWeekSection, topDaySection])
             
         }

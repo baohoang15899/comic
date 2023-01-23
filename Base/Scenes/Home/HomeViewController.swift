@@ -56,8 +56,8 @@ class HomeViewController: BaseViewController<HomeViewModel> {
     
     override func bindViewModel() {
         let input = HomeViewModel.Input(getHotComic: Driver.just(()),
-                                        getTopMonth: Driver.just(()),
-                                        getTopWeek: Driver.just(()),
+                                        getTopManga: Driver.just(()),
+                                        getTopManhwa: Driver.just(()),
                                         getTopDay: Driver.just(()),
                                         getNominate: Driver.just(())
         )
@@ -102,7 +102,7 @@ extension HomeViewController: UITableViewDelegate {
         case .normal:
             return 200
         case .banner:
-            return 300
+            return 250
         default:
             return 200
         }

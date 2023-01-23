@@ -14,6 +14,9 @@
 "home.section.topWeek" = "Top tuần";
 "home.section.topDay" = "Top ngày";
 "home.tab" = "Trang chủ";
+"home.section.topManga" = "Top manga";
+"home.section.topManhwa" = "Top manhwa";
+"home.section.topManhua" = "Top manhua";
 //comic detail
 "ComicDetail.author" = "Tên tác giả: %@";
 "ComicDetail.title" = "Tên truyện: %@";

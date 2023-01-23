@@ -14,6 +14,8 @@ import Alamofire
 enum TopComicRouter {
     case hot(param: [String : Any]?)
     case top(param: [String: Any]?)
+    case topManhwa(param: [String: Any]?)
+    case topManhua(param: [String: Any]?)
     case nominate
 }
 
@@ -28,9 +30,13 @@ extension TopComicRouter: APIInputBase {
         case .hot:
             return "\(BaseApiRequest.url)\(nettruyenPath.hotPath)"
         case .top:
-            return "\(BaseApiRequest.url)\(nettruyenPath.hotPath)"
+            return "\(BaseApiRequest.url)\(nettruyenPath.manga)"
         case .nominate:
             return "\(BaseApiRequest.url)"
+        case .topManhwa:
+            return "\(BaseApiRequest.url)\(nettruyenPath.manhwa)"
+        case .topManhua:
+            return "\(BaseApiRequest.url)\(nettruyenPath.manhua)"
         }
     }
     
@@ -41,6 +47,10 @@ extension TopComicRouter: APIInputBase {
         case .top:
             return .get
         case .nominate:
+            return .get
+        case .topManhwa:
+            return .get
+        case .topManhua:
             return .get
         }
     }
@@ -58,6 +68,10 @@ extension TopComicRouter: APIInputBase {
             return param
         case .nominate:
             return [:]
+        case .topManhwa(param: let param):
+            return param
+        case .topManhua(param: let param):
+            return param
         }
     }
 }
