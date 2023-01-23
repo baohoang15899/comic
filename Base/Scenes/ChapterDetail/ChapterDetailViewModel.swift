@@ -19,14 +19,14 @@ class ChapterDetailViewModel: BaseViewModel {
     }
     
     struct Output {
-        let chapterImageOutput: Driver<[Data]>
+        let chapterImageOutput: Driver<[ChapterImageModel]>
     }
     
     private let bag = DisposeBag()
     private let chapter: ChapterModel
     private let getChapterImgSubject = BehaviorSubject<[ChapterDetailModel]>.init(value: [])
     private let dowloadImgSubject = PublishSubject<[Data]>()
-    private let chapterImageSubject = BehaviorSubject<[Data]>(value: [])
+    private let chapterImageSubject = BehaviorSubject<[ChapterImageModel]>(value: [])
     
     init(chapter: ChapterModel) {
         self.chapter = chapter
@@ -43,14 +43,29 @@ class ChapterDetailViewModel: BaseViewModel {
     
     
     private func getChapterImages(data: [ChapterDetailModel]){
-        let allObservables = data.map { RepoFactory.ChapterDetailRepo().getChapterImg(urlStrPath: $0.url ?? "") }
-
+        let allObservables = data.map { RepoFactory.ChapterDetailRepo().getChapterImg(chapter: $0) }
+        
         let all = Observable.from(allObservables).merge().toArray()
-
-        all.asObservable().subscribe(onNext: { data in
-            self.chapterImageSubject.onNext(data)
+        
+        let sortArray = all.asObservable().map { chapters in
+            return chapters.sorted {
+                $0.index ?? 0 < $1.index ?? 0
+            }
+        }
+        
+        sortArray.subscribe(onNext: { chapter in
+            self.chapterImageSubject.onNext(chapter)
         })
         .disposed(by: bag)
+        
+//        all.asObservable().subscribe(onNext: { chapter in
+//            self.chapterImageSubject.onNext(chapter)
+//        })
+//            .disposed(by: bag)
+//        all.asObservable().subscribe(onNext: { data in
+//            self.chapterImageSubject.onNext(data)
+//        })
+//        .disposed(by: bag)
 
     }
     
@@ -67,8 +82,10 @@ class ChapterDetailViewModel: BaseViewModel {
             
                 
                 let chapters: [ChapterDetailModel] = results?.map({ value -> ChapterDetailModel in
-                    let img = SwiftSoupService.shared.getAttrFromHtml(element: value, className: "img", attr: "src")
-                    return ChapterDetailModel(url: ChapterDetailModel.getUrlImg(img: img))
+    
+                    let img = SwiftSoupService.shared.getAttrFromHtml(element: value, className: "img", attr: "data-original")
+                    let dataIndex = SwiftSoupService.shared.getAttrFromHtml(element: value, className: "img", attr: "data-index")
+                    return ChapterDetailModel(url: ChapterDetailModel.getUrlImg(img: img), dataIndex: dataIndex)
                 }) ?? []
                 
                 return chapters

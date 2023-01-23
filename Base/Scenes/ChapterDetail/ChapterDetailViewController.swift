@@ -49,7 +49,9 @@ class ChapterDetailViewController: BaseViewController<ChapterDetailViewModel> {
         output.chapterImageOutput
             .drive(tableView.rx.items) { tableView, index, data in
                 let cell = tableView.dequeueReusableCell(type: ChapterImgTableViewCell.self, forIndexPath: IndexPath.init(row: index, section: 0))
-                cell.configCell(data: data)
+                if let dataImg = data.data {
+                    cell.configCell(data: dataImg)
+                }
                 return cell
             }
             .disposed(by: bag)

@@ -11,5 +11,5 @@ import SwiftSoup
 
 protocol ChapterDetailRepo {
     func getDetailChapter(urlStrPath: String) -> Observable<Document>
-    func getChapterImg(urlStrPath: String) -> Observable<Data>
+    func getChapterImg(chapter: ChapterDetailModel) -> Observable<ChapterImageModel>
 }

@@ -82,7 +82,7 @@ class APIService {
         }
     }
     
-    func requestImage(input: APIInputBase) -> Single<Data> {
+    func requestImage(input: APIInputBase, dataIndex: String) -> Single<ChapterImageModel> {
         return Single.create { single in
             
             self.networkManager.request(
@@ -98,7 +98,7 @@ class APIService {
                     guard let data = response.data else {
                         return single(.failure(APIError.invalidResponseData(data: data)))
                     }
-                    return single(.success(data))
+                    return single(.success(ChapterImageModel(data: data, index: Int(dataIndex))))
                 case .failure(let error):
                     return single(.failure(APIError.error(code: error.responseCode ?? 401, message: error.localizedDescription)))
                 }

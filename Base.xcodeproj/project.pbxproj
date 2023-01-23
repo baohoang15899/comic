@@ -23,6 +23,7 @@
 		291E178E2937362D00FCAAD9 /* TopComicRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 291E178D2937362D00FCAAD9 /* TopComicRouter.swift */; };
 		291E1790293743D400FCAAD9 /* UIColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 291E178F293743D400FCAAD9 /* UIColorExtension.swift */; };
 		291E17922937443C00FCAAD9 /* NibExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 291E17912937443C00FCAAD9 /* NibExtension.swift */; };
+		293A1B93297EB03900F88B95 /* ChapterImageModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 293A1B92297EB03900F88B95 /* ChapterImageModel.swift */; };
 		297905DD2940862A0052F6BE /* BaseSectionHeaderFooterView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 297905DC2940862A0052F6BE /* BaseSectionHeaderFooterView.xib */; };
 		297905DF294086800052F6BE /* BaseSectionHeaderFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 297905DE294086800052F6BE /* BaseSectionHeaderFooterView.swift */; };
 		297FFD3129795C1700B8AD9A /* RxDataSources in Frameworks */ = {isa = PBXBuildFile; productRef = 297FFD3029795C1700B8AD9A /* RxDataSources */; };
@@ -144,6 +145,7 @@
 		291E178D2937362D00FCAAD9 /* TopComicRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopComicRouter.swift; sourceTree = "<group>"; };
 		291E178F293743D400FCAAD9 /* UIColorExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColorExtension.swift; sourceTree = "<group>"; };
 		291E17912937443C00FCAAD9 /* NibExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NibExtension.swift; sourceTree = "<group>"; };
+		293A1B92297EB03900F88B95 /* ChapterImageModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChapterImageModel.swift; sourceTree = "<group>"; };
 		297905DC2940862A0052F6BE /* BaseSectionHeaderFooterView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BaseSectionHeaderFooterView.xib; sourceTree = "<group>"; };
 		297905DE294086800052F6BE /* BaseSectionHeaderFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseSectionHeaderFooterView.swift; sourceTree = "<group>"; };
 		297FFD3429795E2400B8AD9A /* ComicBaseView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ComicBaseView.xib; sourceTree = "<group>"; };
@@ -714,6 +716,7 @@
 				29D623CD297C17630081E5A7 /* DetailComicModel.swift */,
 				29D623CF297C2D310081E5A7 /* ChapterModel.swift */,
 				29AF6836297DB8CD006DE989 /* ChapterDetailModel.swift */,
+				293A1B92297EB03900F88B95 /* ChapterImageModel.swift */,
 			);
 			path = Entity;
 			sourceTree = "<group>";
@@ -971,6 +974,7 @@
 				29D623EA297C5D830081E5A7 /* CategoryTableViewCell.swift in Sources */,
 				297FFD422979649300B8AD9A /* ComicTableViewCell.swift in Sources */,
 				291E17812937025500FCAAD9 /* WindModel.swift in Sources */,
+				293A1B93297EB03900F88B95 /* ChapterImageModel.swift in Sources */,
 				291E17752936011100FCAAD9 /* GeoRepo.swift in Sources */,
 				291E176B2935EB2E00FCAAD9 /* LocalName.swift in Sources */,
 				291E177B2936149E00FCAAD9 /* WeatherModel.swift in Sources */,
@@ -1166,6 +1170,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 5BSZ4K6JCL;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Base/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -1193,6 +1198,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 5BSZ4K6JCL;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Base/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;

@@ -11,8 +11,8 @@ import SwiftSoup
 
 struct ChapterDetailUC: ChapterDetailRepo {
     
-    func getChapterImg(urlStrPath: String) -> Observable<Data> {
-        return Service.shared.requestImage(input: ChapterDetailRouter.getChapterImg(url: urlStrPath))
+    func getChapterImg(chapter: ChapterDetailModel) -> Observable<ChapterImageModel> {
+        return Service.shared.requestImage(input: ChapterDetailRouter.getChapterImg(url: chapter.url ?? ""), dataIndex: chapter.dataIndex ?? "")
             .asObservable()
             .handleErr()
     }
