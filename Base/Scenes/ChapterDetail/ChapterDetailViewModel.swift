@@ -15,15 +15,82 @@ import RxCocoa
 class ChapterDetailViewModel: BaseViewModel {
     
     struct Input {
-        
+        let getChapterDetail: Driver<Void>
     }
     
     struct Output {
+        let chapterImageOutput: Driver<[Data]>
     }
     
     private let bag = DisposeBag()
+    private let chapter: ChapterModel
+    private let getChapterImgSubject = BehaviorSubject<[ChapterDetailModel]>.init(value: [])
+    private let dowloadImgSubject = PublishSubject<[Data]>()
+    private let chapterImageSubject = BehaviorSubject<[Data]>(value: [])
+    
+    init(chapter: ChapterModel) {
+        self.chapter = chapter
+    }
+    
+    deinit {
+        print("vm deinit")
+    }
+    
+ 
+//    private func getChapterImages(data: [ChapterDetailModel]) {
+//
+//    }
+    
+    
+    private func getChapterImages(data: [ChapterDetailModel]){
+        let allObservables = data.map { RepoFactory.ChapterDetailRepo().getChapterImg(urlStrPath: $0.url ?? "") }
 
+        let all = Observable.from(allObservables).merge().toArray()
+
+        all.asObservable().subscribe(onNext: { data in
+            self.chapterImageSubject.onNext(data)
+        })
+        .disposed(by: bag)
+
+    }
+    
     func transform(input: Input) -> Output {
-        return Output()
+        
+        input.getChapterDetail
+            .asObservable()
+            .flatMap { _ in
+                return RepoFactory.ChapterDetailRepo().getDetailChapter(urlStrPath: self.chapter.chapterUrl ?? "")
+            }
+            .map({ data -> [ChapterDetailModel] in
+                let results = SwiftSoupService.shared.getAllElements(document: data,
+                                                                     className: "main div.reading-detail.box_doc div.page-chapter")
+            
+                
+                let chapters: [ChapterDetailModel] = results?.map({ value -> ChapterDetailModel in
+                    let img = SwiftSoupService.shared.getAttrFromHtml(element: value, className: "img", attr: "src")
+                    return ChapterDetailModel(url: ChapterDetailModel.getUrlImg(img: img))
+                }) ?? []
+                
+                return chapters
+            })
+            .subscribe(onNext: { data in
+                self.getChapterImages(data: data)
+            })
+            .disposed(by: bag)
+        
+        // không thể deinit nếu sử dụng hàm được khởi tạo trong local, phải dùng weak self mới có thể deinit
+//        getChapterImgSubject
+//            .flatMap({ data in
+//                return self.getChapterImages(data: data)
+//            })
+//            .subscribe(onNext: { data in
+//                self.getChapterImages(data: data)
+//                self.test()
+//            })
+//            .disposed(by: bag)
+
+        let chapterImageOutput = chapterImageSubject.asDriver(onErrorJustReturn: [])
+        
+        return Output(chapterImageOutput: chapterImageOutput)
     }
 }

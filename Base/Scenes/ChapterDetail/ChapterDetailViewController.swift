@@ -14,6 +14,8 @@ import RxCocoa
 
 class ChapterDetailViewController: BaseViewController<ChapterDetailViewModel> {
     
+    @IBOutlet weak var tableView: UITableView!
+    
     private let bag = DisposeBag()
     
     override func viewDidLoad() {
@@ -31,11 +33,31 @@ class ChapterDetailViewController: BaseViewController<ChapterDetailViewModel> {
     }
     
     private func setupUI() {
-        
+        tableView.delegate = self
+        tableView.registerCell(type: ChapterImgTableViewCell.self)
+        tableView.sectionFooterHeight = 0.01
+        tableView.sectionHeaderHeight = 0.01
+        tableView.separatorStyle = .none
+        tableView.showsVerticalScrollIndicator = false
+        tableView.estimatedRowHeight = 1000
     }
     
     override func bindViewModel() {
-        let input = ChapterDetailViewModel.Input()
+        let input = ChapterDetailViewModel.Input(getChapterDetail: Driver.just(()))
         let output = viewModel.transform(input: input)
+        
+        output.chapterImageOutput
+            .drive(tableView.rx.items) { tableView, index, data in
+                let cell = tableView.dequeueReusableCell(type: ChapterImgTableViewCell.self, forIndexPath: IndexPath.init(row: index, section: 0))
+                cell.configCell(data: data)
+                return cell
+            }
+            .disposed(by: bag)
+    }
+}
+
+extension ChapterDetailViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return UITableView.automaticDimension
     }
 }

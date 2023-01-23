@@ -45,13 +45,18 @@
 		2984BD09297AD2B500830956 /* ChapterDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2984BD07297AD2B500830956 /* ChapterDetailViewController.swift */; };
 		2984BD0A297AD2B500830956 /* ChapterDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2984BD08297AD2B500830956 /* ChapterDetailViewController.xib */; };
 		2984BD0C297AD2CE00830956 /* ChapterDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2984BD0B297AD2CE00830956 /* ChapterDetailViewModel.swift */; };
-		2984BD0E297AD57100830956 /* ChapterDetailCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2984BD0D297AD57100830956 /* ChapterDetailCoordinator.swift */; };
 		29A6182D297AAB34004A1993 /* ComicDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29A6182B297AAB34004A1993 /* ComicDetailViewController.swift */; };
 		29A6182E297AAB34004A1993 /* ComicDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 29A6182C297AAB34004A1993 /* ComicDetailViewController.xib */; };
 		29A61830297AABFE004A1993 /* ComicDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29A6182F297AABFE004A1993 /* ComicDetailViewModel.swift */; };
 		29A61832297AAC20004A1993 /* ComicDetailCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29A61831297AAC20004A1993 /* ComicDetailCoordinator.swift */; };
 		29AA28B7297A1EEA00199E28 /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 29AA28B6297A1EEA00199E28 /* Colors.xcassets */; };
 		29AA28BB297A1F7500199E28 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 29AA28BA297A1F7500199E28 /* Images.xcassets */; };
+		29AF6831297DB51E006DE989 /* ChapterDetailAPIRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29AF6830297DB51E006DE989 /* ChapterDetailAPIRouter.swift */; };
+		29AF6833297DB634006DE989 /* ChapterDetailRepo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29AF6832297DB634006DE989 /* ChapterDetailRepo.swift */; };
+		29AF6835297DB658006DE989 /* ChapterDetailUC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29AF6834297DB658006DE989 /* ChapterDetailUC.swift */; };
+		29AF6837297DB8CD006DE989 /* ChapterDetailModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29AF6836297DB8CD006DE989 /* ChapterDetailModel.swift */; };
+		29AF683C297DCAA4006DE989 /* ChapterImgTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29AF683A297DCAA4006DE989 /* ChapterImgTableViewCell.swift */; };
+		29AF683D297DCAA4006DE989 /* ChapterImgTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 29AF683B297DCAA4006DE989 /* ChapterImgTableViewCell.xib */; };
 		29D508BB28F8EF5B00DD3D32 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29D508BA28F8EF5B00DD3D32 /* AppDelegate.swift */; };
 		29D508BF28F8EF5B00DD3D32 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29D508BE28F8EF5B00DD3D32 /* ViewController.swift */; };
 		29D508C228F8EF5B00DD3D32 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 29D508C028F8EF5B00DD3D32 /* Main.storyboard */; };
@@ -157,13 +162,18 @@
 		2984BD07297AD2B500830956 /* ChapterDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChapterDetailViewController.swift; sourceTree = "<group>"; };
 		2984BD08297AD2B500830956 /* ChapterDetailViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ChapterDetailViewController.xib; sourceTree = "<group>"; };
 		2984BD0B297AD2CE00830956 /* ChapterDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChapterDetailViewModel.swift; sourceTree = "<group>"; };
-		2984BD0D297AD57100830956 /* ChapterDetailCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChapterDetailCoordinator.swift; sourceTree = "<group>"; };
 		29A6182B297AAB34004A1993 /* ComicDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComicDetailViewController.swift; sourceTree = "<group>"; };
 		29A6182C297AAB34004A1993 /* ComicDetailViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ComicDetailViewController.xib; sourceTree = "<group>"; };
 		29A6182F297AABFE004A1993 /* ComicDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComicDetailViewModel.swift; sourceTree = "<group>"; };
 		29A61831297AAC20004A1993 /* ComicDetailCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComicDetailCoordinator.swift; sourceTree = "<group>"; };
 		29AA28B6297A1EEA00199E28 /* Colors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Colors.xcassets; sourceTree = "<group>"; };
 		29AA28BA297A1F7500199E28 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		29AF6830297DB51E006DE989 /* ChapterDetailAPIRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChapterDetailAPIRouter.swift; sourceTree = "<group>"; };
+		29AF6832297DB634006DE989 /* ChapterDetailRepo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChapterDetailRepo.swift; sourceTree = "<group>"; };
+		29AF6834297DB658006DE989 /* ChapterDetailUC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChapterDetailUC.swift; sourceTree = "<group>"; };
+		29AF6836297DB8CD006DE989 /* ChapterDetailModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChapterDetailModel.swift; sourceTree = "<group>"; };
+		29AF683A297DCAA4006DE989 /* ChapterImgTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChapterImgTableViewCell.swift; sourceTree = "<group>"; };
+		29AF683B297DCAA4006DE989 /* ChapterImgTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ChapterImgTableViewCell.xib; sourceTree = "<group>"; };
 		29D508B728F8EF5B00DD3D32 /* Base.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Base.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		29D508BA28F8EF5B00DD3D32 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		29D508BE28F8EF5B00DD3D32 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -269,6 +279,7 @@
 				291E1778293601C600FCAAD9 /* GeoUC.swift */,
 				29D623CB297C0CE60081E5A7 /* DetailComicUC.swift */,
 				29D623F2297C6FE10081E5A7 /* TopComicUC.swift */,
+				29AF6834297DB658006DE989 /* ChapterDetailUC.swift */,
 			);
 			path = UseCase;
 			sourceTree = "<group>";
@@ -279,6 +290,7 @@
 				291E17742936011100FCAAD9 /* GeoRepo.swift */,
 				291E1786293733FB00FCAAD9 /* TopComicRepo.swift */,
 				29D623C9297C0C550081E5A7 /* DetailComicRepo.swift */,
+				29AF6832297DB634006DE989 /* ChapterDetailRepo.swift */,
 			);
 			path = Repo;
 			sourceTree = "<group>";
@@ -389,10 +401,10 @@
 		2984BD06297AD26B00830956 /* ChapterDetail */ = {
 			isa = PBXGroup;
 			children = (
+				29AF6838297DCA58006DE989 /* TableViewCell */,
 				2984BD07297AD2B500830956 /* ChapterDetailViewController.swift */,
 				2984BD08297AD2B500830956 /* ChapterDetailViewController.xib */,
 				2984BD0B297AD2CE00830956 /* ChapterDetailViewModel.swift */,
-				2984BD0D297AD57100830956 /* ChapterDetailCoordinator.swift */,
 			);
 			path = ChapterDetail;
 			sourceTree = "<group>";
@@ -418,6 +430,23 @@
 				29AA28BA297A1F7500199E28 /* Images.xcassets */,
 			);
 			path = Assets;
+			sourceTree = "<group>";
+		};
+		29AF6838297DCA58006DE989 /* TableViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				29AF6839297DCA6D006DE989 /* ChapterImgTableViewCell */,
+			);
+			path = TableViewCell;
+			sourceTree = "<group>";
+		};
+		29AF6839297DCA6D006DE989 /* ChapterImgTableViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				29AF683A297DCAA4006DE989 /* ChapterImgTableViewCell.swift */,
+				29AF683B297DCAA4006DE989 /* ChapterImgTableViewCell.xib */,
+			);
+			path = ChapterImgTableViewCell;
 			sourceTree = "<group>";
 		};
 		29D508AE28F8EF5B00DD3D32 = {
@@ -499,6 +528,7 @@
 				29EFDF1528FA541B0032CF22 /* GeoLocationApiRouter.swift */,
 				291E178D2937362D00FCAAD9 /* TopComicRouter.swift */,
 				29D623C7297C02760081E5A7 /* ComicDetailAPIRouter.swift */,
+				29AF6830297DB51E006DE989 /* ChapterDetailAPIRouter.swift */,
 			);
 			path = Router;
 			sourceTree = "<group>";
@@ -683,6 +713,7 @@
 				29F5589E29763F7C00FE1386 /* ComicModel.swift */,
 				29D623CD297C17630081E5A7 /* DetailComicModel.swift */,
 				29D623CF297C2D310081E5A7 /* ChapterModel.swift */,
+				29AF6836297DB8CD006DE989 /* ChapterDetailModel.swift */,
 			);
 			path = Entity;
 			sourceTree = "<group>";
@@ -814,6 +845,7 @@
 				29D623DE297C465D0081E5A7 /* ContentTableViewCell.xib in Resources */,
 				29AA28B7297A1EEA00199E28 /* Colors.xcassets in Resources */,
 				297FFD3529795E2400B8AD9A /* ComicBaseView.xib in Resources */,
+				29AF683D297DCAA4006DE989 /* ChapterImgTableViewCell.xib in Resources */,
 				29D623E3297C4BF20081E5A7 /* ChapterTableViewCell.xib in Resources */,
 				29EFDF0628FA45E20032CF22 /* Swiftgen in Resources */,
 				297FFD682979C55C00B8AD9A /* BannerCollectionViewCell.xib in Resources */,
@@ -885,7 +917,6 @@
 				29D623D8297C389B0081E5A7 /* MainInfoTableViewCell.swift in Sources */,
 				297FFD3C29795E9000B8AD9A /* ComicBaseView.swift in Sources */,
 				29EFDEEB28F9674D0032CF22 /* AppCoordinator.swift in Sources */,
-				2984BD0E297AD57100830956 /* ChapterDetailCoordinator.swift in Sources */,
 				29D623D2297C32A70081E5A7 /* ComicDetailModel.swift in Sources */,
 				29D5091228F95C0400DD3D32 /* BindableType.swift in Sources */,
 				29D623F3297C6FE10081E5A7 /* TopComicUC.swift in Sources */,
@@ -917,19 +948,24 @@
 				29D508F628F8FA2000DD3D32 /* APIRequest.swift in Sources */,
 				29F5589C2975455600FE1386 /* SwiftSoupService.swift in Sources */,
 				291E178A2937351D00FCAAD9 /* ObservableExtension.swift in Sources */,
+				29AF6833297DB634006DE989 /* ChapterDetailRepo.swift in Sources */,
 				291E17692935E98D00FCAAD9 /* GeoCoding.swift in Sources */,
 				29D623F0297C5E440081E5A7 /* CategoryCollectionViewCell.swift in Sources */,
 				291E17772936014200FCAAD9 /* RepoFactory.swift in Sources */,
 				29EFDF1028FA53D50032CF22 /* HomeCoordinator.swift in Sources */,
 				297905DF294086800052F6BE /* BaseSectionHeaderFooterView.swift in Sources */,
+				29AF6831297DB51E006DE989 /* ChapterDetailAPIRouter.swift in Sources */,
 				29EFDF1228FA53D50032CF22 /* HomeModel.swift in Sources */,
 				2984BD0C297AD2CE00830956 /* ChapterDetailViewModel.swift in Sources */,
+				29AF6835297DB658006DE989 /* ChapterDetailUC.swift in Sources */,
 				297FFD592979A7E000B8AD9A /* TabbarHeaderBaseView.swift in Sources */,
 				297FFD622979C29300B8AD9A /* BannerTableViewCell.swift in Sources */,
 				29D623CC297C0CE60081E5A7 /* DetailComicUC.swift in Sources */,
 				29D623E2297C4BF20081E5A7 /* ChapterTableViewCell.swift in Sources */,
 				29D508FE28F91FAF00DD3D32 /* APIError.swift in Sources */,
 				29D5090B28F94EB900DD3D32 /* Constants.swift in Sources */,
+				29AF683C297DCAA4006DE989 /* ChapterImgTableViewCell.swift in Sources */,
+				29AF6837297DB8CD006DE989 /* ChapterDetailModel.swift in Sources */,
 				291E1779293601C600FCAAD9 /* GeoUC.swift in Sources */,
 				29D623DD297C465D0081E5A7 /* ContentTableViewCell.swift in Sources */,
 				29D623EA297C5D830081E5A7 /* CategoryTableViewCell.swift in Sources */,

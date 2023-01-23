@@ -13,7 +13,7 @@ import UIKit
 
 // khai báo các phương thức điều hướng
 protocol ComicDetailRoutes: AnyObject {
-    func navigateToChapterDetail()
+    func navigateToChapterDetail(chapter: ChapterModel)
 }
 
 class ComicDetailCoordinator: Coordinator {
@@ -44,9 +44,9 @@ class ComicDetailCoordinator: Coordinator {
 // logic các phương thức điều hướng
 extension ComicDetailCoordinator: ComicDetailRoutes {
     // chuyển coordinator thì làm như dưới, điều hướng các màn thuộc coordinator thì push bình thường
-    func navigateToChapterDetail() {
+    func navigateToChapterDetail(chapter: ChapterModel) {
         let chapterDetailVC = ChapterDetailViewController()
-        let chapterDetailVM = ChapterDetailViewModel()
+        let chapterDetailVM = ChapterDetailViewModel(chapter: chapter)
         chapterDetailVC.bind(to: chapterDetailVM)
         chapterDetailVC.hidesBottomBarWhenPushed = true
         navigator.pushViewController(chapterDetailVC, animated: true)

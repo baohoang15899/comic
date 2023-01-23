@@ -119,6 +119,17 @@ extension ComicDetailViewController: UITableViewDelegate {
             return header
         }
     }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if (dataSource?[indexPath.section].type == .chapter) {
+            if let item = dataSource?[indexPath.section].items[indexPath.row] {
+                let data = item as? ComicDetailChapterModel
+                if let chapter = data?.chapter {
+                    routesDelegate?.navigateToChapterDetail(chapter: chapter)
+                }
+            }
+        }
+    }
 
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         switch dataSource?[section].type {

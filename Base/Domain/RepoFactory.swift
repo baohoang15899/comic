@@ -21,4 +21,8 @@ struct RepoFactory {
         return DetailComicUC()
     }
     
+    static func ChapterDetailRepo() -> ChapterDetailRepo {
+        return ChapterDetailUC()
+    }
+    
 }
