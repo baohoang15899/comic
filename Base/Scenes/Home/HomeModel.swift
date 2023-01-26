@@ -9,9 +9,34 @@
 //  Template created by baohg - bao15899@gmail.com
 
 import UIKit
+import RxDataSources
+
+enum HomeSectionType {
+    case normal
+    case banner
+}
 
 struct HomeHeaderWeatherModel {
     let cityName: String?
     let status: String?
     let celsius: String?
+}
+
+struct HomeSectionModel {
+    let data: [ComicModel]?
+}
+
+struct HomeSectionData {
+  var header: String?
+  var items: [Item]
+  var type: HomeSectionType
+}
+
+extension HomeSectionData: SectionModelType {
+  typealias Item = HomeSectionModel
+
+   init(original: HomeSectionData, items: [Item]) {
+    self = original
+    self.items = items
+  }
 }

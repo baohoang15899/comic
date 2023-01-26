@@ -13,14 +13,14 @@ import UIKit
 
 // khai báo các phương thức điều hướng
 protocol HomeRoutes: AnyObject {
-    func navigateExample1()
+    func navigateToComicDetail(comicDetailUrl: String, title: String)
 }
 
 class HomeCoordinator: Coordinator {
    
     private var navigator: UINavigationController
-//    private var ex1Coordinator: Example1Coordinator? // khai báo coordinator cần đổi nếu có
-
+    private var ComicCoordinator: ComicDetailCoordinator?
+    
     init(navigator: UINavigationController) {
         self.navigator = navigator
     }
@@ -28,19 +28,23 @@ class HomeCoordinator: Coordinator {
     // khởi tạo màn và điều hướng
     func start() {
         let homeVC = HomeViewController()
-        let homeVM = HomeViewModel()
-        homeVC.routesDelegate = self // gán delegate cho view contoller quản lý route nếu có
+        let homeVM = HomeViewModel()// gán delegate cho view contoller quản lý route nếu có
         homeVC.bind(to: homeVM)
         navigator.pushViewController(homeVC, animated: true)
+        homeVC.routesDelegate = self
     }
 }
 
 // logic các phương thức điều hướng
 extension HomeCoordinator: HomeRoutes {
     // chuyển coordinator thì làm như dưới, điều hướng các màn thuộc coordinator thì push bình thường
-    func navigateExample1() {
-//        let ex1Coordinator = Example1Coordinator(navigator: navigator)
-//        ex1Coordinator.start()
+    func navigateToComicDetail(comicDetailUrl: String, title: String) {
+        let comicDetailCoordinator = ComicDetailCoordinator(navigator: navigator,
+                                                            comicDetailUrl: comicDetailUrl,
+                                                            title: title)
+        comicDetailCoordinator.start()
+        self.ComicCoordinator = comicDetailCoordinator
+//        self.comicDetailCoordinator = comicDetailCoordinator
 //        self.ex1Coordinator = ex1Coordinator
     }
     

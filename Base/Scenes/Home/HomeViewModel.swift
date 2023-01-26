@@ -17,25 +17,58 @@ class HomeViewModel: BaseViewModel {
     
     struct Input {
         let getHotComic: Driver<Void>
-        let getTopMonth: Driver<Void>
-        let getTopWeek: Driver<Void>
+        let getTopManga: Driver<Void>
+        let getTopManhwa: Driver<Void>
         let getTopDay: Driver<Void>
+        let getNominate: Driver<Void>
     }
     
     struct Output {
-        let hotComic: Driver<[ComicModel]>
+        let homeSection: Driver<[HomeSectionData]>
     }
     
     private let bag = DisposeBag()
     private var geoData: GeoCodingModel?
     private let getCurrentWeatherSubject = PublishSubject<Void>()
+    private let nominateSubject = BehaviorSubject<[ComicModel]>(value: [])
     private let hotComicSubject = BehaviorSubject<[ComicModel]>(value: [])
-    private let topMonthComicSubject = BehaviorSubject<[ComicModel]>(value: [])
-    private let topWeekComicSubject = BehaviorSubject<[ComicModel]>(value: [])
+    private let topMangaSubject = BehaviorSubject<[ComicModel]>(value: [])
+    private let topManhwaSubject = BehaviorSubject<[ComicModel]>(value: [])
     private let topDayComicSubject = BehaviorSubject<[ComicModel]>(value: [])
+    
+    var HomeSectionSubject = BehaviorSubject<[HomeSectionData]>(value: [])
     
     
     func transform(input: Input) -> Output {
+        
+        input.getNominate
+            .asObservable()
+            .flatMap { _ in
+                return RepoFactory.TopComicRepo().getNominate()
+            }
+            .map({ data -> [ComicModel] in
+                var comics: [ComicModel]?
+                let results = SwiftSoupService.shared.getAllElements(document: data,
+                                                                     className: "div.items-slide div.item")
+                comics = results?.map({ value in
+                    let imgUrl = SwiftSoupService.shared.getAttrFromHtml(element: value,
+                                                                      className: "a img",
+                                                                      attr: "data-src")
+                    
+                    let comicDetailUrl = SwiftSoupService.shared.getAttrFromHtml(element: value,
+                                                                                 className: "a",
+                                                                                 attr: "href")
+
+                    let title = SwiftSoupService.shared.elementToString(element: value,
+                                                                     className: "h3 a")
+                    return ComicModel(image: ComicModel.getUrlImg(img: imgUrl), title: title, detailUrl: comicDetailUrl ?? "")
+                })
+                return comics ?? []
+            })
+            .subscribe(onNext: { data in
+                self.nominateSubject.onNext(data)
+            })
+            .disposed(by: bag)
         
         input.getHotComic
             .asObservable()
@@ -50,9 +83,14 @@ class HomeViewModel: BaseViewModel {
                     let imgUrl = SwiftSoupService.shared.getAttrFromHtml(element: value,
                                                                       className: "div.image img",
                                                                       attr: "data-original")
+                    
+                    let comicDetailUrl = SwiftSoupService.shared.getAttrFromHtml(element: value,
+                                                                                 className: "div.image a",
+                                                                                 attr: "href")
+                    
                     let title = SwiftSoupService.shared.elementToString(element: value,
                                                                      className: "h3 a")
-                    return ComicModel(image: ComicModel.getUrlImg(img: imgUrl), title: title)
+                    return ComicModel(image: ComicModel.getUrlImg(img: imgUrl), title: title, detailUrl: comicDetailUrl ?? "")
                 })
                 return comics ?? []
             })
@@ -61,10 +99,10 @@ class HomeViewModel: BaseViewModel {
             })
             .disposed(by: bag)
         
-        input.getTopMonth
+        input.getTopManga
             .asObservable()
             .flatMap { _ in
-                return RepoFactory.TopComicRepo().getTopComic(param: ["status": -1, "sort": 11])
+                return RepoFactory.TopComicRepo().getTopManga(param: ["status": -1, "sort": 11])
             }
             .map({ data -> [ComicModel] in
                 var comics: [ComicModel]?
@@ -74,21 +112,26 @@ class HomeViewModel: BaseViewModel {
                     let imgUrl = SwiftSoupService.shared.getAttrFromHtml(element: value,
                                                                       className: "div.image img",
                                                                       attr: "data-original")
+                    
+                    let comicDetailUrl = SwiftSoupService.shared.getAttrFromHtml(element: value,
+                                                                                 className: "div.image a",
+                                                                                 attr: "href")
+
                     let title = SwiftSoupService.shared.elementToString(element: value,
                                                                      className: "h3 a")
-                    return ComicModel(image: ComicModel.getUrlImg(img: imgUrl), title: title)
+                    return ComicModel(image: ComicModel.getUrlImg(img: imgUrl), title: title, detailUrl: comicDetailUrl ?? "")
                 })
                 return comics ?? []
             })
             .subscribe(onNext: { data in
-                self.topMonthComicSubject.onNext(data)
+                self.topMangaSubject.onNext(data)
             })
             .disposed(by: bag)
         
-        input.getTopWeek
+        input.getTopManhwa
             .asObservable()
             .flatMap { _ in
-                return RepoFactory.TopComicRepo().getTopComic(param: ["status": -1, "sort": 12])
+                return RepoFactory.TopComicRepo().getTopManhwa(param: ["status": -1, "sort": 11])
             }
             .map({ data -> [ComicModel] in
                 var comics: [ComicModel]?
@@ -98,21 +141,26 @@ class HomeViewModel: BaseViewModel {
                     let imgUrl = SwiftSoupService.shared.getAttrFromHtml(element: value,
                                                                       className: "div.image img",
                                                                       attr: "data-original")
+                    
+                    let comicDetailUrl = SwiftSoupService.shared.getAttrFromHtml(element: value,
+                                                                                 className: "div.image a",
+                                                                                 attr: "href")
+                   
                     let title = SwiftSoupService.shared.elementToString(element: value,
                                                                      className: "h3 a")
-                    return ComicModel(image: ComicModel.getUrlImg(img: imgUrl), title: title)
+                    return ComicModel(image: ComicModel.getUrlImg(img: imgUrl), title: title, detailUrl: comicDetailUrl ?? "")
                 })
                 return comics ?? []
             })
             .subscribe(onNext: { data in
-                self.topWeekComicSubject.onNext(data)
+                self.topManhwaSubject.onNext(data)
             })
             .disposed(by: bag)
         
         input.getTopDay
             .asObservable()
             .flatMap { _ in
-                return RepoFactory.TopComicRepo().getTopComic(param: ["status": -1, "sort": 13])
+                return RepoFactory.TopComicRepo().getTopManhua(param: ["status": -1, "sort": 11])
             }
             .map({ data -> [ComicModel] in
                 var comics: [ComicModel]?
@@ -122,9 +170,14 @@ class HomeViewModel: BaseViewModel {
                     let imgUrl = SwiftSoupService.shared.getAttrFromHtml(element: value,
                                                                       className: "div.image img",
                                                                       attr: "data-original")
+                    
+                    let comicDetailUrl = SwiftSoupService.shared.getAttrFromHtml(element: value,
+                                                                                 className: "div.image a",
+                                                                                 attr: "href")
+                    
                     let title = SwiftSoupService.shared.elementToString(element: value,
                                                                      className: "h3 a")
-                    return ComicModel(image: ComicModel.getUrlImg(img: imgUrl), title: title)
+                    return ComicModel(image: ComicModel.getUrlImg(img: imgUrl), title: title, detailUrl: comicDetailUrl ?? "")
                 })
                 return comics ?? []
             })
@@ -133,15 +186,21 @@ class HomeViewModel: BaseViewModel {
             })
             .disposed(by: bag)
         
-        let allComic = Observable.zip(hotComicSubject.skip(1), topMonthComicSubject.skip(1), topWeekComicSubject.skip(1), topDayComicSubject.skip(1))
+        let allComic = Observable.zip(nominateSubject.skip(1), hotComicSubject.skip(1), topMangaSubject.skip(1), topManhwaSubject.skip(1), topDayComicSubject.skip(1))
 
-        allComic.subscribe {(hotComic, topMonth, topWeek, topDay) in
-            print(hotComic)
+        allComic.subscribe {(nominate, hotComic, topManga, topManhwa, topManhua) in
+            let nominateSection = HomeSectionData(header: L10n.Home.Section.nominate, items: [HomeSectionModel(data: nominate)], type: .banner)
+            let hotSection = HomeSectionData(header: L10n.Home.Section.hot, items: [HomeSectionModel(data: hotComic)], type: .normal)
+            let topMonthSection = HomeSectionData(header: L10n.Home.Section.topManga, items: [HomeSectionModel(data: topManga)], type: .normal)
+            let topWeekSection = HomeSectionData(header: L10n.Home.Section.topManhwa, items: [HomeSectionModel(data: topManhwa)], type: .normal)
+            let topDaySection = HomeSectionData(header: L10n.Home.Section.topManhua, items: [HomeSectionModel(data: topManhua)], type: .normal)
+            self.HomeSectionSubject.onNext([nominateSection, hotSection, topMonthSection, topWeekSection, topDaySection])
+            
         }
         .disposed(by: bag)
         
-        let hotComicOutput = hotComicSubject.skip(1).asDriver(onErrorJustReturn: [])
+        let homeSectionOutput = HomeSectionSubject.skip(1).asDriver(onErrorJustReturn: [])
 
-        return Output(hotComic: hotComicOutput)
+        return Output(homeSection: homeSectionOutput)
     }
 }

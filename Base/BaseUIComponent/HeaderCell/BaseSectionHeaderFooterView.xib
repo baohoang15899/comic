@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="19529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_0" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19519"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" restorationIdentifier="HomeHeaderFooterView" id="iN0-l3-epB" customClass="BaseSectionHeaderFooterView" customModule="Base" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="586" height="380"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9DC-Wd-OKY">
+                    <rect key="frame" x="0.0" y="44" width="586" height="302"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3U4-fC-LjX">
+                            <rect key="frame" x="16" y="10" width="560" height="282"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                    </subviews>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstItem="3U4-fC-LjX" firstAttribute="leading" secondItem="9DC-Wd-OKY" secondAttribute="leading" constant="16" id="1CC-Yy-qpt"/>
+                        <constraint firstItem="3U4-fC-LjX" firstAttribute="top" secondItem="9DC-Wd-OKY" secondAttribute="top" constant="10" id="4uN-iQ-RPS"/>
+                        <constraint firstAttribute="trailing" secondItem="3U4-fC-LjX" secondAttribute="trailing" constant="10" id="YO2-ph-2Ph"/>
+                        <constraint firstAttribute="bottom" secondItem="3U4-fC-LjX" secondAttribute="bottom" constant="10" id="y2E-bd-eR4"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <constraints>
+                <constraint firstItem="9DC-Wd-OKY" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="ALI-0o-Ixo"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="9DC-Wd-OKY" secondAttribute="bottom" id="L11-dQ-SRe"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="9DC-Wd-OKY" secondAttribute="trailing" id="V7q-J4-WMb"/>
+                <constraint firstItem="9DC-Wd-OKY" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" id="kM3-IV-Dlm"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <connections>
+                <outlet property="sectionLabel" destination="3U4-fC-LjX" id="RyP-VX-t4E"/>
+            </connections>
+            <point key="canvasLocation" x="324.61538461538458" y="-105.21327014218009"/>
+        </view>
+    </objects>
+</document>

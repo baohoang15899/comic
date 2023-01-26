@@ -24,6 +24,9 @@ struct GeoCodingURL {
 struct nettruyenPath {
     static let hotPath = "hot"
     static let adult = "tim-truyen/truong-thanh"
+    static let manga = "tim-truyen/manga-112"
+    static let manhwa = "tim-truyen/manhwa-11400"
+    static let manhua = "tim-truyen/manhua"
 }
 
 struct WeatherCaculate {

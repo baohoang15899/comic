@@ -14,7 +14,15 @@ struct RepoFactory {
     }
     
     static func TopComicRepo() -> TopComicRepo {
-        return TopComicUc()
+        return TopComicUC()
+    }
+    
+    static func DetailComicRepo() -> DetailComicRepo {
+        return DetailComicUC()
+    }
+    
+    static func ChapterDetailRepo() -> ChapterDetailRepo {
+        return ChapterDetailUC()
     }
     
 }

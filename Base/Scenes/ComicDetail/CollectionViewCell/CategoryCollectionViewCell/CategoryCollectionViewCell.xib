@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="19529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19519"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="gTV-IL-0wX" customClass="CategoryCollectionViewCell" customModule="Base" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="336" height="103"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                <rect key="frame" x="0.0" y="0.0" width="336" height="103"/>
+                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Tcp-GN-OWM">
+                        <rect key="frame" x="0.0" y="0.0" width="326" height="103"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="G4X-bk-NGr">
+                                <rect key="frame" x="8" y="8" width="310" height="87"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" systemColor="systemBackgroundColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBlueColor"/>
+                        <constraints>
+                            <constraint firstAttribute="bottom" secondItem="G4X-bk-NGr" secondAttribute="bottom" constant="8" id="9PM-H8-ls8"/>
+                            <constraint firstItem="G4X-bk-NGr" firstAttribute="top" secondItem="Tcp-GN-OWM" secondAttribute="top" constant="8" id="RcV-Hh-rYp"/>
+                            <constraint firstAttribute="trailing" secondItem="G4X-bk-NGr" secondAttribute="trailing" constant="8" id="RgF-cm-ebE"/>
+                            <constraint firstItem="G4X-bk-NGr" firstAttribute="leading" secondItem="Tcp-GN-OWM" secondAttribute="leading" constant="8" id="i9p-ZY-ofy"/>
+                        </constraints>
+                    </view>
+                </subviews>
+            </view>
+            <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
+            <constraints>
+                <constraint firstAttribute="bottom" secondItem="Tcp-GN-OWM" secondAttribute="bottom" id="1Zx-Cj-9mD"/>
+                <constraint firstItem="Tcp-GN-OWM" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="Dsl-bl-Jg1"/>
+                <constraint firstAttribute="trailing" secondItem="Tcp-GN-OWM" secondAttribute="trailing" constant="10" id="IOy-dO-tPk"/>
+                <constraint firstItem="Tcp-GN-OWM" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="hpR-ZJ-IZI"/>
+            </constraints>
+            <size key="customSize" width="336" height="103"/>
+            <connections>
+                <outlet property="categoryLabel" destination="G4X-bk-NGr" id="Ssq-7W-NDo"/>
+                <outlet property="wrapperView" destination="Tcp-GN-OWM" id="h7b-hB-MRs"/>
+            </connections>
+            <point key="canvasLocation" x="139.13043478260872" y="99.441964285714278"/>
+        </collectionViewCell>
+    </objects>
+    <resources>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemBlueColor">
+            <color red="0.0" green="0.47843137254901963" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+    </resources>
+</document>

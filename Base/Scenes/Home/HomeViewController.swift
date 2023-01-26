@@ -11,12 +11,17 @@
 import UIKit
 import RxSwift
 import RxCocoa
+import RxDataSources
 
 class HomeViewController: BaseViewController<HomeViewModel> {
 
-    private let bag = DisposeBag()
-    weak var routesDelegate: HomeRoutes?
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var headerView: TabbarHeaderBaseView!
+    
+    weak var routesDelegate: HomeRoutes?
+    
+    private let bag = DisposeBag()
+    private var dataSource: RxTableViewSectionedReloadDataSource<HomeSectionData>? = nil
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,51 +33,90 @@ class HomeViewController: BaseViewController<HomeViewModel> {
         navigationController?.setNavigationBarHidden(true, animated: false)
     }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        self.navigationItem.title = " "
+    }
+    
     deinit {
         print("HomeViewController deinit ✅")
     }
     
     private func setupUI() {
-//        tableView.contentInsetAdjustmentBehavior = .never // show content de` len status bar cua tableview len superview
-        tableView.registerHeaderFooterView(type: HomeHeaderFooterView.self)
+        tableView.registerHeaderFooterView(type: BaseSectionHeaderFooterView.self)
+        tableView.registerCell(type: ComicTableViewCell.self)
+        tableView.registerCell(type: BannerTableViewCell.self)
         tableView.sectionFooterHeight = 0.01
         tableView.sectionHeaderHeight = 0.01
-//        tableView.delegate = self
+        tableView.separatorStyle = .none
+        tableView.showsVerticalScrollIndicator = false
+        tableView.delegate = self
+        headerView.configView(title: L10n.Home.tab)
     }
     
     override func bindViewModel() {
         let input = HomeViewModel.Input(getHotComic: Driver.just(()),
-                                        getTopMonth: Driver.just(()),
-                                        getTopWeek: Driver.just(()),
-                                        getTopDay: Driver.just(())
+                                        getTopManga: Driver.just(()),
+                                        getTopManhwa: Driver.just(()),
+                                        getTopDay: Driver.just(()),
+                                        getNominate: Driver.just(())
         )
         let output = viewModel.transform(input: input)
         
-        output.hotComic
-            .drive { data in
-                print("my data \(data)")
+        dataSource = RxTableViewSectionedReloadDataSource<HomeSectionData>(
+            
+            configureCell: { datasource, tableView, indexPath, item in
+                switch datasource[indexPath.section].type {
+        
+                case .normal:
+                    let cell = tableView.dequeueReusableCell(type: ComicTableViewCell.self, forIndexPath: indexPath)
+                    cell.configCell(data: item.data ?? [])
+                    cell.didSelectComic = { [weak self] comic in
+                        if let url = comic.detailUrl, let title = comic.title {
+                            self?.routesDelegate?.navigateToComicDetail(comicDetailUrl: url, title: title)
+                        }
+                    }
+                    return cell
+                    
+                case .banner:
+                    let cell = tableView.dequeueReusableCell(type: BannerTableViewCell.self, forIndexPath: indexPath)
+                    cell.configCell(data: item.data ?? [])
+                    return cell
+                    
+                }
+
             }
-            .disposed(by: bag)
+        )
+        
+        if let dataSource = dataSource {
+            output.homeSection
+                .drive(tableView.rx.items(dataSource: dataSource))
+                .disposed(by: bag)
+        }
     }
 }
 
-//extension HomeViewController: UITableViewDelegate {
-//    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-//        let headerCell = tableView.dequeueReusableHeaderFooterView(type: HomeHeaderFooterView.self)
-//        viewModel.headerWeatherDataSubject.subscribe(onNext: {[weak self] data in
-//            headerCell.configHeader(data: data)
-//            self?.tableView.reloadData()
-//            self?.view.setNeedsLayout()
-//        })
-//        .disposed(by: bag)
-//        return headerCell
-//    }
-//
-//    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-//        return UITableView.automaticDimension
-//    }
-//
-//    func tableView(_ tableView: UITableView, estimatedHeightForHeaderInSection section: Int) -> CGFloat {
-//        return 300 // sử dụng height auto phải set estimate height bằng hoặc lớn hơn height theo design
-//    }
-//}
+extension HomeViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        switch dataSource?[indexPath.section].type {
+        case .normal:
+            return 200
+        case .banner:
+            return 250
+        default:
+            return 200
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let header = self.tableView.dequeueReusableHeaderFooterView(type: BaseSectionHeaderFooterView.self)
+        header.configHeader(title: dataSource?[section].header ?? "")
+        return header
+    }
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 40
+    }
+    
+    
+}
