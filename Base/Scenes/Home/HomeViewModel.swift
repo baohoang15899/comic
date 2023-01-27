@@ -191,10 +191,10 @@ class HomeViewModel: BaseViewModel {
         allComic.subscribe {(nominate, hotComic, topManga, topManhwa, topManhua) in
             let nominateSection = HomeSectionData(header: L10n.Home.Section.nominate, items: [HomeSectionModel(data: nominate)], type: .banner)
             let hotSection = HomeSectionData(header: L10n.Home.Section.hot, items: [HomeSectionModel(data: hotComic)], type: .normal)
-            let topMonthSection = HomeSectionData(header: L10n.Home.Section.topManga, items: [HomeSectionModel(data: topManga)], type: .normal)
-            let topWeekSection = HomeSectionData(header: L10n.Home.Section.topManhwa, items: [HomeSectionModel(data: topManhwa)], type: .normal)
-            let topDaySection = HomeSectionData(header: L10n.Home.Section.topManhua, items: [HomeSectionModel(data: topManhua)], type: .normal)
-            self.HomeSectionSubject.onNext([nominateSection, hotSection, topMonthSection, topWeekSection, topDaySection])
+            let topMangaSection = HomeSectionData(header: L10n.Home.Section.topManga, items: [HomeSectionModel(data: topManga)], type: .normal)
+            let topManhwaSection = HomeSectionData(header: L10n.Home.Section.topManhwa, items: [HomeSectionModel(data: topManhwa)], type: .normal)
+            let topManhuaSection = HomeSectionData(header: L10n.Home.Section.topManhua, items: [HomeSectionModel(data: topManhua)], type: .normal)
+            self.HomeSectionSubject.onNext([nominateSection, hotSection, topMangaSection, topManhwaSection, topManhuaSection])
             
         }
         .disposed(by: bag)

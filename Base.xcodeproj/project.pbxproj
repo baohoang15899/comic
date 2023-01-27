@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2905D51029835D5400CC6E72 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2905D50E29835D5400CC6E72 /* SearchViewController.swift */; };
+		2905D51129835D5400CC6E72 /* SearchViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2905D50F29835D5400CC6E72 /* SearchViewController.xib */; };
+		2905D51329835E5700CC6E72 /* SearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2905D51229835E5700CC6E72 /* SearchViewModel.swift */; };
+		2905D51529835F1A00CC6E72 /* SearchCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2905D51429835F1A00CC6E72 /* SearchCoordinator.swift */; };
 		291E17692935E98D00FCAAD9 /* GeoCoding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 291E17682935E98D00FCAAD9 /* GeoCoding.swift */; };
 		291E176B2935EB2E00FCAAD9 /* LocalName.swift in Sources */ = {isa = PBXBuildFile; fileRef = 291E176A2935EB2E00FCAAD9 /* LocalName.swift */; };
 		291E17752936011100FCAAD9 /* GeoRepo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 291E17742936011100FCAAD9 /* GeoRepo.swift */; };
@@ -24,6 +28,8 @@
 		291E1790293743D400FCAAD9 /* UIColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 291E178F293743D400FCAAD9 /* UIColorExtension.swift */; };
 		291E17922937443C00FCAAD9 /* NibExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 291E17912937443C00FCAAD9 /* NibExtension.swift */; };
 		293A1B93297EB03900F88B95 /* ChapterImageModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 293A1B92297EB03900F88B95 /* ChapterImageModel.swift */; };
+		2973312A2982187B00624B94 /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 297331292982187B00624B94 /* Colors.xcassets */; };
+		2973312C2982188500624B94 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2973312B2982188500624B94 /* Images.xcassets */; };
 		297905DD2940862A0052F6BE /* BaseSectionHeaderFooterView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 297905DC2940862A0052F6BE /* BaseSectionHeaderFooterView.xib */; };
 		297905DF294086800052F6BE /* BaseSectionHeaderFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 297905DE294086800052F6BE /* BaseSectionHeaderFooterView.swift */; };
 		297FFD3129795C1700B8AD9A /* RxDataSources in Frameworks */ = {isa = PBXBuildFile; productRef = 297FFD3029795C1700B8AD9A /* RxDataSources */; };
@@ -50,8 +56,6 @@
 		29A6182E297AAB34004A1993 /* ComicDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 29A6182C297AAB34004A1993 /* ComicDetailViewController.xib */; };
 		29A61830297AABFE004A1993 /* ComicDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29A6182F297AABFE004A1993 /* ComicDetailViewModel.swift */; };
 		29A61832297AAC20004A1993 /* ComicDetailCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29A61831297AAC20004A1993 /* ComicDetailCoordinator.swift */; };
-		29AA28B7297A1EEA00199E28 /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 29AA28B6297A1EEA00199E28 /* Colors.xcassets */; };
-		29AA28BB297A1F7500199E28 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 29AA28BA297A1F7500199E28 /* Images.xcassets */; };
 		29AF6831297DB51E006DE989 /* ChapterDetailAPIRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29AF6830297DB51E006DE989 /* ChapterDetailAPIRouter.swift */; };
 		29AF6833297DB634006DE989 /* ChapterDetailRepo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29AF6832297DB634006DE989 /* ChapterDetailRepo.swift */; };
 		29AF6835297DB658006DE989 /* ChapterDetailUC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29AF6834297DB658006DE989 /* ChapterDetailUC.swift */; };
@@ -95,6 +99,10 @@
 		29D623F0297C5E440081E5A7 /* CategoryCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29D623EE297C5E440081E5A7 /* CategoryCollectionViewCell.swift */; };
 		29D623F1297C5E440081E5A7 /* CategoryCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 29D623EF297C5E440081E5A7 /* CategoryCollectionViewCell.xib */; };
 		29D623F3297C6FE10081E5A7 /* TopComicUC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29D623F2297C6FE10081E5A7 /* TopComicUC.swift */; };
+		29D6D07D2983C7F2004EE766 /* SearchAPIRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29D6D07C2983C7F2004EE766 /* SearchAPIRouter.swift */; };
+		29D6D07F2983C92F004EE766 /* SearchRepo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29D6D07E2983C92F004EE766 /* SearchRepo.swift */; };
+		29D6D0812983C991004EE766 /* SearchUC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29D6D0802983C991004EE766 /* SearchUC.swift */; };
+		29D6D0832983CE4D004EE766 /* ComicSuggestModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29D6D0822983CE4D004EE766 /* ComicSuggestModel.swift */; };
 		29EFDEEB28F9674D0032CF22 /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29EFDEEA28F9674D0032CF22 /* AppCoordinator.swift */; };
 		29EFDEF628FA413A0032CF22 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 29EFDEF828FA413A0032CF22 /* Localizable.strings */; };
 		29EFDF0228FA42670032CF22 /* GeneratedStrings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29EFDF0128FA42670032CF22 /* GeneratedStrings.swift */; };
@@ -129,6 +137,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		2905D50E29835D5400CC6E72 /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
+		2905D50F29835D5400CC6E72 /* SearchViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SearchViewController.xib; sourceTree = "<group>"; };
+		2905D51229835E5700CC6E72 /* SearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewModel.swift; sourceTree = "<group>"; };
+		2905D51429835F1A00CC6E72 /* SearchCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchCoordinator.swift; sourceTree = "<group>"; };
 		291E17682935E98D00FCAAD9 /* GeoCoding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeoCoding.swift; sourceTree = "<group>"; };
 		291E176A2935EB2E00FCAAD9 /* LocalName.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalName.swift; sourceTree = "<group>"; };
 		291E17742936011100FCAAD9 /* GeoRepo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeoRepo.swift; sourceTree = "<group>"; };
@@ -146,6 +158,8 @@
 		291E178F293743D400FCAAD9 /* UIColorExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColorExtension.swift; sourceTree = "<group>"; };
 		291E17912937443C00FCAAD9 /* NibExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NibExtension.swift; sourceTree = "<group>"; };
 		293A1B92297EB03900F88B95 /* ChapterImageModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChapterImageModel.swift; sourceTree = "<group>"; };
+		297331292982187B00624B94 /* Colors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Colors.xcassets; sourceTree = "<group>"; };
+		2973312B2982188500624B94 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		297905DC2940862A0052F6BE /* BaseSectionHeaderFooterView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BaseSectionHeaderFooterView.xib; sourceTree = "<group>"; };
 		297905DE294086800052F6BE /* BaseSectionHeaderFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseSectionHeaderFooterView.swift; sourceTree = "<group>"; };
 		297FFD3429795E2400B8AD9A /* ComicBaseView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ComicBaseView.xib; sourceTree = "<group>"; };
@@ -168,8 +182,6 @@
 		29A6182C297AAB34004A1993 /* ComicDetailViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ComicDetailViewController.xib; sourceTree = "<group>"; };
 		29A6182F297AABFE004A1993 /* ComicDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComicDetailViewModel.swift; sourceTree = "<group>"; };
 		29A61831297AAC20004A1993 /* ComicDetailCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComicDetailCoordinator.swift; sourceTree = "<group>"; };
-		29AA28B6297A1EEA00199E28 /* Colors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Colors.xcassets; sourceTree = "<group>"; };
-		29AA28BA297A1F7500199E28 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		29AF6830297DB51E006DE989 /* ChapterDetailAPIRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChapterDetailAPIRouter.swift; sourceTree = "<group>"; };
 		29AF6832297DB634006DE989 /* ChapterDetailRepo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChapterDetailRepo.swift; sourceTree = "<group>"; };
 		29AF6834297DB658006DE989 /* ChapterDetailUC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChapterDetailUC.swift; sourceTree = "<group>"; };
@@ -214,6 +226,10 @@
 		29D623EE297C5E440081E5A7 /* CategoryCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryCollectionViewCell.swift; sourceTree = "<group>"; };
 		29D623EF297C5E440081E5A7 /* CategoryCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CategoryCollectionViewCell.xib; sourceTree = "<group>"; };
 		29D623F2297C6FE10081E5A7 /* TopComicUC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopComicUC.swift; sourceTree = "<group>"; };
+		29D6D07C2983C7F2004EE766 /* SearchAPIRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchAPIRouter.swift; sourceTree = "<group>"; };
+		29D6D07E2983C92F004EE766 /* SearchRepo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchRepo.swift; sourceTree = "<group>"; };
+		29D6D0802983C991004EE766 /* SearchUC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchUC.swift; sourceTree = "<group>"; };
+		29D6D0822983CE4D004EE766 /* ComicSuggestModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComicSuggestModel.swift; sourceTree = "<group>"; };
 		29EFDEEA28F9674D0032CF22 /* AppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
 		29EFDEF728FA413A0032CF22 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		29EFDEF928FA41640032CF22 /* vi */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = vi; path = vi.lproj/Main.strings; sourceTree = "<group>"; };
@@ -265,6 +281,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2905D50D29835D3400CC6E72 /* Search */ = {
+			isa = PBXGroup;
+			children = (
+				2905D50E29835D5400CC6E72 /* SearchViewController.swift */,
+				2905D50F29835D5400CC6E72 /* SearchViewController.xib */,
+				2905D51229835E5700CC6E72 /* SearchViewModel.swift */,
+				2905D51429835F1A00CC6E72 /* SearchCoordinator.swift */,
+			);
+			path = Search;
+			sourceTree = "<group>";
+		};
 		291E1771293600D200FCAAD9 /* Domain */ = {
 			isa = PBXGroup;
 			children = (
@@ -282,6 +309,7 @@
 				29D623CB297C0CE60081E5A7 /* DetailComicUC.swift */,
 				29D623F2297C6FE10081E5A7 /* TopComicUC.swift */,
 				29AF6834297DB658006DE989 /* ChapterDetailUC.swift */,
+				29D6D0802983C991004EE766 /* SearchUC.swift */,
 			);
 			path = UseCase;
 			sourceTree = "<group>";
@@ -293,6 +321,7 @@
 				291E1786293733FB00FCAAD9 /* TopComicRepo.swift */,
 				29D623C9297C0C550081E5A7 /* DetailComicRepo.swift */,
 				29AF6832297DB634006DE989 /* ChapterDetailRepo.swift */,
+				29D6D07E2983C92F004EE766 /* SearchRepo.swift */,
 			);
 			path = Repo;
 			sourceTree = "<group>";
@@ -315,6 +344,15 @@
 				297905DE294086800052F6BE /* BaseSectionHeaderFooterView.swift */,
 			);
 			path = HeaderCell;
+			sourceTree = "<group>";
+		};
+		297331282982186900624B94 /* Assets */ = {
+			isa = PBXGroup;
+			children = (
+				297331292982187B00624B94 /* Colors.xcassets */,
+				2973312B2982188500624B94 /* Images.xcassets */,
+			);
+			path = Assets;
 			sourceTree = "<group>";
 		};
 		297FFD3229795DE200B8AD9A /* BaseUIComponent */ = {
@@ -425,15 +463,6 @@
 			path = ComicDetail;
 			sourceTree = "<group>";
 		};
-		29AA28B3297A1ECA00199E28 /* Assets */ = {
-			isa = PBXGroup;
-			children = (
-				29AA28B6297A1EEA00199E28 /* Colors.xcassets */,
-				29AA28BA297A1F7500199E28 /* Images.xcassets */,
-			);
-			path = Assets;
-			sourceTree = "<group>";
-		};
 		29AF6838297DCA58006DE989 /* TableViewCell */ = {
 			isa = PBXGroup;
 			children = (
@@ -531,6 +560,7 @@
 				291E178D2937362D00FCAAD9 /* TopComicRouter.swift */,
 				29D623C7297C02760081E5A7 /* ComicDetailAPIRouter.swift */,
 				29AF6830297DB51E006DE989 /* ChapterDetailAPIRouter.swift */,
+				29D6D07C2983C7F2004EE766 /* SearchAPIRouter.swift */,
 			);
 			path = Router;
 			sourceTree = "<group>";
@@ -573,6 +603,7 @@
 		29D5091328F95D6600DD3D32 /* Scenes */ = {
 			isa = PBXGroup;
 			children = (
+				2905D50D29835D3400CC6E72 /* Search */,
 				2984BD06297AD26B00830956 /* ChapterDetail */,
 				29A6182A297AAB06004A1993 /* ComicDetail */,
 				29EFDF0A28FA53C80032CF22 /* Home */,
@@ -671,7 +702,7 @@
 		29EFDEF128FA408A0032CF22 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				29AA28B3297A1ECA00199E28 /* Assets */,
+				297331282982186900624B94 /* Assets */,
 				29EFDF0028FA42330032CF22 /* Generated */,
 				29EFDEF228FA40EF0032CF22 /* Localize */,
 			);
@@ -717,6 +748,7 @@
 				29D623CF297C2D310081E5A7 /* ChapterModel.swift */,
 				29AF6836297DB8CD006DE989 /* ChapterDetailModel.swift */,
 				293A1B92297EB03900F88B95 /* ChapterImageModel.swift */,
+				29D6D0822983CE4D004EE766 /* ComicSuggestModel.swift */,
 			);
 			path = Entity;
 			sourceTree = "<group>";
@@ -846,7 +878,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				29D623DE297C465D0081E5A7 /* ContentTableViewCell.xib in Resources */,
-				29AA28B7297A1EEA00199E28 /* Colors.xcassets in Resources */,
+				2973312C2982188500624B94 /* Images.xcassets in Resources */,
 				297FFD3529795E2400B8AD9A /* ComicBaseView.xib in Resources */,
 				29AF683D297DCAA4006DE989 /* ChapterImgTableViewCell.xib in Resources */,
 				29D623E3297C4BF20081E5A7 /* ChapterTableViewCell.xib in Resources */,
@@ -855,11 +887,12 @@
 				297FFD572979A74600B8AD9A /* TabbarHeaderBaseView.xib in Resources */,
 				29D508C728F8EF5C00DD3D32 /* LaunchScreen.storyboard in Resources */,
 				29D623D9297C389B0081E5A7 /* MainInfoTableViewCell.xib in Resources */,
-				29AA28BB297A1F7500199E28 /* Images.xcassets in Resources */,
 				29EFDEF628FA413A0032CF22 /* Localizable.strings in Resources */,
 				2984BD0A297AD2B500830956 /* ChapterDetailViewController.xib in Resources */,
 				297905DD2940862A0052F6BE /* BaseSectionHeaderFooterView.xib in Resources */,
 				297FFD432979649300B8AD9A /* ComicTableViewCell.xib in Resources */,
+				2905D51129835D5400CC6E72 /* SearchViewController.xib in Resources */,
+				2973312A2982187B00624B94 /* Colors.xcassets in Resources */,
 				29EFDF1428FA53D50032CF22 /* HomeViewController.xib in Resources */,
 				29D623EB297C5D830081E5A7 /* CategoryTableViewCell.xib in Resources */,
 				29A6182E297AAB34004A1993 /* ComicDetailViewController.xib in Resources */,
@@ -922,6 +955,7 @@
 				29EFDEEB28F9674D0032CF22 /* AppCoordinator.swift in Sources */,
 				29D623D2297C32A70081E5A7 /* ComicDetailModel.swift in Sources */,
 				29D5091228F95C0400DD3D32 /* BindableType.swift in Sources */,
+				29D6D07D2983C7F2004EE766 /* SearchAPIRouter.swift in Sources */,
 				29D623F3297C6FE10081E5A7 /* TopComicUC.swift in Sources */,
 				29D5091028F95B9D00DD3D32 /* BaseViewController.swift in Sources */,
 				29EFDF1628FA541B0032CF22 /* GeoLocationApiRouter.swift in Sources */,
@@ -935,6 +969,7 @@
 				29F5589F29763F7C00FE1386 /* ComicModel.swift in Sources */,
 				297FFD4B2979677A00B8AD9A /* ComicCollectionViewCell.swift in Sources */,
 				29A6182D297AAB34004A1993 /* ComicDetailViewController.swift in Sources */,
+				29D6D0832983CE4D004EE766 /* ComicSuggestModel.swift in Sources */,
 				29EFDF1328FA53D50032CF22 /* HomeViewModel.swift in Sources */,
 				2984BD09297AD2B500830956 /* ChapterDetailViewController.swift in Sources */,
 				29D623D0297C2D310081E5A7 /* ChapterModel.swift in Sources */,
@@ -949,6 +984,9 @@
 				29EFDF0228FA42670032CF22 /* GeneratedStrings.swift in Sources */,
 				291E1790293743D400FCAAD9 /* UIColorExtension.swift in Sources */,
 				29D508F628F8FA2000DD3D32 /* APIRequest.swift in Sources */,
+				2905D51329835E5700CC6E72 /* SearchViewModel.swift in Sources */,
+				2905D51029835D5400CC6E72 /* SearchViewController.swift in Sources */,
+				29D6D07F2983C92F004EE766 /* SearchRepo.swift in Sources */,
 				29F5589C2975455600FE1386 /* SwiftSoupService.swift in Sources */,
 				291E178A2937351D00FCAAD9 /* ObservableExtension.swift in Sources */,
 				29AF6833297DB634006DE989 /* ChapterDetailRepo.swift in Sources */,
@@ -974,6 +1012,8 @@
 				29D623EA297C5D830081E5A7 /* CategoryTableViewCell.swift in Sources */,
 				297FFD422979649300B8AD9A /* ComicTableViewCell.swift in Sources */,
 				291E17812937025500FCAAD9 /* WindModel.swift in Sources */,
+				29D6D0812983C991004EE766 /* SearchUC.swift in Sources */,
+				2905D51529835F1A00CC6E72 /* SearchCoordinator.swift in Sources */,
 				293A1B93297EB03900F88B95 /* ChapterImageModel.swift in Sources */,
 				291E17752936011100FCAAD9 /* GeoRepo.swift in Sources */,
 				291E176B2935EB2E00FCAAD9 /* LocalName.swift in Sources */,
@@ -1170,11 +1210,11 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 5BSZ4K6JCL;
+				DEVELOPMENT_TEAM = JYX25W5WKZ;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Base/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen.storyboard;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
@@ -1183,7 +1223,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.Base;
+				PRODUCT_BUNDLE_IDENTIFIER = com.Test.Educa.Base;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -1198,11 +1238,11 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 5BSZ4K6JCL;
+				DEVELOPMENT_TEAM = JYX25W5WKZ;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Base/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen.storyboard;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
@@ -1211,7 +1251,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.Base;
+				PRODUCT_BUNDLE_IDENTIFIER = com.Test.Educa.Base;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;

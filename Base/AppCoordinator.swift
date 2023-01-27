@@ -14,6 +14,7 @@ class AppCoordinator: Coordinator {
     private let navigationController: UINavigationController
     private let tabbarController: UITabBarController
     private var homeCoor: HomeCoordinator?
+    private var searchCoor: SearchCoordinator?
     
     init(window: UIWindow) {
         self.window = window
@@ -30,16 +31,18 @@ class AppCoordinator: Coordinator {
         self.homeCoor = HomeCoordinator(navigator: homeNavigationContoller)
         homeCoor?.start()
         
-        let test1 = UINavigationController(rootViewController: HomeViewController())
-        test1.tabBarItem = UITabBarItem(tabBarSystemItem: .downloads, tag: 1)
+        let searchNavigationContoller = UINavigationController()
+        searchNavigationContoller.tabBarItem = UITabBarItem(tabBarSystemItem: .downloads, tag: 1)
+        self.searchCoor = SearchCoordinator(navigator: searchNavigationContoller)
+        searchCoor?.start()
         
-        let test2 = UINavigationController(rootViewController: HomeViewController())
+        let test2 = UINavigationController(rootViewController: UIViewController())
         test2.tabBarItem = UITabBarItem(tabBarSystemItem: .featured, tag: 2)
         
-        let test3 = UINavigationController(rootViewController: HomeViewController())
+        let test3 = UINavigationController(rootViewController: UIViewController())
         test3.tabBarItem = UITabBarItem(tabBarSystemItem: .favorites, tag: 3)
 
-        tabbarController.setViewControllers( [homeNavigationContoller, test1, test2 ,test3], animated: false)
+        tabbarController.setViewControllers( [homeNavigationContoller, searchNavigationContoller, test2 ,test3], animated: false)
         
         navigationController.setNavigationBarHidden(true, animated: false)
         navigationController.pushViewController(tabbarController, animated: true) // nếu có authen có thể check token ở đây, nếu có thì push vào login

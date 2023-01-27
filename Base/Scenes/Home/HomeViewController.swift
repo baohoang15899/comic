@@ -99,8 +99,6 @@ class HomeViewController: BaseViewController<HomeViewModel> {
 extension HomeViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         switch dataSource?[indexPath.section].type {
-        case .normal:
-            return 200
         case .banner:
             return 250
         default:

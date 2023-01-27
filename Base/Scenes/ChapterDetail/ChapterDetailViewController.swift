@@ -39,7 +39,7 @@ class ChapterDetailViewController: BaseViewController<ChapterDetailViewModel> {
         tableView.sectionHeaderHeight = 0.01
         tableView.separatorStyle = .none
         tableView.showsVerticalScrollIndicator = false
-        tableView.estimatedRowHeight = 1000
+        tableView.estimatedRowHeight = 100
     }
     
     override func bindViewModel() {
@@ -49,7 +49,7 @@ class ChapterDetailViewController: BaseViewController<ChapterDetailViewModel> {
         output.chapterImageOutput
             .drive(tableView.rx.items) { tableView, index, data in
                 let cell = tableView.dequeueReusableCell(type: ChapterImgTableViewCell.self, forIndexPath: IndexPath.init(row: index, section: 0))
-                if let dataImg = data.data {
+                if let dataImg = data.image {
                     cell.configCell(data: dataImg)
                 }
                 return cell
@@ -60,6 +60,13 @@ class ChapterDetailViewController: BaseViewController<ChapterDetailViewModel> {
 
 extension ChapterDetailViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return UITableView.automaticDimension
+        var ratio = 0.0
+        viewModel.chapterImageSubject.subscribe(onNext: { data in
+            let currentImage = data[indexPath.row].image
+            let imageCrop = (currentImage?.size.width ?? 0) / (currentImage?.size.height ?? 0)
+            ratio = (tableView.frame.width * imageCrop) + 200
+        })
+        .disposed(by: bag)
+        return ratio > 400 ? ratio : UITableView.automaticDimension
     }
 }

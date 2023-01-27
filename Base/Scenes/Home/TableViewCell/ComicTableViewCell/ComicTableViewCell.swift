@@ -38,6 +38,7 @@ class ComicTableViewCell: UITableViewCell {
 
     func configCell(data: [ComicModel]) {
         comics = data
+        collectionView.reloadData()
     }
     
 }

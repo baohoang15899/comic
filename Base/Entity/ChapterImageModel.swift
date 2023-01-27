@@ -6,8 +6,9 @@
 //
 
 import Foundation
+import UIKit
 
 struct ChapterImageModel {
-    let data: Data?
+    let image: UIImage?
     let index: Int?
 }

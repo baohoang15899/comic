@@ -10,6 +10,7 @@ import RxSwift
 import RxCocoa
 import Alamofire
 import SwiftSoup
+import UIKit
 
 class Service: APIService {
     
@@ -98,7 +99,7 @@ class APIService {
                     guard let data = response.data else {
                         return single(.failure(APIError.invalidResponseData(data: data)))
                     }
-                    return single(.success(ChapterImageModel(data: data, index: Int(dataIndex))))
+                    return single(.success(ChapterImageModel(image: UIImage(data: data), index: Int(dataIndex))))
                 case .failure(let error):
                     return single(.failure(APIError.error(code: error.responseCode ?? 401, message: error.localizedDescription)))
                 }

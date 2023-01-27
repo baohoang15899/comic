@@ -32,6 +32,12 @@ internal enum L10n {
       internal static let content = L10n.tr("Localizable", "ComicDetail.section.content", fallback: "Nội dung")
     }
   }
+  internal enum Search {
+    /// Nhập tên truyện tranh
+    internal static let placeholder = L10n.tr("Localizable", "Search.placeholder", fallback: "Nhập tên truyện tranh")
+    /// Tìm kiếm
+    internal static let title = L10n.tr("Localizable", "Search.title", fallback: "Tìm kiếm")
+  }
   internal enum Home {
     /// Trang chủ
     internal static let tab = L10n.tr("Localizable", "home.tab", fallback: "Trang chủ")

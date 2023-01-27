@@ -17,6 +17,7 @@
 "home.section.topManga" = "Top manga";
 "home.section.topManhwa" = "Top manhwa";
 "home.section.topManhua" = "Top manhua";
+
 //comic detail
 "ComicDetail.author" = "Tên tác giả: %@";
 "ComicDetail.title" = "Tên truyện: %@";
@@ -24,3 +25,7 @@
 "ComicDetail.section.category" = "Thể loại";
 "ComicDetail.section.content" = "Nội dung";
 "ComicDetail.section.chapter" = "Danh sách chương";
+
+//search
+"Search.title" = "Tìm kiếm";
+"Search.placeholder" = "Nhập tên truyện tranh";

@@ -26,7 +26,7 @@ class ChapterDetailViewModel: BaseViewModel {
     private let chapter: ChapterModel
     private let getChapterImgSubject = BehaviorSubject<[ChapterDetailModel]>.init(value: [])
     private let dowloadImgSubject = PublishSubject<[Data]>()
-    private let chapterImageSubject = BehaviorSubject<[ChapterImageModel]>(value: [])
+    let chapterImageSubject = BehaviorSubject<[ChapterImageModel]>(value: [])
     
     init(chapter: ChapterModel) {
         self.chapter = chapter
@@ -54,6 +54,7 @@ class ChapterDetailViewModel: BaseViewModel {
         }
         
         sortArray.subscribe(onNext: { chapter in
+            print(chapter)
             self.chapterImageSubject.onNext(chapter)
         })
         .disposed(by: bag)

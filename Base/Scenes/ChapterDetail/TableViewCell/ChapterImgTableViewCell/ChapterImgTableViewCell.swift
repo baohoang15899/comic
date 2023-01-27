@@ -14,18 +14,15 @@ class ChapterImgTableViewCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-    }
-    
-    override func layoutSubviews() {
-        super.layoutSubviews()
+        setupUI()
     }
 
     private func setupUI() {
         selectionStyle = .none
     }
 
-    func configCell(data: Data) {
-        chapterImageView.image = UIImage(data: data)
+    func configCell(data: UIImage) {
+        chapterImageView.image = data
     }
     
 }
