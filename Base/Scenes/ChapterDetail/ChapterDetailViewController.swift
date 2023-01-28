@@ -60,13 +60,9 @@ class ChapterDetailViewController: BaseViewController<ChapterDetailViewModel> {
 
 extension ChapterDetailViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        var ratio = 0.0
-        viewModel.chapterImageSubject.subscribe(onNext: { data in
-            let currentImage = data[indexPath.row].image
-            let imageCrop = (currentImage?.size.width ?? 0) / (currentImage?.size.height ?? 0)
-            ratio = (tableView.frame.width * imageCrop) + 200
-        })
-        .disposed(by: bag)
-        return ratio > 400 ? ratio : UITableView.automaticDimension
+        let ratio = viewModel.calulateImgHeight(index: indexPath.row,
+                                                screenRatio: view.frame.height / 2.5,
+                                                frameWidth: tableView.frame.width)
+        return ratio > 0 ? ratio : UITableView.automaticDimension
     }
 }

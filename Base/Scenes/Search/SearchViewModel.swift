@@ -16,9 +16,13 @@ class SearchViewModel: BaseViewModel {
     
     struct Input {
         let searchString: Driver<String>
+        let didSelectItem: Driver<ComicSuggestModel>
     }
     
     struct Output {
+        let comicSuggest: Driver<[ComicSuggestModel]>
+        let selectedItem: Driver<ComicSuggestModel>
+        let comicSuggestIsEmpty: Driver<Bool>
     }
     
     deinit {
@@ -26,12 +30,17 @@ class SearchViewModel: BaseViewModel {
     }
     
     private let bag = DisposeBag()
+    private let comicSuggestSubjectIsEmpty = BehaviorSubject<Bool>(value: true)
 
     func transform(input: Input) -> Output {
-
-        input.searchString
+        
+        let selectedItemOutput = input.didSelectItem
+            .map({ data -> ComicSuggestModel in
+                return data
+            })
+        
+       let comicSuggestOutput = input.searchString
             .asObservable()
-            .filter({!$0.isEmpty})
             .debounce(RxTimeInterval.milliseconds(1000), scheduler: MainScheduler.instance) // Wait 0.5 for changes.
             .distinctUntilChanged()
             .flatMap({ key in
@@ -46,19 +55,20 @@ class SearchViewModel: BaseViewModel {
                     let detailUrl = SwiftSoupService.shared.getAttrFromHtml(element: value, className: "a", attr: "href")
                     let chapter = SwiftSoupService.shared.elementToString(element: value, className: "h4 i")
                     let category = SwiftSoupService.shared.lastSiblingToString(element: value, className: "h4 i")
-                    comicSuggestData.append(ComicSuggestModel(image: image,
-                                                              title: title,
-                                                              category: category,
-                                                              chapter: chapter,
+                    comicSuggestData.append(ComicSuggestModel(image: ComicSuggestModel.getUrlImg(img: image),
+                                                              title: title ?? L10n.Common.Update.empty,
+                                                              category: category ?? L10n.Common.Update.empty,
+                                                              chapter: chapter ?? L10n.Common.Update.empty,
                                                               detailUrl: detailUrl))
                 })
+                self.comicSuggestSubjectIsEmpty.onNext(!comicSuggestData.isEmpty)
                 return comicSuggestData
-            })
-            .subscribe { data in
-                print(data)
-            }
-            .disposed(by: bag)
+            }).asDriver(onErrorJustReturn: [])
         
-        return Output()
+        let comicSuggestIsEmptyOutput = comicSuggestSubjectIsEmpty.skip(1).asDriver(onErrorJustReturn: true)
+        
+        return Output(comicSuggest: comicSuggestOutput,
+                      selectedItem: selectedItemOutput,
+                      comicSuggestIsEmpty: comicSuggestIsEmptyOutput)
     }
 }

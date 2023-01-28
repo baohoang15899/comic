@@ -29,3 +29,10 @@
 //search
 "Search.title" = "Tìm kiếm";
 "Search.placeholder" = "Nhập tên truyện tranh";
+"Search.empty.title" = "Bạn chưa nhập từ khóa tìm kiếm";
+"Search.empty.content" = "Vui lòng nhập từ khóa, hoặc tên truyện bạn muốn tìm kiếm.";
+
+//common
+"Common.update.empty" = "Đang cập nhật";
+
+

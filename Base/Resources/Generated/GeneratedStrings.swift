@@ -32,11 +32,23 @@ internal enum L10n {
       internal static let content = L10n.tr("Localizable", "ComicDetail.section.content", fallback: "Nội dung")
     }
   }
+  internal enum Common {
+    internal enum Update {
+      /// Đang cập nhật
+      internal static let empty = L10n.tr("Localizable", "Common.update.empty", fallback: "Đang cập nhật")
+    }
+  }
   internal enum Search {
     /// Nhập tên truyện tranh
     internal static let placeholder = L10n.tr("Localizable", "Search.placeholder", fallback: "Nhập tên truyện tranh")
     /// Tìm kiếm
     internal static let title = L10n.tr("Localizable", "Search.title", fallback: "Tìm kiếm")
+    internal enum Empty {
+      /// Vui lòng nhập từ khóa, hoặc tên truyện bạn muốn tìm kiếm.
+      internal static let content = L10n.tr("Localizable", "Search.empty.content", fallback: "Vui lòng nhập từ khóa, hoặc tên truyện bạn muốn tìm kiếm.")
+      /// Bạn chưa nhập từ khóa tìm kiếm
+      internal static let title = L10n.tr("Localizable", "Search.empty.title", fallback: "Bạn chưa nhập từ khóa tìm kiếm")
+    }
   }
   internal enum Home {
     /// Trang chủ

@@ -16,6 +16,11 @@ class SearchViewController: BaseViewController<SearchViewModel> {
     
     @IBOutlet weak var tabbarHeaderBaseView: TabbarHeaderBaseView!
     @IBOutlet weak var searchTextField: UITextField!
+    @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var wrapperView: UIView!
+    @IBOutlet weak var emptyStackView: UIStackView!
+    @IBOutlet weak var emptyContentLabel: UILabel!
+    @IBOutlet weak var emptyTitleLabel: UILabel!
     
     weak var routesDelegate: SearchRoutes?
     
@@ -37,19 +42,55 @@ class SearchViewController: BaseViewController<SearchViewModel> {
     
     private func setupUI() {
          let tap = UITapGestureRecognizer(target: self, action: #selector(UIInputViewController.dismissKeyboard))
-        view.addGestureRecognizer(tap)
+        tap.cancelsTouchesInView = false
+        wrapperView.addGestureRecognizer(tap)
+        
         tabbarHeaderBaseView.configView(title: L10n.Search.title)
         searchTextField.placeholder = L10n.Search.placeholder
         searchTextField.delegate = self
+        searchTextField.clearButtonMode = .always
+        
+        tableView.sectionFooterHeight = 0.01
+        tableView.sectionHeaderHeight = 0.01
+        tableView.separatorStyle = .none
+        tableView.showsVerticalScrollIndicator = false
+        tableView.delegate = self
+        tableView.registerCell(type: ComicSuggestTableViewCell.self)
+        
+        emptyTitleLabel.text = L10n.Search.Empty.title
+        emptyContentLabel.text = L10n.Search.Empty.content
+        emptyTitleLabel.font = UIFont.systemFont(ofSize: 18, weight: .bold)
+        emptyContentLabel.font = UIFont.systemFont(ofSize: 14, weight: .regular)
     }
     
     @objc func dismissKeyboard() {
-        view.endEditing(true)
+        wrapperView.endEditing(true)
     }
     
     override func bindViewModel() {
-        let input = SearchViewModel.Input(searchString: searchTextField.rx.text.orEmpty.asDriver())
+        let input = SearchViewModel.Input(searchString: searchTextField.rx.text.orEmpty.asDriver(),
+                                          didSelectItem: tableView.rx.modelSelected(ComicSuggestModel.self).asDriver())
         let output = viewModel.transform(input: input)
+        
+        output.comicSuggest
+            .drive(tableView.rx.items) { tableView, index, data in
+                let cell = tableView.dequeueReusableCell(type: ComicSuggestTableViewCell.self, forIndexPath: IndexPath.init(row: index, section: 0))
+                cell.configCell(data: data)
+                return cell
+            }
+            .disposed(by: bag)
+        
+        output.selectedItem
+            .drive { [weak self] data in
+                self?.routesDelegate?.navigateToComicDetail(comicDetailUrl: data.detailUrl ?? "",
+                                                                        title: data.title ?? "")
+            }
+            .disposed(by: bag)
+        
+        output.comicSuggestIsEmpty
+            .drive(emptyStackView.rx.isHidden)
+            .disposed(by: bag)
+
     }
 }
 
@@ -62,4 +103,12 @@ extension SearchViewController: UITextFieldDelegate {
            return true
      }
     
+}
+
+extension SearchViewController: UITableViewDelegate {
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 130
+    }
+
 }

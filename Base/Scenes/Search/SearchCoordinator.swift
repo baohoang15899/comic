@@ -13,13 +13,13 @@ import UIKit
 
 // khai báo các phương thức điều hướng
 protocol SearchRoutes: AnyObject {
-    func navigateExample1()
+    func navigateToComicDetail(comicDetailUrl: String, title: String)
 }
 
 class SearchCoordinator: Coordinator {
    
     private var navigator: UINavigationController
-//    private var ex1Coordinator: Example1Coordinator? // khai báo coordinator cần đổi nếu có
+    private var ComicCoordinator: ComicDetailCoordinator?
 
     init(navigator: UINavigationController) {
         self.navigator = navigator
@@ -37,10 +37,11 @@ class SearchCoordinator: Coordinator {
 // logic các phương thức điều hướng
 extension SearchCoordinator: SearchRoutes {
     // chuyển coordinator thì làm như dưới, điều hướng các màn thuộc coordinator thì push bình thường
-    func navigateExample1() {
-//        let ex1Coordinator = Example1Coordinator(navigator: navigator)
-//        ex1Coordinator.start()
-//        self.ex1Coordinator = ex1Coordinator
+    func navigateToComicDetail(comicDetailUrl: String, title: String) {
+        let comicDetailCoordinator = ComicDetailCoordinator(navigator: navigator,
+                                                            comicDetailUrl: comicDetailUrl,
+                                                            title: title)
+        comicDetailCoordinator.start()
+        self.ComicCoordinator = comicDetailCoordinator
     }
-    
 }

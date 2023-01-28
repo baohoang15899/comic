@@ -26,7 +26,8 @@ class ChapterDetailViewModel: BaseViewModel {
     private let chapter: ChapterModel
     private let getChapterImgSubject = BehaviorSubject<[ChapterDetailModel]>.init(value: [])
     private let dowloadImgSubject = PublishSubject<[Data]>()
-    let chapterImageSubject = BehaviorSubject<[ChapterImageModel]>(value: [])
+    private var chapterDetail: [ChapterImageModel] = []
+    private let chapterImageSubject = BehaviorSubject<[ChapterImageModel]>(value: [])
     
     init(chapter: ChapterModel) {
         self.chapter = chapter
@@ -35,13 +36,7 @@ class ChapterDetailViewModel: BaseViewModel {
     deinit {
         print("vm deinit")
     }
-    
- 
-//    private func getChapterImages(data: [ChapterDetailModel]) {
-//
-//    }
-    
-    
+
     private func getChapterImages(data: [ChapterDetailModel]){
         let allObservables = data.map { RepoFactory.ChapterDetailRepo().getChapterImg(chapter: $0) }
         
@@ -54,20 +49,23 @@ class ChapterDetailViewModel: BaseViewModel {
         }
         
         sortArray.subscribe(onNext: { chapter in
-            print(chapter)
+            self.chapterDetail = chapter
             self.chapterImageSubject.onNext(chapter)
         })
         .disposed(by: bag)
-        
-//        all.asObservable().subscribe(onNext: { chapter in
-//            self.chapterImageSubject.onNext(chapter)
-//        })
-//            .disposed(by: bag)
-//        all.asObservable().subscribe(onNext: { data in
-//            self.chapterImageSubject.onNext(data)
-//        })
-//        .disposed(by: bag)
-
+    }
+    
+    func calulateImgHeight(index: Int, screenRatio: CGFloat, frameWidth: CGFloat) -> CGFloat {
+        var ratio = 0.0
+        if (index > 0 && index < chapterDetail.count) {
+            let currentImage = chapterDetail[index].image
+            if let imgHeight = currentImage?.size.height, let imgWidth = currentImage?.size.width {
+                let imageCrop = imgWidth / imgHeight
+                print(imageCrop)
+                ratio = (frameWidth * (imageCrop < 0.4 ? 1.5 : imageCrop)) + screenRatio
+            }
+        }
+        return ratio
     }
     
     func transform(input: Input) -> Output {
