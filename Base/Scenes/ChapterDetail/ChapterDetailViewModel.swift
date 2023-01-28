@@ -61,7 +61,6 @@ class ChapterDetailViewModel: BaseViewModel {
             let currentImage = chapterDetail[index].image
             if let imgHeight = currentImage?.size.height, let imgWidth = currentImage?.size.width {
                 let imageCrop = imgWidth / imgHeight
-                print(imageCrop)
                 ratio = (frameWidth * (imageCrop < 0.4 ? 1.5 : imageCrop)) + screenRatio
             }
         }

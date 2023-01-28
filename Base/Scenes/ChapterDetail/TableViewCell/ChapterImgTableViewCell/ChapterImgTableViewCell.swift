@@ -16,6 +16,11 @@ class ChapterImgTableViewCell: UITableViewCell {
         super.awakeFromNib()
         setupUI()
     }
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        chapterImageView.image = nil
+    }
 
     private func setupUI() {
         selectionStyle = .none

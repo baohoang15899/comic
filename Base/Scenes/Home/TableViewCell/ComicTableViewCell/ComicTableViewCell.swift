@@ -37,7 +37,7 @@ class ComicTableViewCell: UITableViewCell {
     }
 
     func configCell(data: [ComicModel]) {
-        collectionView.reloadData()
+        self.collectionView.reloadData()
         comics = data
     }
     
@@ -46,7 +46,7 @@ class ComicTableViewCell: UITableViewCell {
 extension ComicTableViewCell: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return Array(comics[0...18]).count
+        return Array(comics[0...9]).count
     }
     
     
