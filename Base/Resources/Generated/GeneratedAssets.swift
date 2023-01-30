@@ -25,7 +25,9 @@ internal enum Asset {
   internal enum Colors {
   }
   internal enum Images {
-    internal static let image = ImageAsset(name: "Image")
+    internal enum ComicDetail {
+      internal static let icComicDetailSetting = ImageAsset(name: "ic_comicDetail_setting")
+    }
   }
 }
 // swiftlint:enable identifier_name line_length nesting type_body_length type_name

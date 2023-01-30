@@ -23,6 +23,22 @@ internal enum L10n {
     internal static func title(_ p1: Any) -> String {
       return L10n.tr("Localizable", "ComicDetail.title", String(describing: p1), fallback: "Tên truyện: %@")
     }
+    internal enum Btn {
+      /// Chọn chất lượng ảnh
+      internal static let imgQuality = L10n.tr("Localizable", "ComicDetail.btn.imgQuality", fallback: "Chọn chất lượng ảnh")
+    }
+    internal enum Quality {
+      /// Ảnh chất lượng cao
+      internal static let high = L10n.tr("Localizable", "ComicDetail.quality.high", fallback: "Ảnh chất lượng cao")
+      /// Ảnh chất lượng cao nhất
+      internal static let highest = L10n.tr("Localizable", "ComicDetail.quality.highest", fallback: "Ảnh chất lượng cao nhất")
+      /// Ảnh chất lượng thấp
+      internal static let low = L10n.tr("Localizable", "ComicDetail.quality.low", fallback: "Ảnh chất lượng thấp")
+      /// Ảnh chất lượng thấp nhất
+      internal static let lowest = L10n.tr("Localizable", "ComicDetail.quality.lowest", fallback: "Ảnh chất lượng thấp nhất")
+      /// Ảnh chất lượng trung bình
+      internal static let medium = L10n.tr("Localizable", "ComicDetail.quality.medium", fallback: "Ảnh chất lượng trung bình")
+    }
     internal enum Section {
       /// Thể loại
       internal static let category = L10n.tr("Localizable", "ComicDetail.section.category", fallback: "Thể loại")

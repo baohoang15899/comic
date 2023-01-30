@@ -15,8 +15,12 @@ import RxCocoa
 class ChapterDetailViewController: BaseViewController<ChapterDetailViewModel> {
     
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var imgQualityPickerView: UIPickerView!
+    @IBOutlet weak var pickerWrapperView: UIView!
+    @IBOutlet weak var pickerToolBar: UIToolbar!
     
     private let bag = DisposeBag()
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,6 +30,10 @@ class ChapterDetailViewController: BaseViewController<ChapterDetailViewModel> {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.setNavigationBarHidden(false, animated: animated)
+        navigationItem.rightBarButtonItem = UIBarButtonItem(image: Asset.Images.ComicDetail.icComicDetailSetting.image,
+                                                            style: .plain,
+                                                            target: self,
+                                                            action: #selector(showPickerView))
     }
     
     deinit {
@@ -40,22 +48,52 @@ class ChapterDetailViewController: BaseViewController<ChapterDetailViewModel> {
         tableView.separatorStyle = .none
         tableView.showsVerticalScrollIndicator = false
         tableView.estimatedRowHeight = 100
+        setupPickerView()
+    }
+    
+    private func setupPickerView() {
+        let flexSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+        let done: UIBarButtonItem = UIBarButtonItem(title: "Done", style: .done, target: self, action: #selector(self.hidePickerView))
+        pickerToolBar.items = [flexSpace, done]
+        pickerWrapperView.alpha = 0.0
     }
     
     override func bindViewModel() {
-        let input = ChapterDetailViewModel.Input(getChapterDetail: Driver.just(()))
+        let input = ChapterDetailViewModel.Input(getChapterDetail: Driver.just(()),
+                                                 getImgQualityRows: Driver.just(()),
+                                                 didSelectedItem: imgQualityPickerView.rx.itemSelected.asDriver())
+        
         let output = viewModel.transform(input: input)
         
         output.chapterImageOutput
-            .drive(tableView.rx.items) { tableView, index, data in
+            .drive(tableView.rx.items) {[weak self] tableView, index, data in
                 let cell = tableView.dequeueReusableCell(type: ChapterImgTableViewCell.self, forIndexPath: IndexPath.init(row: index, section: 0))
-                if let dataImg = data.image {
-                    cell.configCell(data: dataImg)
+                if let dataImg = data.image, let quality = self?.viewModel.imgQuality {
+                    cell.configCell(data: dataImg, quality: quality)
                 }
                 return cell
             }
             .disposed(by: bag)
+        
+        output.imgQualityRows
+            .drive(imgQualityPickerView.rx.itemTitles) { (row, element) in
+                return element.title ?? ""
+            }
+            .disposed(by: bag)
     }
+    
+    @objc func hidePickerView() {
+        UIView.animate(withDuration: 0.2, delay: 0, animations: {
+            self.pickerWrapperView.alpha = 0
+            }, completion: nil)
+    }
+    
+    @objc func showPickerView() {
+        UIView.animate(withDuration: 0.2, delay: 0, animations: {
+            self.pickerWrapperView.alpha = 1
+            }, completion: nil)
+    }
+    
 }
 
 extension ChapterDetailViewController: UITableViewDelegate {

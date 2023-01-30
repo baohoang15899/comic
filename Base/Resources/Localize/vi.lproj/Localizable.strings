@@ -23,6 +23,12 @@
 "ComicDetail.section.category" = "Thể loại";
 "ComicDetail.section.content" = "Nội dung";
 "ComicDetail.section.chapter" = "Danh sách chương";
+"ComicDetail.btn.imgQuality" = "Chọn chất lượng ảnh";
+"ComicDetail.quality.lowest" = "Ảnh chất lượng thấp nhất";
+"ComicDetail.quality.low" = "Ảnh chất lượng thấp";
+"ComicDetail.quality.medium" = "Ảnh chất lượng trung bình";
+"ComicDetail.quality.high" = "Ảnh chất lượng cao";
+"ComicDetail.quality.highest" = "Ảnh chất lượng cao nhất";
 
 //search
 "Search.title" = "Tìm kiếm";

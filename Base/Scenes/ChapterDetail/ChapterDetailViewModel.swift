@@ -16,10 +16,13 @@ class ChapterDetailViewModel: BaseViewModel {
     
     struct Input {
         let getChapterDetail: Driver<Void>
+        let getImgQualityRows: Driver<Void>
+        let didSelectedItem: Driver<(row: Int, component: Int)>
     }
     
     struct Output {
         let chapterImageOutput: Driver<[ChapterImageModel]>
+        let imgQualityRows: Driver<[ImageQualityModel]>
     }
     
     private let bag = DisposeBag()
@@ -28,6 +31,9 @@ class ChapterDetailViewModel: BaseViewModel {
     private let dowloadImgSubject = PublishSubject<[Data]>()
     private var chapterDetail: [ChapterImageModel] = []
     private let chapterImageSubject = BehaviorSubject<[ChapterImageModel]>(value: [])
+    private let startGetChapterImgSubject = PublishSubject<Void>()
+    
+    var imgQuality: JPEGQuality = .medium
     
     init(chapter: ChapterModel) {
         self.chapter = chapter
@@ -69,43 +75,61 @@ class ChapterDetailViewModel: BaseViewModel {
     
     func transform(input: Input) -> Output {
         
-        input.getChapterDetail
-            .asObservable()
-            .flatMap { _ in
-                return RepoFactory.ChapterDetailRepo().getDetailChapter(urlStrPath: self.chapter.chapterUrl ?? "")
+        startGetChapterImgSubject
+            .flatMapLatest { [weak self] _ in
+                return RepoFactory.ChapterDetailRepo().getDetailChapter(urlStrPath: self?.chapter.chapterUrl ?? "")
             }
             .map({ data -> [ChapterDetailModel] in
                 let results = SwiftSoupService.shared.getAllElements(document: data,
                                                                      className: "main div.reading-detail.box_doc div.page-chapter")
-            
-                
+
+
                 let chapters: [ChapterDetailModel] = results?.map({ value -> ChapterDetailModel in
-    
+
                     let img = SwiftSoupService.shared.getAttrFromHtml(element: value, className: "img", attr: "data-original")
                     let dataIndex = SwiftSoupService.shared.getAttrFromHtml(element: value, className: "img", attr: "data-index")
                     return ChapterDetailModel(url: ChapterDetailModel.getUrlImg(img: img), dataIndex: dataIndex)
                 }) ?? []
-                
+
                 return chapters
             })
-            .subscribe(onNext: { data in
-                self.getChapterImages(data: data)
+            .subscribe(onNext: { [weak self] data in
+                self?.getChapterImages(data: data)
             })
             .disposed(by: bag)
         
-        // không thể deinit nếu sử dụng hàm được khởi tạo trong local, phải dùng weak self mới có thể deinit
-//        getChapterImgSubject
-//            .flatMap({ data in
-//                return self.getChapterImages(data: data)
-//            })
-//            .subscribe(onNext: { data in
-//                self.getChapterImages(data: data)
-//                self.test()
-//            })
-//            .disposed(by: bag)
+        let imgQualityRowsOutput = input.getImgQualityRows
+            .map { _ -> [ImageQualityModel] in
+                let data: [ImageQualityModel] = [
+                    ImageQualityModel(title: L10n.ComicDetail.Quality.lowest, quality: .lowest),
+                    ImageQualityModel(title: L10n.ComicDetail.Quality.low, quality: .low),
+                    ImageQualityModel(title: L10n.ComicDetail.Quality.medium, quality: .medium),
+                    ImageQualityModel(title: L10n.ComicDetail.Quality.high, quality: .high),
+                    ImageQualityModel(title: L10n.ComicDetail.Quality.highest, quality: .highest),
+                ]
+                return data
+            }
+        
+        input.didSelectedItem
+             .asObservable()
+             .withLatestFrom(imgQualityRowsOutput) { pickerData, imgQuality in
+                 return imgQuality[pickerData.row]
+             }
+             .subscribe(onNext: { data in
+                 self.imgQuality = data.quality ?? .medium
+                 self.startGetChapterImgSubject.onNext(())
+             })
+             .disposed(by: bag)
+        
+        input.getChapterDetail
+            .asObservable()
+            .subscribe(onNext: { data in
+                self.startGetChapterImgSubject.onNext(())
+            })
+            .disposed(by: bag)
 
         let chapterImageOutput = chapterImageSubject.asDriver(onErrorJustReturn: [])
         
-        return Output(chapterImageOutput: chapterImageOutput)
+        return Output(chapterImageOutput: chapterImageOutput, imgQualityRows: imgQualityRowsOutput)
     }
 }

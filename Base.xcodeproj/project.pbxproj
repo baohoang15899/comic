@@ -53,6 +53,7 @@
 		2984BD0A297AD2B500830956 /* ChapterDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2984BD08297AD2B500830956 /* ChapterDetailViewController.xib */; };
 		2984BD0C297AD2CE00830956 /* ChapterDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2984BD0B297AD2CE00830956 /* ChapterDetailViewModel.swift */; };
 		299265922987516E0094EB0C /* UIImageExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 299265912987516E0094EB0C /* UIImageExtension.swift */; };
+		299265942987AB7E0094EB0C /* ImageQualityModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 299265932987AB7E0094EB0C /* ImageQualityModel.swift */; };
 		29A6182D297AAB34004A1993 /* ComicDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29A6182B297AAB34004A1993 /* ComicDetailViewController.swift */; };
 		29A6182E297AAB34004A1993 /* ComicDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 29A6182C297AAB34004A1993 /* ComicDetailViewController.xib */; };
 		29A61830297AABFE004A1993 /* ComicDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29A6182F297AABFE004A1993 /* ComicDetailViewModel.swift */; };
@@ -182,6 +183,7 @@
 		2984BD08297AD2B500830956 /* ChapterDetailViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ChapterDetailViewController.xib; sourceTree = "<group>"; };
 		2984BD0B297AD2CE00830956 /* ChapterDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChapterDetailViewModel.swift; sourceTree = "<group>"; };
 		299265912987516E0094EB0C /* UIImageExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImageExtension.swift; sourceTree = "<group>"; };
+		299265932987AB7E0094EB0C /* ImageQualityModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageQualityModel.swift; sourceTree = "<group>"; };
 		29A6182B297AAB34004A1993 /* ComicDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComicDetailViewController.swift; sourceTree = "<group>"; };
 		29A6182C297AAB34004A1993 /* ComicDetailViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ComicDetailViewController.xib; sourceTree = "<group>"; };
 		29A6182F297AABFE004A1993 /* ComicDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComicDetailViewModel.swift; sourceTree = "<group>"; };
@@ -774,6 +776,7 @@
 				29AF6836297DB8CD006DE989 /* ChapterDetailModel.swift */,
 				293A1B92297EB03900F88B95 /* ChapterImageModel.swift */,
 				29D6D0822983CE4D004EE766 /* ComicSuggestModel.swift */,
+				299265932987AB7E0094EB0C /* ImageQualityModel.swift */,
 			);
 			path = Entity;
 			sourceTree = "<group>";
@@ -987,6 +990,7 @@
 				29EFDF1628FA541B0032CF22 /* GeoLocationApiRouter.swift in Sources */,
 				29D623C8297C02760081E5A7 /* ComicDetailAPIRouter.swift in Sources */,
 				29A61832297AAC20004A1993 /* ComicDetailCoordinator.swift in Sources */,
+				299265942987AB7E0094EB0C /* ImageQualityModel.swift in Sources */,
 				29D623E6297C5C6B0081E5A7 /* LeftAlignFlowLayout.swift in Sources */,
 				29EFDF1128FA53D50032CF22 /* HomeViewController.swift in Sources */,
 				291E17922937443C00FCAAD9 /* NibExtension.swift in Sources */,

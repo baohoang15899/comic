@@ -26,8 +26,8 @@ class ChapterImgTableViewCell: UITableViewCell {
         selectionStyle = .none
     }
 
-    func configCell(data: UIImage) {
-        if let image = data.jpeg(.high) {
+    func configCell(data: UIImage, quality: JPEGQuality) {
+        if let image = data.jpeg(quality) {
             chapterImageView.image = UIImage(data: image)
         }
     }
