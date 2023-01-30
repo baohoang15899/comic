@@ -52,6 +52,7 @@
 		2984BD09297AD2B500830956 /* ChapterDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2984BD07297AD2B500830956 /* ChapterDetailViewController.swift */; };
 		2984BD0A297AD2B500830956 /* ChapterDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2984BD08297AD2B500830956 /* ChapterDetailViewController.xib */; };
 		2984BD0C297AD2CE00830956 /* ChapterDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2984BD0B297AD2CE00830956 /* ChapterDetailViewModel.swift */; };
+		299265922987516E0094EB0C /* UIImageExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 299265912987516E0094EB0C /* UIImageExtension.swift */; };
 		29A6182D297AAB34004A1993 /* ComicDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29A6182B297AAB34004A1993 /* ComicDetailViewController.swift */; };
 		29A6182E297AAB34004A1993 /* ComicDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 29A6182C297AAB34004A1993 /* ComicDetailViewController.xib */; };
 		29A61830297AABFE004A1993 /* ComicDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29A6182F297AABFE004A1993 /* ComicDetailViewModel.swift */; };
@@ -180,6 +181,7 @@
 		2984BD07297AD2B500830956 /* ChapterDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChapterDetailViewController.swift; sourceTree = "<group>"; };
 		2984BD08297AD2B500830956 /* ChapterDetailViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ChapterDetailViewController.xib; sourceTree = "<group>"; };
 		2984BD0B297AD2CE00830956 /* ChapterDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChapterDetailViewModel.swift; sourceTree = "<group>"; };
+		299265912987516E0094EB0C /* UIImageExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImageExtension.swift; sourceTree = "<group>"; };
 		29A6182B297AAB34004A1993 /* ComicDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComicDetailViewController.swift; sourceTree = "<group>"; };
 		29A6182C297AAB34004A1993 /* ComicDetailViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ComicDetailViewController.xib; sourceTree = "<group>"; };
 		29A6182F297AABFE004A1993 /* ComicDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComicDetailViewModel.swift; sourceTree = "<group>"; };
@@ -338,6 +340,7 @@
 				291E178F293743D400FCAAD9 /* UIColorExtension.swift */,
 				291E17912937443C00FCAAD9 /* NibExtension.swift */,
 				297FFD4D29796CD200B8AD9A /* UIViewExtension.swift */,
+				299265912987516E0094EB0C /* UIImageExtension.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -1006,6 +1009,7 @@
 				291E1785293705A900FCAAD9 /* RainModel.swift in Sources */,
 				29D5090E28F95B4D00DD3D32 /* BaseViewModel.swift in Sources */,
 				29EFDF0228FA42670032CF22 /* GeneratedStrings.swift in Sources */,
+				299265922987516E0094EB0C /* UIImageExtension.swift in Sources */,
 				291E1790293743D400FCAAD9 /* UIColorExtension.swift in Sources */,
 				29D508F628F8FA2000DD3D32 /* APIRequest.swift in Sources */,
 				2905D51329835E5700CC6E72 /* SearchViewModel.swift in Sources */,

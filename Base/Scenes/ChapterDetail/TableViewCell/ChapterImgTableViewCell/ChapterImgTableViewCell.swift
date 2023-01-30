@@ -27,7 +27,9 @@ class ChapterImgTableViewCell: UITableViewCell {
     }
 
     func configCell(data: UIImage) {
-        chapterImageView.image = data
+        if let image = data.jpeg(.high) {
+            chapterImageView.image = UIImage(data: image)
+        }
     }
     
 }
