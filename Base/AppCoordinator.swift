@@ -15,6 +15,7 @@ class AppCoordinator: Coordinator {
     private let tabbarController: UITabBarController
     private var homeCoor: HomeCoordinator?
     private var searchCoor: SearchCoordinator?
+    private var categoryCoor: CategoryCoordinator?
     
     init(window: UIWindow) {
         self.window = window
@@ -36,13 +37,19 @@ class AppCoordinator: Coordinator {
         self.searchCoor = SearchCoordinator(navigator: searchNavigationContoller)
         searchCoor?.start()
         
-        let test2 = UINavigationController(rootViewController: UIViewController())
-        test2.tabBarItem = UITabBarItem(tabBarSystemItem: .featured, tag: 2)
+        let categoryNavigationContoller = UINavigationController()
+        categoryNavigationContoller.tabBarItem = UITabBarItem(tabBarSystemItem: .featured, tag: 2)
+        self.categoryCoor = CategoryCoordinator(navigator: categoryNavigationContoller)
+        categoryCoor?.start()
         
         let test3 = UINavigationController(rootViewController: UIViewController())
         test3.tabBarItem = UITabBarItem(tabBarSystemItem: .favorites, tag: 3)
 
-        tabbarController.setViewControllers( [homeNavigationContoller, searchNavigationContoller, test2 ,test3], animated: false)
+        tabbarController.setViewControllers([homeNavigationContoller,
+                                              searchNavigationContoller,
+                                              categoryNavigationContoller ,
+                                              test3],
+                                             animated: false)
         
         navigationController.setNavigationBarHidden(true, animated: false)
         navigationController.pushViewController(tabbarController, animated: true) // nếu có authen có thể check token ở đây, nếu có thì push vào login

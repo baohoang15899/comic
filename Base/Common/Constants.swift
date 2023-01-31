@@ -28,6 +28,7 @@ struct nettruyenPath {
     static let manhwa = "tim-truyen/manhwa-11400"
     static let manhua = "tim-truyen/manhua"
     static let search = "Comic/Services/SuggestSearch.ashx"
+    static let all = "tim-truyen"
 }
 
 struct WeatherCaculate {

@@ -104,3 +104,8 @@ extension ChapterDetailViewController: UITableViewDelegate {
         return ratio > 0 ? ratio : 1
     }
 }
+extension SharedSequenceConvertibleType {
+    func mapToVoid() -> SharedSequence<SharingStrategy, Void> {
+        return map { _ in }
+    }
+}

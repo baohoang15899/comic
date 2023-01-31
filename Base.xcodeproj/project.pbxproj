@@ -54,6 +54,11 @@
 		2984BD0C297AD2CE00830956 /* ChapterDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2984BD0B297AD2CE00830956 /* ChapterDetailViewModel.swift */; };
 		299265922987516E0094EB0C /* UIImageExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 299265912987516E0094EB0C /* UIImageExtension.swift */; };
 		299265942987AB7E0094EB0C /* ImageQualityModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 299265932987AB7E0094EB0C /* ImageQualityModel.swift */; };
+		299265982988F03C0094EB0C /* CategoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 299265962988F03B0094EB0C /* CategoryViewController.swift */; };
+		299265992988F03C0094EB0C /* CategoryViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 299265972988F03B0094EB0C /* CategoryViewController.xib */; };
+		2992659B2988F0520094EB0C /* CategoryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2992659A2988F0520094EB0C /* CategoryViewModel.swift */; };
+		2992659D2988F06B0094EB0C /* CategoryCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2992659C2988F06B0094EB0C /* CategoryCoordinator.swift */; };
+		2992659F2988F2C80094EB0C /* CategoryAPIRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2992659E2988F2C80094EB0C /* CategoryAPIRouter.swift */; };
 		29A6182D297AAB34004A1993 /* ComicDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29A6182B297AAB34004A1993 /* ComicDetailViewController.swift */; };
 		29A6182E297AAB34004A1993 /* ComicDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 29A6182C297AAB34004A1993 /* ComicDetailViewController.xib */; };
 		29A61830297AABFE004A1993 /* ComicDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29A6182F297AABFE004A1993 /* ComicDetailViewModel.swift */; };
@@ -184,6 +189,11 @@
 		2984BD0B297AD2CE00830956 /* ChapterDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChapterDetailViewModel.swift; sourceTree = "<group>"; };
 		299265912987516E0094EB0C /* UIImageExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImageExtension.swift; sourceTree = "<group>"; };
 		299265932987AB7E0094EB0C /* ImageQualityModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageQualityModel.swift; sourceTree = "<group>"; };
+		299265962988F03B0094EB0C /* CategoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryViewController.swift; sourceTree = "<group>"; };
+		299265972988F03B0094EB0C /* CategoryViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CategoryViewController.xib; sourceTree = "<group>"; };
+		2992659A2988F0520094EB0C /* CategoryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryViewModel.swift; sourceTree = "<group>"; };
+		2992659C2988F06B0094EB0C /* CategoryCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryCoordinator.swift; sourceTree = "<group>"; };
+		2992659E2988F2C80094EB0C /* CategoryAPIRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryAPIRouter.swift; sourceTree = "<group>"; };
 		29A6182B297AAB34004A1993 /* ComicDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComicDetailViewController.swift; sourceTree = "<group>"; };
 		29A6182C297AAB34004A1993 /* ComicDetailViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ComicDetailViewController.xib; sourceTree = "<group>"; };
 		29A6182F297AABFE004A1993 /* ComicDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComicDetailViewModel.swift; sourceTree = "<group>"; };
@@ -304,6 +314,7 @@
 		291E1771293600D200FCAAD9 /* Domain */ = {
 			isa = PBXGroup;
 			children = (
+				29F5589D29763F5700FE1386 /* Entities */,
 				291E1773293600F500FCAAD9 /* Repo */,
 				291E1772293600EB00FCAAD9 /* UseCase */,
 				291E17762936014200FCAAD9 /* RepoFactory.swift */,
@@ -459,6 +470,24 @@
 			path = ChapterDetail;
 			sourceTree = "<group>";
 		};
+		299265952988F0110094EB0C /* Category */ = {
+			isa = PBXGroup;
+			children = (
+				299265962988F03B0094EB0C /* CategoryViewController.swift */,
+				299265972988F03B0094EB0C /* CategoryViewController.xib */,
+				2992659A2988F0520094EB0C /* CategoryViewModel.swift */,
+				2992659C2988F06B0094EB0C /* CategoryCoordinator.swift */,
+			);
+			path = Category;
+			sourceTree = "<group>";
+		};
+		299265A0298904F60094EB0C /* Platform */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Platform;
+			sourceTree = "<group>";
+		};
 		29A6182A297AAB06004A1993 /* ComicDetail */ = {
 			isa = PBXGroup;
 			children = (
@@ -513,8 +542,8 @@
 		29D508B928F8EF5B00DD3D32 /* Base */ = {
 			isa = PBXGroup;
 			children = (
+				299265A0298904F60094EB0C /* Platform */,
 				297FFD3229795DE200B8AD9A /* BaseUIComponent */,
-				29F5589D29763F5700FE1386 /* Entity */,
 				291E17882937350900FCAAD9 /* Extension */,
 				291E1771293600D200FCAAD9 /* Domain */,
 				29EFDEF128FA408A0032CF22 /* Resources */,
@@ -571,6 +600,7 @@
 				29D623C7297C02760081E5A7 /* ComicDetailAPIRouter.swift */,
 				29AF6830297DB51E006DE989 /* ChapterDetailAPIRouter.swift */,
 				29D6D07C2983C7F2004EE766 /* SearchAPIRouter.swift */,
+				2992659E2988F2C80094EB0C /* CategoryAPIRouter.swift */,
 			);
 			path = Router;
 			sourceTree = "<group>";
@@ -613,6 +643,7 @@
 		29D5091328F95D6600DD3D32 /* Scenes */ = {
 			isa = PBXGroup;
 			children = (
+				299265952988F0110094EB0C /* Category */,
 				2905D50D29835D3400CC6E72 /* Search */,
 				2984BD06297AD26B00830956 /* ChapterDetail */,
 				29A6182A297AAB06004A1993 /* ComicDetail */,
@@ -767,7 +798,7 @@
 			path = Home;
 			sourceTree = "<group>";
 		};
-		29F5589D29763F5700FE1386 /* Entity */ = {
+		29F5589D29763F5700FE1386 /* Entities */ = {
 			isa = PBXGroup;
 			children = (
 				29F5589E29763F7C00FE1386 /* ComicModel.swift */,
@@ -778,7 +809,7 @@
 				29D6D0822983CE4D004EE766 /* ComicSuggestModel.swift */,
 				299265932987AB7E0094EB0C /* ImageQualityModel.swift */,
 			);
-			path = Entity;
+			path = Entities;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -921,6 +952,7 @@
 				297FFD432979649300B8AD9A /* ComicTableViewCell.xib in Resources */,
 				2905D51129835D5400CC6E72 /* SearchViewController.xib in Resources */,
 				2973312A2982187B00624B94 /* Colors.xcassets in Resources */,
+				299265992988F03C0094EB0C /* CategoryViewController.xib in Resources */,
 				29EFDF1428FA53D50032CF22 /* HomeViewController.xib in Resources */,
 				29D623EB297C5D830081E5A7 /* CategoryTableViewCell.xib in Resources */,
 				29A6182E297AAB34004A1993 /* ComicDetailViewController.xib in Resources */,
@@ -987,6 +1019,7 @@
 				29D6D07D2983C7F2004EE766 /* SearchAPIRouter.swift in Sources */,
 				29D623F3297C6FE10081E5A7 /* TopComicUC.swift in Sources */,
 				29D5091028F95B9D00DD3D32 /* BaseViewController.swift in Sources */,
+				2992659B2988F0520094EB0C /* CategoryViewModel.swift in Sources */,
 				29EFDF1628FA541B0032CF22 /* GeoLocationApiRouter.swift in Sources */,
 				29D623C8297C02760081E5A7 /* ComicDetailAPIRouter.swift in Sources */,
 				29A61832297AAC20004A1993 /* ComicDetailCoordinator.swift in Sources */,
@@ -1012,9 +1045,11 @@
 				297FFD4E29796CD200B8AD9A /* UIViewExtension.swift in Sources */,
 				291E1785293705A900FCAAD9 /* RainModel.swift in Sources */,
 				29D5090E28F95B4D00DD3D32 /* BaseViewModel.swift in Sources */,
+				299265982988F03C0094EB0C /* CategoryViewController.swift in Sources */,
 				29EFDF0228FA42670032CF22 /* GeneratedStrings.swift in Sources */,
 				299265922987516E0094EB0C /* UIImageExtension.swift in Sources */,
 				291E1790293743D400FCAAD9 /* UIColorExtension.swift in Sources */,
+				2992659D2988F06B0094EB0C /* CategoryCoordinator.swift in Sources */,
 				29D508F628F8FA2000DD3D32 /* APIRequest.swift in Sources */,
 				2905D51329835E5700CC6E72 /* SearchViewModel.swift in Sources */,
 				2905D51029835D5400CC6E72 /* SearchViewController.swift in Sources */,
@@ -1049,6 +1084,7 @@
 				293A1B93297EB03900F88B95 /* ChapterImageModel.swift in Sources */,
 				291E17752936011100FCAAD9 /* GeoRepo.swift in Sources */,
 				291E176B2935EB2E00FCAAD9 /* LocalName.swift in Sources */,
+				2992659F2988F2C80094EB0C /* CategoryAPIRouter.swift in Sources */,
 				291E177B2936149E00FCAAD9 /* WeatherModel.swift in Sources */,
 				29EFDF0428FA42710032CF22 /* GeneratedAssets.swift in Sources */,
 				291E177D2936FE5100FCAAD9 /* WeatherMainAttrModel.swift in Sources */,
