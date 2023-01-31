@@ -14,7 +14,7 @@ struct DetailComicUC: DetailComicRepo {
     func getDetailComic(urlStrPath: String) -> Observable<Document> {
         Service.shared.request(input: ComicDetailRouter.detail(urlStrPath: urlStrPath))
             .asObservable()
-            .handleErr()
+            .catchErrReturnEmpty()
     }
     
     

@@ -32,7 +32,7 @@ class CategoryViewController: BaseViewController<CategoryViewModel> {
     }
     
     override func bindViewModel() {
-        let input = CategoryViewModel.Input()
+        let input = CategoryViewModel.Input(getAllComic: Driver.just(()))
         let output = viewModel.transform(input: input)
     }
 }

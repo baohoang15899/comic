@@ -11,19 +11,32 @@
 import Foundation
 import RxSwift
 import RxCocoa
+import SwiftSoup
 
 class CategoryViewModel: BaseViewModel {
     
     struct Input {
-        
+        let getAllComic: Driver<Void>
     }
     
     struct Output {
     }
     
     private let bag = DisposeBag()
+    private let categoryUC: CategoryUC
+    
+    init(categoryUC: CategoryUC) {
+        self.categoryUC = categoryUC
+    }
 
     func transform(input: Input) -> Output {
+        
+        let allComicOutput = input.getAllComic
+            .asObservable()
+            .flatMapLatest { _ in
+                return self.categoryUC.getAll(param: [:])
+            }
+        
         return Output()
     }
 }

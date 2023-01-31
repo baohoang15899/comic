@@ -19,7 +19,7 @@ protocol HomeRoutes: AnyObject {
 class HomeCoordinator: Coordinator {
    
     private var navigator: UINavigationController
-    private var ComicCoordinator: ComicDetailCoordinator?
+    private var comicCoordinator: ComicDetailCoordinator?
     
     init(navigator: UINavigationController) {
         self.navigator = navigator
@@ -43,9 +43,7 @@ extension HomeCoordinator: HomeRoutes {
                                                             comicDetailUrl: comicDetailUrl,
                                                             title: title)
         comicDetailCoordinator.start()
-        self.ComicCoordinator = comicDetailCoordinator
-//        self.comicDetailCoordinator = comicDetailCoordinator
-//        self.ex1Coordinator = ex1Coordinator
+        self.comicCoordinator = comicDetailCoordinator
     }
     
 }

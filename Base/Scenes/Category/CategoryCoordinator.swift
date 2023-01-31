@@ -28,7 +28,7 @@ class CategoryCoordinator: Coordinator {
     // khởi tạo màn và điều hướng
     func start() {
         let categoryVC = CategoryViewController()
-        let categoryVM = CategoryViewModel()
+        let categoryVM = CategoryViewModel(categoryUC: CategoryUC(repository: CategoryRepository()))
         categoryVC.categoryRoute = self
         categoryVC.bind(to: categoryVM)
         navigator.pushViewController(categoryVC, animated: true)

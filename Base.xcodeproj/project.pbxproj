@@ -59,6 +59,8 @@
 		2992659B2988F0520094EB0C /* CategoryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2992659A2988F0520094EB0C /* CategoryViewModel.swift */; };
 		2992659D2988F06B0094EB0C /* CategoryCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2992659C2988F06B0094EB0C /* CategoryCoordinator.swift */; };
 		2992659F2988F2C80094EB0C /* CategoryAPIRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2992659E2988F2C80094EB0C /* CategoryAPIRouter.swift */; };
+		299265A22989063E0094EB0C /* CategoryUC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 299265A12989063E0094EB0C /* CategoryUC.swift */; };
+		299265A4298907370094EB0C /* CategoryRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 299265A3298907370094EB0C /* CategoryRepository.swift */; };
 		29A6182D297AAB34004A1993 /* ComicDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29A6182B297AAB34004A1993 /* ComicDetailViewController.swift */; };
 		29A6182E297AAB34004A1993 /* ComicDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 29A6182C297AAB34004A1993 /* ComicDetailViewController.xib */; };
 		29A61830297AABFE004A1993 /* ComicDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29A6182F297AABFE004A1993 /* ComicDetailViewModel.swift */; };
@@ -194,6 +196,8 @@
 		2992659A2988F0520094EB0C /* CategoryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryViewModel.swift; sourceTree = "<group>"; };
 		2992659C2988F06B0094EB0C /* CategoryCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryCoordinator.swift; sourceTree = "<group>"; };
 		2992659E2988F2C80094EB0C /* CategoryAPIRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryAPIRouter.swift; sourceTree = "<group>"; };
+		299265A12989063E0094EB0C /* CategoryUC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryUC.swift; sourceTree = "<group>"; };
+		299265A3298907370094EB0C /* CategoryRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryRepository.swift; sourceTree = "<group>"; };
 		29A6182B297AAB34004A1993 /* ComicDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComicDetailViewController.swift; sourceTree = "<group>"; };
 		29A6182C297AAB34004A1993 /* ComicDetailViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ComicDetailViewController.xib; sourceTree = "<group>"; };
 		29A6182F297AABFE004A1993 /* ComicDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComicDetailViewModel.swift; sourceTree = "<group>"; };
@@ -330,6 +334,7 @@
 				29D623F2297C6FE10081E5A7 /* TopComicUC.swift */,
 				29AF6834297DB658006DE989 /* ChapterDetailUC.swift */,
 				29D6D0802983C991004EE766 /* SearchUC.swift */,
+				299265A12989063E0094EB0C /* CategoryUC.swift */,
 			);
 			path = UseCase;
 			sourceTree = "<group>";
@@ -484,6 +489,7 @@
 		299265A0298904F60094EB0C /* Platform */ = {
 			isa = PBXGroup;
 			children = (
+				299265A3298907370094EB0C /* CategoryRepository.swift */,
 			);
 			path = Platform;
 			sourceTree = "<group>";
@@ -1024,6 +1030,7 @@
 				29D623C8297C02760081E5A7 /* ComicDetailAPIRouter.swift in Sources */,
 				29A61832297AAC20004A1993 /* ComicDetailCoordinator.swift in Sources */,
 				299265942987AB7E0094EB0C /* ImageQualityModel.swift in Sources */,
+				299265A22989063E0094EB0C /* CategoryUC.swift in Sources */,
 				29D623E6297C5C6B0081E5A7 /* LeftAlignFlowLayout.swift in Sources */,
 				29EFDF1128FA53D50032CF22 /* HomeViewController.swift in Sources */,
 				291E17922937443C00FCAAD9 /* NibExtension.swift in Sources */,
@@ -1087,6 +1094,7 @@
 				2992659F2988F2C80094EB0C /* CategoryAPIRouter.swift in Sources */,
 				291E177B2936149E00FCAAD9 /* WeatherModel.swift in Sources */,
 				29EFDF0428FA42710032CF22 /* GeneratedAssets.swift in Sources */,
+				299265A4298907370094EB0C /* CategoryRepository.swift in Sources */,
 				291E177D2936FE5100FCAAD9 /* WeatherMainAttrModel.swift in Sources */,
 				29D623CA297C0C550081E5A7 /* DetailComicRepo.swift in Sources */,
 			);

@@ -62,4 +62,16 @@ class SwiftSoupService {
         return data
     }
     
+    func getEmptyDocument() -> Document {
+        do {
+           let html = "<html><head><title>First parse</title></head>"
+               + "<body><p>Parsed HTML into a doc.</p></body></html>"
+           let doc: Document = try SwiftSoup.parse(html)
+           return doc
+        } catch {
+            print("error")
+        }
+        return Document("")
+    }
+    
 }

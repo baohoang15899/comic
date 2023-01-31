@@ -13,7 +13,7 @@ struct GeoUC: GeoRepo {
     func getGeoCoordinate(param: [String : Any], model: [GeoCodingModel].Type) -> Observable<GeoCodingModel> {
         return Service.shared.requestArray(input: GeoLocationRouter.geocoding(param: param), responseType: model)
             .asObservable()
-            .handleErr()
+            .catchErrReturnEmpty()
     }
     
 }

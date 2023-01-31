@@ -14,7 +14,7 @@ struct SearchUC: SearchRepo {
     func getSearchComic(keyword: String) -> Observable<Document> {
         return Service.shared.request(input: SearchRouter.search(keyword: keyword))
             .asObservable()
-            .handleErr()
+            .catchErrReturnEmpty()
     }
     
 }
