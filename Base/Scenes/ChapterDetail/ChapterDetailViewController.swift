@@ -35,7 +35,7 @@ class ChapterDetailViewController: BaseViewController<ChapterDetailViewModel> {
                                                             target: self,
                                                             action: #selector(showPickerView))
     }
-    
+
     deinit {
         print("ChapterDetailViewController deinit ✅")
     }
@@ -61,7 +61,8 @@ class ChapterDetailViewController: BaseViewController<ChapterDetailViewModel> {
     override func bindViewModel() {
         let input = ChapterDetailViewModel.Input(getChapterDetail: Driver.just(()),
                                                  getImgQualityRows: Driver.just(()),
-                                                 didSelectedItem: imgQualityPickerView.rx.itemSelected.asDriver())
+                                                 didSelectedItem: imgQualityPickerView.rx.itemSelected.asDriver(),
+                                                 getImgQualityDefault: Driver.just(()))
         
         let output = viewModel.transform(input: input)
         
@@ -78,6 +79,12 @@ class ChapterDetailViewController: BaseViewController<ChapterDetailViewModel> {
         output.imgQualityRows
             .drive(imgQualityPickerView.rx.itemTitles) { (row, element) in
                 return element.title ?? ""
+            }
+            .disposed(by: bag)
+        
+        output.defaultQuality
+            .drive { [weak self] row in
+                self?.imgQualityPickerView.selectRow(row, inComponent: 0, animated: true)
             }
             .disposed(by: bag)
     }
@@ -100,12 +107,33 @@ extension ChapterDetailViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         let ratio = viewModel.calulateImgHeight(index: indexPath.row,
                                                 screenRatio: view.frame.height / 1.7,
-                                                frameWidth: tableView.frame.width)
+                                                frameWidth: view.frame.size.width)
         return ratio > 0 ? ratio : 1
     }
 }
 extension SharedSequenceConvertibleType {
     func mapToVoid() -> SharedSequence<SharingStrategy, Void> {
         return map { _ in }
+    }
+}
+
+extension UIImageView {
+    var contentClippingRect: CGRect {
+        guard let image = image else { return bounds }
+        guard contentMode == .scaleAspectFit else { return bounds }
+        guard image.size.width > 0 && image.size.height > 0 else { return bounds }
+
+        let scale: CGFloat
+        if image.size.width > image.size.height {
+            scale = bounds.width / image.size.width
+        } else {
+            scale = bounds.height / image.size.height
+        }
+
+        let size = CGSize(width: image.size.width * scale, height: image.size.height * scale)
+        let x = (bounds.width - size.width) / 2.0
+        let y = (bounds.height - size.height) / 2.0
+
+        return CGRect(x: x, y: y, width: size.width, height: size.height)
     }
 }

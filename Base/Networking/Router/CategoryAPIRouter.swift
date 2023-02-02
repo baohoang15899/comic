@@ -12,7 +12,8 @@ import UIKit
 import Alamofire
 
 enum CategoryRouter {
-    case all
+    case all(page: Int)
+    case allCategory
 }
 
 extension CategoryRouter: APIInputBase {
@@ -29,6 +30,8 @@ extension CategoryRouter: APIInputBase {
         switch self {
         case .all:
             return .get
+        case .allCategory:
+            return .get
         }
     }
     
@@ -39,7 +42,9 @@ extension CategoryRouter: APIInputBase {
     
     var parameters: [String : Any]? {
         switch self {
-        case .all:
+        case .all(let page):
+            return ["page": page]
+        case .allCategory:
             return [:]
         }
     }

@@ -1,13 +1,18 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13142" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21225" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_0" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12042"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21207"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="CategoryViewController" customModuleProvider="target">
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="CategoryViewController" customModule="Base" customModuleProvider="target">
             <connections>
+                <outlet property="tabBarHeaderBaseView" destination="FM9-ri-sJG" id="HDv-f7-1iS"/>
+                <outlet property="tableView" destination="1ee-1E-pbr" id="Dqy-hc-8wr"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -15,8 +20,64 @@
         <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
             <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-            <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sdk-2P-kXz">
+                    <rect key="frame" x="0.0" y="47" width="375" height="620"/>
+                    <subviews>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FM9-ri-sJG" customClass="TabbarHeaderBaseView" customModule="Base" customModuleProvider="target">
+                            <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="44" id="RdP-67-vdp"/>
+                            </constraints>
+                        </view>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dd3-ks-fIx">
+                            <rect key="frame" x="16" y="44" width="75" height="34.333333333333343"/>
+                            <color key="backgroundColor" systemColor="systemBlueColor"/>
+                            <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                            <state key="normal" title="Button">
+                                <color key="titleColor" systemColor="systemBackgroundColor"/>
+                            </state>
+                            <buttonConfiguration key="configuration" style="plain" title="Button">
+                                <color key="baseForegroundColor" systemColor="systemBackgroundColor"/>
+                            </buttonConfiguration>
+                        </button>
+                        <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="1ee-1E-pbr">
+                            <rect key="frame" x="0.0" y="98.333333333333314" width="375" height="521.66666666666674"/>
+                            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        </tableView>
+                    </subviews>
+                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    <constraints>
+                        <constraint firstAttribute="bottom" secondItem="1ee-1E-pbr" secondAttribute="bottom" id="5Vg-Nh-PTC"/>
+                        <constraint firstItem="dd3-ks-fIx" firstAttribute="top" secondItem="FM9-ri-sJG" secondAttribute="bottom" id="EMY-kS-mTM"/>
+                        <constraint firstItem="FM9-ri-sJG" firstAttribute="top" secondItem="sdk-2P-kXz" secondAttribute="top" id="JQm-qd-ejf"/>
+                        <constraint firstAttribute="trailing" secondItem="1ee-1E-pbr" secondAttribute="trailing" id="Jbg-mF-nYb"/>
+                        <constraint firstItem="FM9-ri-sJG" firstAttribute="leading" secondItem="sdk-2P-kXz" secondAttribute="leading" id="bcp-sD-Vhe"/>
+                        <constraint firstItem="dd3-ks-fIx" firstAttribute="leading" secondItem="sdk-2P-kXz" secondAttribute="leading" constant="16" id="lJs-rr-A8p"/>
+                        <constraint firstItem="1ee-1E-pbr" firstAttribute="top" secondItem="dd3-ks-fIx" secondAttribute="bottom" constant="20" id="r4Z-nC-eP4"/>
+                        <constraint firstItem="1ee-1E-pbr" firstAttribute="leading" secondItem="sdk-2P-kXz" secondAttribute="leading" id="vPC-CS-FvT"/>
+                        <constraint firstAttribute="trailing" secondItem="FM9-ri-sJG" secondAttribute="trailing" id="wKJ-bg-gaf"/>
+                    </constraints>
+                </view>
+            </subviews>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
+            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+            <constraints>
+                <constraint firstItem="sdk-2P-kXz" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="I4X-uY-bIU"/>
+                <constraint firstItem="sdk-2P-kXz" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="QLC-vR-wqB"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="sdk-2P-kXz" secondAttribute="trailing" id="a1F-y0-FwZ"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="sdk-2P-kXz" secondAttribute="bottom" id="iDd-wZ-xuc"/>
+            </constraints>
+            <point key="canvasLocation" x="132" y="-11"/>
         </view>
     </objects>
+    <resources>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemBlueColor">
+            <color red="0.0" green="0.47843137254901963" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+    </resources>
 </document>

@@ -10,7 +10,8 @@ import RxSwift
 import SwiftSoup
 
 protocol CategoryUCType {
-    func getAll(param: [String: Any]) -> Observable<Document>
+    func getAll(page: Int) -> Observable<[ComicModel]>
+    func getAllCategory() -> Observable<[CategoryModel]>
 }
 
 struct CategoryUC: CategoryUCType {
@@ -21,7 +22,11 @@ struct CategoryUC: CategoryUCType {
         self.categoryRepository = repository
     }
     
-    func getAll(param: [String : Any]) -> Observable<Document> {
+    func getAll(page: Int) -> Observable<[ComicModel]> {
+        return categoryRepository.getAllComic(page: page)
+    }
+    
+    func getAllCategory() -> Observable<[CategoryModel]> {
         return categoryRepository.getAllCategory()
     }
     

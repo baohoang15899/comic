@@ -42,6 +42,16 @@ class SwiftSoupService {
         return data
     }
     
+    func nextSiblingToString(element: Element?, className: String) -> String? {
+        var data: String?
+        do {
+            data = try element?.select(className).first()?.nextElementSibling()?.text()
+        } catch {
+            print("Can't parse html")
+        }
+        return data
+    }
+    
     func lastSiblingToString(element: Element?, className: String) -> String? {
         var data: String?
         do {

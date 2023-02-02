@@ -12,14 +12,18 @@ import Foundation
 import RxSwift
 import RxCocoa
 import SwiftSoup
+import UIKit
 
 class CategoryViewModel: BaseViewModel {
     
     struct Input {
         let getAllComic: Driver<Void>
+        let willDisplayCell: Driver<(cell: UITableViewCell, indexPath: IndexPath )>
+        let getAllCategory: Driver<Void>
     }
     
     struct Output {
+        let allComic: Driver<[ComicModel]>
     }
     
     private let bag = DisposeBag()
@@ -28,15 +32,52 @@ class CategoryViewModel: BaseViewModel {
     init(categoryUC: CategoryUC) {
         self.categoryUC = categoryUC
     }
-
+    
     func transform(input: Input) -> Output {
         
-        let allComicOutput = input.getAllComic
+        let comicsRelay = BehaviorRelay<[ComicModel]>(value: [])
+        let pageRelay = BehaviorRelay<Int>(value: 1)
+        var canLoadMore: Bool = true
+        
+        let startGetAllComic = Driver.merge(input.getAllComic, pageRelay.skip(1).asDriver(onErrorJustReturn: 0).mapToVoid())
+
+        startGetAllComic
             .asObservable()
-            .flatMapLatest { _ in
-                return self.categoryUC.getAll(param: [:])
+            .flatMap { page in
+                return self.categoryUC.getAll(page: pageRelay.value)
+            }
+            .subscribe(onNext: { data in
+                comicsRelay.accept(comicsRelay.value + data)
+                canLoadMore = !data.isEmpty
+            })
+            .disposed(by: bag)
+            
+       let allCategoryOutput = input.getAllCategory
+            .asObservable()
+            .flatMap { _ in
+                return self.categoryUC.getAllCategory()
             }
         
-        return Output()
+        input.willDisplayCell
+            .asObservable()
+            .withLatestFrom(comicsRelay) { cell, comics -> Bool in
+                let lastRow = comics.count - 1
+                if(cell.indexPath.row == lastRow) {
+                    return true
+                } else {
+                    return false
+                }
+            }
+            .subscribe(onNext: { isLoadMore in
+                if(isLoadMore && canLoadMore) {
+                    let page = pageRelay.value + 1
+                    pageRelay.accept(page)
+                }
+            })
+            .disposed(by: bag)
+        
+        let allComicOutput = comicsRelay.asDriver(onErrorJustReturn: [])
+        
+        return Output(allComic: allComicOutput)
     }
 }

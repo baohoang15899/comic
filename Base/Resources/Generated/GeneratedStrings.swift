@@ -10,6 +10,10 @@ import Foundation
 // swiftlint:disable explicit_type_interface function_parameter_count identifier_name line_length
 // swiftlint:disable nesting type_body_length type_name vertical_whitespace_opening_braces
 internal enum L10n {
+  internal enum Category {
+    /// Thể loại
+    internal static let title = L10n.tr("Localizable", "Category.title", fallback: "Thể loại")
+  }
   internal enum ComicDetail {
     /// Tên tác giả: %@
     internal static func author(_ p1: Any) -> String {

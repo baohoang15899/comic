@@ -14,6 +14,9 @@ import RxCocoa
 
 class CategoryViewController: BaseViewController<CategoryViewModel> {
     
+    @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var tabBarHeaderBaseView: TabbarHeaderBaseView!
+    
     private let bag = DisposeBag()
     
     weak var categoryRoute: CategoryRoutes?
@@ -23,16 +26,45 @@ class CategoryViewController: BaseViewController<CategoryViewModel> {
         setupUI()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.setNavigationBarHidden(true, animated: false)
+    }
+    
     deinit {
         print("CategoryViewController deinit ✅")
     }
     
     private func setupUI() {
-        
+        tableView.registerCell(type: ComicCategoryTableViewCell.self)
+        tableView.separatorStyle = .none
+        tableView.delegate = self
+        tabBarHeaderBaseView.configView(title: L10n.Category.title)
+        tableView.showsVerticalScrollIndicator = false
     }
     
     override func bindViewModel() {
-        let input = CategoryViewModel.Input(getAllComic: Driver.just(()))
+        let input = CategoryViewModel.Input(getAllComic: Driver.just(()),
+                                            willDisplayCell: tableView.rx.willDisplayCell.asDriver(),
+                                            getAllCategory: Driver.just(()))
         let output = viewModel.transform(input: input)
+        
+        output.allComic
+            .drive(tableView.rx.items) {tableView, index, data in
+            let cell = tableView.dequeueReusableCell(type: ComicCategoryTableViewCell.self,
+                                                     forIndexPath: IndexPath.init(row: index, section: 0))
+            cell.configCell(data: data)
+            return cell
+        }
+        .disposed(by: bag)
+        
     }
+}
+
+extension CategoryViewController: UITableViewDelegate {
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return UITableView.automaticDimension
+    }
+
 }

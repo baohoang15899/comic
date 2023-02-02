@@ -61,6 +61,9 @@
 		2992659F2988F2C80094EB0C /* CategoryAPIRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2992659E2988F2C80094EB0C /* CategoryAPIRouter.swift */; };
 		299265A22989063E0094EB0C /* CategoryUC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 299265A12989063E0094EB0C /* CategoryUC.swift */; };
 		299265A4298907370094EB0C /* CategoryRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 299265A3298907370094EB0C /* CategoryRepository.swift */; };
+		299265A9298A09120094EB0C /* ComicCategoryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 299265A7298A09120094EB0C /* ComicCategoryTableViewCell.swift */; };
+		299265AA298A09120094EB0C /* ComicCategoryTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 299265A8298A09120094EB0C /* ComicCategoryTableViewCell.xib */; };
+		299265AC298B65C20094EB0C /* CategoryModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 299265AB298B65C20094EB0C /* CategoryModel.swift */; };
 		29A6182D297AAB34004A1993 /* ComicDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29A6182B297AAB34004A1993 /* ComicDetailViewController.swift */; };
 		29A6182E297AAB34004A1993 /* ComicDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 29A6182C297AAB34004A1993 /* ComicDetailViewController.xib */; };
 		29A61830297AABFE004A1993 /* ComicDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29A6182F297AABFE004A1993 /* ComicDetailViewModel.swift */; };
@@ -198,6 +201,9 @@
 		2992659E2988F2C80094EB0C /* CategoryAPIRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryAPIRouter.swift; sourceTree = "<group>"; };
 		299265A12989063E0094EB0C /* CategoryUC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryUC.swift; sourceTree = "<group>"; };
 		299265A3298907370094EB0C /* CategoryRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryRepository.swift; sourceTree = "<group>"; };
+		299265A7298A09120094EB0C /* ComicCategoryTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComicCategoryTableViewCell.swift; sourceTree = "<group>"; };
+		299265A8298A09120094EB0C /* ComicCategoryTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ComicCategoryTableViewCell.xib; sourceTree = "<group>"; };
+		299265AB298B65C20094EB0C /* CategoryModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryModel.swift; sourceTree = "<group>"; };
 		29A6182B297AAB34004A1993 /* ComicDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComicDetailViewController.swift; sourceTree = "<group>"; };
 		29A6182C297AAB34004A1993 /* ComicDetailViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ComicDetailViewController.xib; sourceTree = "<group>"; };
 		29A6182F297AABFE004A1993 /* ComicDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComicDetailViewModel.swift; sourceTree = "<group>"; };
@@ -478,6 +484,7 @@
 		299265952988F0110094EB0C /* Category */ = {
 			isa = PBXGroup;
 			children = (
+				299265A5298A08CA0094EB0C /* TableViewCell */,
 				299265962988F03B0094EB0C /* CategoryViewController.swift */,
 				299265972988F03B0094EB0C /* CategoryViewController.xib */,
 				2992659A2988F0520094EB0C /* CategoryViewModel.swift */,
@@ -492,6 +499,23 @@
 				299265A3298907370094EB0C /* CategoryRepository.swift */,
 			);
 			path = Platform;
+			sourceTree = "<group>";
+		};
+		299265A5298A08CA0094EB0C /* TableViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				299265A6298A08E10094EB0C /* ComicCategoryCell */,
+			);
+			path = TableViewCell;
+			sourceTree = "<group>";
+		};
+		299265A6298A08E10094EB0C /* ComicCategoryCell */ = {
+			isa = PBXGroup;
+			children = (
+				299265A7298A09120094EB0C /* ComicCategoryTableViewCell.swift */,
+				299265A8298A09120094EB0C /* ComicCategoryTableViewCell.xib */,
+			);
+			path = ComicCategoryCell;
 			sourceTree = "<group>";
 		};
 		29A6182A297AAB06004A1993 /* ComicDetail */ = {
@@ -814,6 +838,7 @@
 				293A1B92297EB03900F88B95 /* ChapterImageModel.swift */,
 				29D6D0822983CE4D004EE766 /* ComicSuggestModel.swift */,
 				299265932987AB7E0094EB0C /* ImageQualityModel.swift */,
+				299265AB298B65C20094EB0C /* CategoryModel.swift */,
 			);
 			path = Entities;
 			sourceTree = "<group>";
@@ -945,6 +970,7 @@
 				29D623DE297C465D0081E5A7 /* ContentTableViewCell.xib in Resources */,
 				2973312C2982188500624B94 /* Images.xcassets in Resources */,
 				297FFD3529795E2400B8AD9A /* ComicBaseView.xib in Resources */,
+				299265AA298A09120094EB0C /* ComicCategoryTableViewCell.xib in Resources */,
 				29AF683D297DCAA4006DE989 /* ChapterImgTableViewCell.xib in Resources */,
 				29D623E3297C4BF20081E5A7 /* ChapterTableViewCell.xib in Resources */,
 				29EFDF0628FA45E20032CF22 /* Swiftgen in Resources */,
@@ -1040,6 +1066,7 @@
 				297FFD4B2979677A00B8AD9A /* ComicCollectionViewCell.swift in Sources */,
 				29D6D0892983D9B9004EE766 /* ComicSuggestTableViewCell.swift in Sources */,
 				29A6182D297AAB34004A1993 /* ComicDetailViewController.swift in Sources */,
+				299265AC298B65C20094EB0C /* CategoryModel.swift in Sources */,
 				29D6D0832983CE4D004EE766 /* ComicSuggestModel.swift in Sources */,
 				29EFDF1328FA53D50032CF22 /* HomeViewModel.swift in Sources */,
 				2984BD09297AD2B500830956 /* ChapterDetailViewController.swift in Sources */,
@@ -1076,6 +1103,7 @@
 				297FFD592979A7E000B8AD9A /* TabbarHeaderBaseView.swift in Sources */,
 				297FFD622979C29300B8AD9A /* BannerTableViewCell.swift in Sources */,
 				29D623CC297C0CE60081E5A7 /* DetailComicUC.swift in Sources */,
+				299265A9298A09120094EB0C /* ComicCategoryTableViewCell.swift in Sources */,
 				29D623E2297C4BF20081E5A7 /* ChapterTableViewCell.swift in Sources */,
 				29D508FE28F91FAF00DD3D32 /* APIError.swift in Sources */,
 				29D5090B28F94EB900DD3D32 /* Constants.swift in Sources */,

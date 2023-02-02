@@ -36,5 +36,8 @@
 "Search.empty.title" = "Bạn chưa nhập từ khóa tìm kiếm";
 "Search.empty.content" = "Vui lòng nhập từ khóa, hoặc tên truyện bạn muốn tìm kiếm.";
 
+//category
+"Category.title" = "Thể loại";
+
 //common
 "Common.update.empty" = "Đang cập nhật";

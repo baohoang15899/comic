@@ -11,6 +11,7 @@
 import Foundation
 import RxSwift
 import RxCocoa
+import UIKit
 
 class ChapterDetailViewModel: BaseViewModel {
     
@@ -18,11 +19,13 @@ class ChapterDetailViewModel: BaseViewModel {
         let getChapterDetail: Driver<Void>
         let getImgQualityRows: Driver<Void>
         let didSelectedItem: Driver<(row: Int, component: Int)>
+        let getImgQualityDefault: Driver<Void>
     }
     
     struct Output {
         let chapterImageOutput: Driver<[ChapterImageModel]>
         let imgQualityRows: Driver<[ImageQualityModel]>
+        let defaultQuality: Driver<Int>
     }
     
     private let bag = DisposeBag()
@@ -65,8 +68,8 @@ class ChapterDetailViewModel: BaseViewModel {
         if (index > 0 && index < chapterDetail.count) {
             let currentImage = chapterDetail[index].image
             if let imgHeight = currentImage?.size.height, let imgWidth = currentImage?.size.width {
-                let imageCrop = imgWidth / imgHeight
-                ratio = (frameWidth * (imageCrop < 0.4 ? 1.5 : imageCrop)) + screenRatio
+//                print("current height: \(imgHeight), frame width \(frameWidth), current width: \(imgWidth), width ratio: \(frameWidth/imgWidth)")
+                ratio = imgHeight * (frameWidth / imgWidth)
             }
         }
         return ratio
@@ -99,7 +102,7 @@ class ChapterDetailViewModel: BaseViewModel {
                 self.getChapterImages(data: data)
             })
             .disposed(by: bag)
-
+        
         let imgQualityRowsOutput = input.getImgQualityRows
             .map { _ -> [ImageQualityModel] in
                 let data: [ImageQualityModel] = [
@@ -111,6 +114,14 @@ class ChapterDetailViewModel: BaseViewModel {
                 ]
                 return data
             }
+        
+       let defaultQualityOutput = input.getImgQualityDefault
+            .flatMap({ _ in
+                return imgQualityRowsOutput
+            })
+            .map({ data -> Int in
+                return data.firstIndex { $0.quality == self.imgQuality } ?? 0
+            })
         
         input.didSelectedItem
             .asObservable()
@@ -124,6 +135,8 @@ class ChapterDetailViewModel: BaseViewModel {
 
         let chapterImageOutput = chapterImageSubject.asDriver(onErrorJustReturn: [])
         
-        return Output(chapterImageOutput: chapterImageOutput, imgQualityRows: imgQualityRowsOutput)
+        return Output(chapterImageOutput: chapterImageOutput,
+                      imgQualityRows: imgQualityRowsOutput,
+                      defaultQuality: defaultQualityOutput)
     }
 }
