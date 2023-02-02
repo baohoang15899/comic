@@ -12,7 +12,7 @@ import UIKit
 import Alamofire
 
 enum CategoryRouter {
-    case all(page: Int)
+    case allComic(page: Int, url: String)
     case allCategory
 }
 
@@ -23,12 +23,17 @@ extension CategoryRouter: APIInputBase {
     }
     
     var url: String {
-        return "\(BaseApiRequest.url)\(nettruyenPath.all)"
+        switch self {
+        case .allCategory:
+            return "\(BaseApiRequest.url)\(nettruyenPath.all)"
+        case .allComic(_ , let url):
+            return url
+        }
     }
     
     var method: Alamofire.HTTPMethod {
         switch self {
-        case .all:
+        case .allComic:
             return .get
         case .allCategory:
             return .get
@@ -42,7 +47,7 @@ extension CategoryRouter: APIInputBase {
     
     var parameters: [String : Any]? {
         switch self {
-        case .all(let page):
+        case .allComic(let page, _):
             return ["page": page]
         case .allCategory:
             return [:]

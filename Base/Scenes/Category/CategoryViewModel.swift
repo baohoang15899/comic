@@ -17,13 +17,17 @@ import UIKit
 class CategoryViewModel: BaseViewModel {
     
     struct Input {
-        let getAllComic: Driver<Void>
         let willDisplayCell: Driver<(cell: UITableViewCell, indexPath: IndexPath )>
+        let didSelectedItem: Driver<(row: Int, component: Int)>
         let getAllCategory: Driver<Void>
+        let onTapPickerView: Driver<Void>
     }
     
     struct Output {
         let allComic: Driver<[ComicModel]>
+        let allCategory: Driver<[CategoryModel]>
+        let categoryTitle: Driver<String>
+        let pickerViewSubmit: Driver<Void>
     }
     
     private let bag = DisposeBag()
@@ -36,27 +40,36 @@ class CategoryViewModel: BaseViewModel {
     func transform(input: Input) -> Output {
         
         let comicsRelay = BehaviorRelay<[ComicModel]>(value: [])
+        let submitSubject = PublishSubject<Void>()
+        let nextPageSubject = PublishSubject<Void>()
+        let categoryTitleRelay = BehaviorRelay<String>(value: "")
+        let categoryRelay = BehaviorRelay<CategoryModel>(value: CategoryModel(title: "", categoryUrl: ""))
         let pageRelay = BehaviorRelay<Int>(value: 1)
         var canLoadMore: Bool = true
-        
-        let startGetAllComic = Driver.merge(input.getAllComic, pageRelay.skip(1).asDriver(onErrorJustReturn: 0).mapToVoid())
 
-        startGetAllComic
-            .asObservable()
-            .flatMap { page in
-                return self.categoryUC.getAll(page: pageRelay.value)
-            }
-            .subscribe(onNext: { data in
-                comicsRelay.accept(comicsRelay.value + data)
-                canLoadMore = !data.isEmpty
-            })
-            .disposed(by: bag)
-            
-       let allCategoryOutput = input.getAllCategory
+        
+        let startGetAllComic = Driver.merge(
+            categoryRelay.skip(1).asDriver(onErrorJustReturn: CategoryModel(title: "", categoryUrl: "")).mapToVoid(), nextPageSubject.asDriver(onErrorJustReturn: ())
+        )
+        
+        let allCategoryOutput = input.getAllCategory
             .asObservable()
             .flatMap { _ in
                 return self.categoryUC.getAllCategory()
             }
+            .do(onNext: { data in
+                if let category = data.first {
+                    categoryTitleRelay.accept(category.title ?? "")
+                    categoryRelay.accept(category)
+                }
+            })
+            .asDriver(onErrorJustReturn: [])
+                
+        let selectedItem = input.didSelectedItem
+        .asObservable()
+        .withLatestFrom(allCategoryOutput) { pickerData, categories in
+            return categories[pickerData.row]
+        }
         
         input.willDisplayCell
             .asObservable()
@@ -72,12 +85,46 @@ class CategoryViewModel: BaseViewModel {
                 if(isLoadMore && canLoadMore) {
                     let page = pageRelay.value + 1
                     pageRelay.accept(page)
+                    nextPageSubject.onNext(())
                 }
             })
             .disposed(by: bag)
         
-        let allComicOutput = comicsRelay.asDriver(onErrorJustReturn: [])
+        input.onTapPickerView
+            .asObservable()
+            .do(onNext: {
+                submitSubject.onNext(())
+            })
+            .withLatestFrom(selectedItem) { _, data in
+                return data
+            }
+            .subscribe(onNext: { data in
+                comicsRelay.accept([])
+                pageRelay.accept(1)
+                categoryRelay.accept(data)
+                categoryTitleRelay.accept(data.title ?? "")
+            })
+            .disposed(by: bag)
         
-        return Output(allComic: allComicOutput)
+        startGetAllComic
+            .asObservable()
+            .flatMap { _ in
+                return self.categoryUC.getAllComic(page: pageRelay.value, url: categoryRelay.value.categoryUrl ?? "")
+            }
+            .subscribe(onNext: { data in
+                comicsRelay.accept(comicsRelay.value + data)
+                canLoadMore = !data.isEmpty
+            })
+            .disposed(by: bag)
+        
+        let allComicOutput = comicsRelay.asDriver(onErrorJustReturn: [])
+        let categoryTitleOutput = categoryTitleRelay.skip(1).asDriver(onErrorJustReturn: "")
+        let pickerViewOntapOutput = submitSubject.asDriver(onErrorJustReturn: ())
+        
+        return Output(allComic: allComicOutput,
+                      allCategory: allCategoryOutput,
+                      categoryTitle: categoryTitleOutput,
+                      pickerViewSubmit: pickerViewOntapOutput
+        )
     }
 }

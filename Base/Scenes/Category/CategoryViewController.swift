@@ -14,12 +14,18 @@ import RxCocoa
 
 class CategoryViewController: BaseViewController<CategoryViewModel> {
     
+    @IBOutlet weak var categoryButton: UIButton!
+    @IBOutlet weak var categoryPickerView: UIPickerView!
+    @IBOutlet weak var pickerViewToolBar: UIToolbar!
+    @IBOutlet weak var wrapperPickerView: UIView!
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var tabBarHeaderBaseView: TabbarHeaderBaseView!
     
     private let bag = DisposeBag()
+    private let submitButton: UIBarButtonItem = UIBarButtonItem()
     
     weak var categoryRoute: CategoryRoutes?
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -41,23 +47,65 @@ class CategoryViewController: BaseViewController<CategoryViewModel> {
         tableView.delegate = self
         tabBarHeaderBaseView.configView(title: L10n.Category.title)
         tableView.showsVerticalScrollIndicator = false
+        categoryButton.layer.cornerRadius = 10
+        setupPickerView()
+    }
+    
+    private func setupPickerView() {
+        let flexSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+        submitButton.title = "Done"
+        pickerViewToolBar.items = [flexSpace, submitButton]
+        wrapperPickerView.alpha = 0.0
     }
     
     override func bindViewModel() {
-        let input = CategoryViewModel.Input(getAllComic: Driver.just(()),
-                                            willDisplayCell: tableView.rx.willDisplayCell.asDriver(),
-                                            getAllCategory: Driver.just(()))
+        let input = CategoryViewModel.Input(willDisplayCell: tableView.rx.willDisplayCell.asDriver(),
+                                            didSelectedItem: categoryPickerView.rx.itemSelected.asDriver(),
+                                            getAllCategory: Driver.just(()),
+                                            onTapPickerView: submitButton.rx.tap.asDriver())
         let output = viewModel.transform(input: input)
         
         output.allComic
             .drive(tableView.rx.items) {tableView, index, data in
-            let cell = tableView.dequeueReusableCell(type: ComicCategoryTableViewCell.self,
-                                                     forIndexPath: IndexPath.init(row: index, section: 0))
-            cell.configCell(data: data)
-            return cell
-        }
-        .disposed(by: bag)
+                let cell = tableView.dequeueReusableCell(type: ComicCategoryTableViewCell.self,
+                                                         forIndexPath: IndexPath.init(row: index, section: 0))
+                cell.configCell(data: data)
+                return cell
+            }
+            .disposed(by: bag)
         
+        output.allCategory
+            .drive(categoryPickerView.rx.itemTitles) { (row, element) in
+                return element.title ?? ""
+            }
+            .disposed(by: bag)
+        
+        output.categoryTitle
+            .drive(categoryButton.rx.title(for: .normal))
+            .disposed(by: bag)
+        
+        output.pickerViewSubmit
+            .drive { _ in
+                self.hidePickerView()
+            }
+            .disposed(by: bag)
+        
+    }
+    
+    @IBAction func onTap(_ sender: Any) {
+        showPickerView()
+    }
+    
+    func hidePickerView() {
+        UIView.animate(withDuration: 0.2, delay: 0, animations: {
+            self.wrapperPickerView.alpha = 0
+        }, completion: nil)
+    }
+    
+    @objc func showPickerView() {
+        UIView.animate(withDuration: 0.2, delay: 0, animations: {
+            self.wrapperPickerView.alpha = 1
+        }, completion: nil)
     }
 }
 
@@ -66,5 +114,5 @@ extension CategoryViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return UITableView.automaticDimension
     }
-
+    
 }

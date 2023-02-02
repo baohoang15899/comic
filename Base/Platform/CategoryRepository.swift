@@ -10,7 +10,7 @@ import RxSwift
 import SwiftSoup
 
 protocol CategoryRepositoryType {
-    func getAllComic(page: Int) -> Observable<[ComicModel]>
+    func getAllComic(page: Int, url: String) -> Observable<[ComicModel]>
     func getAllCategory() -> Observable<[CategoryModel]>
 }
 
@@ -35,10 +35,10 @@ struct CategoryRepository: CategoryRepositoryType {
             .catchErrReturnElement(element: [])
     }
     
-    func getAllComic(page: Int) -> Observable<[ComicModel]> {
+    func getAllComic(page: Int, url: String) -> Observable<[ComicModel]> {
         var comics: [ComicModel]?
         
-        return Service.shared.request(input: CategoryRouter.all(page: page))
+        return Service.shared.request(input: CategoryRouter.allComic(page: page, url: url))
             .asObservable()
             .map { data in
                 let nextPage = SwiftSoupService.shared.getSingleElement(document: data, className: "div.pagination-outter a.next-page")
