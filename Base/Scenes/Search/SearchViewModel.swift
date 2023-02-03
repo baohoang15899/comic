@@ -30,9 +30,15 @@ class SearchViewModel: BaseViewModel {
     }
     
     private let bag = DisposeBag()
-    private let comicSuggestSubjectIsEmpty = BehaviorSubject<Bool>(value: true)
+    private let searchUC: SearchUC
+    
+    init(searchUC: SearchUC) {
+        self.searchUC = searchUC
+    }
 
     func transform(input: Input) -> Output {
+        
+        let comicSuggestSubjectIsEmpty = BehaviorSubject<Bool>(value: true)
         
         let selectedItemOutput = input.didSelectItem
             .map({ data -> ComicSuggestModel in
@@ -40,30 +46,15 @@ class SearchViewModel: BaseViewModel {
             })
         
        let comicSuggestOutput = input.searchString
-            .asObservable()
-            .debounce(RxTimeInterval.milliseconds(1000), scheduler: MainScheduler.instance) // Wait 0.5 for changes.
+            .debounce(RxTimeInterval.milliseconds(1000)) // Wait 0.5 for changes.
             .distinctUntilChanged()
             .flatMap({ key in
-                return RepoFactory.SearchRepo().getSearchComic(keyword: key)
+                return self.searchUC.searchComic(keyword: key)
+                    .asDriver(onErrorJustReturn: [])
             })
-            .map({ data -> [ComicSuggestModel] in
-                var comicSuggestData: [ComicSuggestModel] = []
-                let results = SwiftSoupService.shared.getAllElements(document: data, className: "body ul li")
-                results?.forEach({ value in
-                    let image = SwiftSoupService.shared.getAttrFromHtml(element: value, className: "a img", attr: "src")
-                    let title = SwiftSoupService.shared.elementToString(element: value, className: "a h3")
-                    let detailUrl = SwiftSoupService.shared.getAttrFromHtml(element: value, className: "a", attr: "href")
-                    let chapter = SwiftSoupService.shared.elementToString(element: value, className: "h4 i")
-                    let category = SwiftSoupService.shared.lastSiblingToString(element: value, className: "h4 i")
-                    comicSuggestData.append(ComicSuggestModel(image: ComicSuggestModel.getUrlImg(img: image),
-                                                              title: title ?? L10n.Common.Update.empty,
-                                                              category: category ?? L10n.Common.Update.empty,
-                                                              chapter: chapter ?? L10n.Common.Update.empty,
-                                                              detailUrl: detailUrl))
-                })
-                self.comicSuggestSubjectIsEmpty.onNext(!comicSuggestData.isEmpty)
-                return comicSuggestData
-            }).asDriver(onErrorJustReturn: [])
+            .do(onNext: { data in
+                comicSuggestSubjectIsEmpty.onNext(!data.isEmpty)
+            })
         
         let comicSuggestIsEmptyOutput = comicSuggestSubjectIsEmpty.skip(1).asDriver(onErrorJustReturn: true)
         

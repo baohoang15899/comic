@@ -24,9 +24,5 @@ struct RepoFactory {
     static func ChapterDetailRepo() -> ChapterDetailRepo {
         return ChapterDetailUC()
     }
-    
-    static func SearchRepo() -> SearchRepo {
-        return SearchUC()
-    }
-    
+
 }

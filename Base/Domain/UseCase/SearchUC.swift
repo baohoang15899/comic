@@ -9,12 +9,20 @@ import Foundation
 import RxSwift
 import SwiftSoup
 
-struct SearchUC: SearchRepo {
+protocol SearchUCType {
+    func searchComic(keyword: String) -> Observable<[ComicSuggestModel]>
+}
+
+struct SearchUC: SearchUCType {
     
-    func getSearchComic(keyword: String) -> Observable<Document> {
-        return Service.shared.request(input: SearchRouter.search(keyword: keyword))
-            .asObservable()
-            .catchErrReturnEmpty()
+    private let searchRepository: SearchRepository
+    
+    init(repository: SearchRepository) {
+        self.searchRepository = repository
+    }
+    
+    func searchComic(keyword: String) -> Observable<[ComicSuggestModel]> {
+        return searchRepository.searchComic(keyword: keyword)
     }
     
 }

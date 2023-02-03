@@ -29,7 +29,7 @@ class SearchCoordinator: Coordinator {
     func start() {
         let searchVC = SearchViewController()
         searchVC.routesDelegate = self // gán delegate cho view contoller quản lý route nếu có
-        searchVC.bind(to: SearchViewModel())
+        searchVC.bind(to: SearchViewModel(searchUC: SearchUC(repository: SearchRepository())))
         navigator.pushViewController(searchVC, animated: true)
     }
 }
