@@ -70,6 +70,9 @@
 		29A61830297AABFE004A1993 /* ComicDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29A6182F297AABFE004A1993 /* ComicDetailViewModel.swift */; };
 		29A61832297AAC20004A1993 /* ComicDetailCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29A61831297AAC20004A1993 /* ComicDetailCoordinator.swift */; };
 		29A67F2D298CEA670074EC77 /* TopComicRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29A67F2C298CEA670074EC77 /* TopComicRepository.swift */; };
+		29A67F2F298CF3830074EC77 /* ComicDetailRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29A67F2E298CF3830074EC77 /* ComicDetailRepository.swift */; };
+		29A67F31298CFAFE0074EC77 /* ComicDetailUC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29A67F30298CFAFE0074EC77 /* ComicDetailUC.swift */; };
+		29A67F33298D00180074EC77 /* ChapterDetailRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29A67F32298D00180074EC77 /* ChapterDetailRepository.swift */; };
 		29AF6831297DB51E006DE989 /* ChapterDetailAPIRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29AF6830297DB51E006DE989 /* ChapterDetailAPIRouter.swift */; };
 		29AF6833297DB634006DE989 /* ChapterDetailRepo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29AF6832297DB634006DE989 /* ChapterDetailRepo.swift */; };
 		29AF6835297DB658006DE989 /* ChapterDetailUC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29AF6834297DB658006DE989 /* ChapterDetailUC.swift */; };
@@ -211,6 +214,9 @@
 		29A6182F297AABFE004A1993 /* ComicDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComicDetailViewModel.swift; sourceTree = "<group>"; };
 		29A61831297AAC20004A1993 /* ComicDetailCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComicDetailCoordinator.swift; sourceTree = "<group>"; };
 		29A67F2C298CEA670074EC77 /* TopComicRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopComicRepository.swift; sourceTree = "<group>"; };
+		29A67F2E298CF3830074EC77 /* ComicDetailRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComicDetailRepository.swift; sourceTree = "<group>"; };
+		29A67F30298CFAFE0074EC77 /* ComicDetailUC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComicDetailUC.swift; sourceTree = "<group>"; };
+		29A67F32298D00180074EC77 /* ChapterDetailRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChapterDetailRepository.swift; sourceTree = "<group>"; };
 		29AF6830297DB51E006DE989 /* ChapterDetailAPIRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChapterDetailAPIRouter.swift; sourceTree = "<group>"; };
 		29AF6832297DB634006DE989 /* ChapterDetailRepo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChapterDetailRepo.swift; sourceTree = "<group>"; };
 		29AF6834297DB658006DE989 /* ChapterDetailUC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChapterDetailUC.swift; sourceTree = "<group>"; };
@@ -343,6 +349,7 @@
 				29AF6834297DB658006DE989 /* ChapterDetailUC.swift */,
 				29D6D0802983C991004EE766 /* SearchUC.swift */,
 				299265A12989063E0094EB0C /* CategoryUC.swift */,
+				29A67F30298CFAFE0074EC77 /* ComicDetailUC.swift */,
 			);
 			path = UseCase;
 			sourceTree = "<group>";
@@ -500,6 +507,8 @@
 				299265A3298907370094EB0C /* CategoryRepository.swift */,
 				299265AD298CBBFB0094EB0C /* SearchRepository.swift */,
 				29A67F2C298CEA670074EC77 /* TopComicRepository.swift */,
+				29A67F2E298CF3830074EC77 /* ComicDetailRepository.swift */,
+				29A67F32298D00180074EC77 /* ChapterDetailRepository.swift */,
 			);
 			path = Platform;
 			sourceTree = "<group>";
@@ -1054,6 +1063,7 @@
 				29D5091228F95C0400DD3D32 /* BindableType.swift in Sources */,
 				29D6D07D2983C7F2004EE766 /* SearchAPIRouter.swift in Sources */,
 				29D623F3297C6FE10081E5A7 /* TopComicUC.swift in Sources */,
+				29A67F2F298CF3830074EC77 /* ComicDetailRepository.swift in Sources */,
 				29D5091028F95B9D00DD3D32 /* BaseViewController.swift in Sources */,
 				2992659B2988F0520094EB0C /* CategoryViewModel.swift in Sources */,
 				29EFDF1628FA541B0032CF22 /* GeoLocationApiRouter.swift in Sources */,
@@ -1093,6 +1103,7 @@
 				2905D51029835D5400CC6E72 /* SearchViewController.swift in Sources */,
 				29F5589C2975455600FE1386 /* SwiftSoupService.swift in Sources */,
 				291E178A2937351D00FCAAD9 /* ObservableExtension.swift in Sources */,
+				29A67F33298D00180074EC77 /* ChapterDetailRepository.swift in Sources */,
 				29AF6833297DB634006DE989 /* ChapterDetailRepo.swift in Sources */,
 				291E17692935E98D00FCAAD9 /* GeoCoding.swift in Sources */,
 				29D623F0297C5E440081E5A7 /* CategoryCollectionViewCell.swift in Sources */,
@@ -1118,6 +1129,7 @@
 				29D623EA297C5D830081E5A7 /* CategoryTableViewCell.swift in Sources */,
 				297FFD422979649300B8AD9A /* ComicTableViewCell.swift in Sources */,
 				291E17812937025500FCAAD9 /* WindModel.swift in Sources */,
+				29A67F31298CFAFE0074EC77 /* ComicDetailUC.swift in Sources */,
 				29D6D0812983C991004EE766 /* SearchUC.swift in Sources */,
 				2905D51529835F1A00CC6E72 /* SearchCoordinator.swift in Sources */,
 				293A1B93297EB03900F88B95 /* ChapterImageModel.swift in Sources */,

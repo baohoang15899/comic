@@ -13,10 +13,6 @@ struct RepoFactory {
         return GeoUC()
     }
     
-    static func DetailComicRepo() -> DetailComicRepo {
-        return DetailComicUC()
-    }
-    
     static func ChapterDetailRepo() -> ChapterDetailRepo {
         return ChapterDetailUC()
     }

@@ -58,7 +58,7 @@ class HomeViewController: BaseViewController<HomeViewModel> {
         let input = HomeViewModel.Input(getHotComic: Driver.just(()),
                                         getTopManga: Driver.just(()),
                                         getTopManhwa: Driver.just(()),
-                                        getTopDay: Driver.just(()),
+                                        getTopManhua: Driver.just(()),
                                         getNominate: Driver.just(())
         )
         let output = viewModel.transform(input: input)

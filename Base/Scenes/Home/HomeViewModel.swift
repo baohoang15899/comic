@@ -19,7 +19,7 @@ class HomeViewModel: BaseViewModel {
         let getHotComic: Driver<Void>
         let getTopManga: Driver<Void>
         let getTopManhwa: Driver<Void>
-        let getTopDay: Driver<Void>
+        let getTopManhua: Driver<Void>
         let getNominate: Driver<Void>
     }
     
@@ -39,36 +39,36 @@ class HomeViewModel: BaseViewModel {
     func transform(input: Input) -> Output {
         
         let nomiateOutput = input.getNominate
-            .asObservable()
             .flatMap { _ in
                 return self.topComicUC.getNominate()
+                    .asDriver(onErrorJustReturn: [])
             }
         
         let hotComicOutput = input.getHotComic
-            .asObservable()
             .flatMap { _ in
                 return self.topComicUC.getHotComic(param: ["page": 1])
+                    .asDriver(onErrorJustReturn: [])
             }
         
         let topMangaOutput = input.getTopManga
-            .asObservable()
             .flatMap { _ in
                 return self.topComicUC.getTopManga(param: ["status": -1, "sort": 11])
+                    .asDriver(onErrorJustReturn: [])
             }
         
         let topManhwaOutput = input.getTopManhwa
-            .asObservable()
             .flatMap { _ in
                 return self.topComicUC.getTopManhwa(param: ["status": -1, "sort": 11])
+                    .asDriver(onErrorJustReturn: [])
             }
         
-        let topManhuaOutput = input.getTopDay
-            .asObservable()
+        let topManhuaOutput = input.getTopManhua
             .flatMap { _ in
                 return self.topComicUC.getTopManhua(param: ["status": -1, "sort": 11])
+                    .asDriver(onErrorJustReturn: [])
             }
         
-        let allComic = Observable.zip(nomiateOutput,hotComicOutput, topMangaOutput, topManhwaOutput, topManhuaOutput)
+        let allComic = Driver.zip(nomiateOutput,hotComicOutput, topMangaOutput, topManhwaOutput, topManhuaOutput)
         
         let homeSectionOutput = allComic.map {(nominate, hotComic, topManga, topManhwa, topManhua) -> [HomeSectionData] in
             let nominateSection = HomeSectionData(header: L10n.Home.Section.nominate, items: [HomeSectionModel(data: nominate)], type: .banner)

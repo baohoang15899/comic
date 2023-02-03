@@ -34,10 +34,10 @@ struct TopComicUC: TopComicUCType {
     }
     
     func getTopManhua(param: [String : Any]) -> Observable<[ComicModel]> {
-        return topComicRepository.getTopManhwa(param: param)
+        return topComicRepository.getTopManhua(param: param)
     }
     
-    func getNominate() -> RxSwift.Observable<[ComicModel]> {
+    func getNominate() -> Observable<[ComicModel]> {
         return topComicRepository.getNominate()
     }
     
