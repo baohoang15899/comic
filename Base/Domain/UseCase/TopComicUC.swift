@@ -9,36 +9,39 @@ import Foundation
 import RxSwift
 import SwiftSoup
 
-struct TopComicUC: TopComicRepo {
+protocol TopComicUCType {
+    func getTopManga(param: [String: Any]) -> Observable<[ComicModel]>
+    func getTopManhwa(param: [String: Any]) -> Observable<[ComicModel]>
+    func getTopManhua(param: [String: Any]) -> Observable<[ComicModel]>
+    func getNominate() -> Observable<[ComicModel]>
+    func getHotComic(param: [String: Any]) -> Observable<[ComicModel]>
+}
+
+struct TopComicUC: TopComicUCType {
     
-    func getTopManhua(param: [String : Any]) -> Observable<Document> {
-        return Service.shared.request(input: TopComicRouter.topManhua(param: param))
-            .asObservable()
-            .catchErrReturnEmpty()
+    private let topComicRepository: TopComicRepository
+    
+    init(repository: TopComicRepository) {
+        self.topComicRepository = repository
     }
     
-    func getTopManhwa(param: [String : Any]) -> Observable<Document> {
-        return Service.shared.request(input: TopComicRouter.topManhwa(param: param))
-            .asObservable()
-            .catchErrReturnEmpty()
+    func getTopManga(param: [String : Any]) -> Observable<[ComicModel]> {
+        return topComicRepository.getTopManga(param: param)
     }
     
-    func getHotComic(param: [String : Any]) -> Observable<Document> {
-        return Service.shared.request(input: TopComicRouter.hot(param: param))
-            .asObservable()
-            .catchErrReturnEmpty()
+    func getTopManhwa(param: [String : Any]) -> Observable<[ComicModel]> {
+        return topComicRepository.getTopManhwa(param: param)
     }
     
-    func getTopManga(param: [String : Any]) -> Observable<Document> {
-        return Service.shared.request(input: TopComicRouter.top(param: param))
-            .asObservable()
-            .catchErrReturnEmpty()
+    func getTopManhua(param: [String : Any]) -> Observable<[ComicModel]> {
+        return topComicRepository.getTopManhwa(param: param)
     }
     
-    func getNominate() -> Observable<Document> {
-        return Service.shared.request(input: TopComicRouter.nominate)
-            .asObservable()
-            .catchErrReturnEmpty()
+    func getNominate() -> RxSwift.Observable<[ComicModel]> {
+        return topComicRepository.getNominate()
     }
     
+    func getHotComic(param: [String : Any]) -> Observable<[ComicModel]> {
+        return topComicRepository.getHotComic(param: param)
+    }
 }

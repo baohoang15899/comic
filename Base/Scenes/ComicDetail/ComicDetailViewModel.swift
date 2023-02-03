@@ -29,6 +29,10 @@ class ComicDetailViewModel: BaseViewModel {
     init(detailComicUrl: String) {
         self.detailComicUrl = detailComicUrl
     }
+    
+    deinit {
+        print("\(self) deinit")
+    }
 
     func transform(input: Input) -> Output {
         

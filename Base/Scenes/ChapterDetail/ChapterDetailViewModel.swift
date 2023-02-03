@@ -42,7 +42,7 @@ class ChapterDetailViewModel: BaseViewModel {
     }
     
     deinit {
-        print("vm deinit")
+        print("\(self) deinit")
     }
     
     private func getChapterImages(data: [ChapterDetailModel]){

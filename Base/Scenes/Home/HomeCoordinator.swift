@@ -28,7 +28,7 @@ class HomeCoordinator: Coordinator {
     // khởi tạo màn và điều hướng
     func start() {
         let homeVC = HomeViewController()
-        let homeVM = HomeViewModel()// gán delegate cho view contoller quản lý route nếu có
+        let homeVM = HomeViewModel(topComicUC: TopComicUC(repository: TopComicRepository()))// gán delegate cho view contoller quản lý route nếu có
         homeVC.bind(to: homeVM)
         navigator.pushViewController(homeVC, animated: true)
         homeVC.routesDelegate = self

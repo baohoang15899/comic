@@ -69,6 +69,7 @@
 		29A6182E297AAB34004A1993 /* ComicDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 29A6182C297AAB34004A1993 /* ComicDetailViewController.xib */; };
 		29A61830297AABFE004A1993 /* ComicDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29A6182F297AABFE004A1993 /* ComicDetailViewModel.swift */; };
 		29A61832297AAC20004A1993 /* ComicDetailCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29A61831297AAC20004A1993 /* ComicDetailCoordinator.swift */; };
+		29A67F2D298CEA670074EC77 /* TopComicRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29A67F2C298CEA670074EC77 /* TopComicRepository.swift */; };
 		29AF6831297DB51E006DE989 /* ChapterDetailAPIRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29AF6830297DB51E006DE989 /* ChapterDetailAPIRouter.swift */; };
 		29AF6833297DB634006DE989 /* ChapterDetailRepo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29AF6832297DB634006DE989 /* ChapterDetailRepo.swift */; };
 		29AF6835297DB658006DE989 /* ChapterDetailUC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29AF6834297DB658006DE989 /* ChapterDetailUC.swift */; };
@@ -209,6 +210,7 @@
 		29A6182C297AAB34004A1993 /* ComicDetailViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ComicDetailViewController.xib; sourceTree = "<group>"; };
 		29A6182F297AABFE004A1993 /* ComicDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComicDetailViewModel.swift; sourceTree = "<group>"; };
 		29A61831297AAC20004A1993 /* ComicDetailCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComicDetailCoordinator.swift; sourceTree = "<group>"; };
+		29A67F2C298CEA670074EC77 /* TopComicRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopComicRepository.swift; sourceTree = "<group>"; };
 		29AF6830297DB51E006DE989 /* ChapterDetailAPIRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChapterDetailAPIRouter.swift; sourceTree = "<group>"; };
 		29AF6832297DB634006DE989 /* ChapterDetailRepo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChapterDetailRepo.swift; sourceTree = "<group>"; };
 		29AF6834297DB658006DE989 /* ChapterDetailUC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChapterDetailUC.swift; sourceTree = "<group>"; };
@@ -497,6 +499,7 @@
 			children = (
 				299265A3298907370094EB0C /* CategoryRepository.swift */,
 				299265AD298CBBFB0094EB0C /* SearchRepository.swift */,
+				29A67F2C298CEA670074EC77 /* TopComicRepository.swift */,
 			);
 			path = Platform;
 			sourceTree = "<group>";
@@ -1102,6 +1105,7 @@
 				29AF6835297DB658006DE989 /* ChapterDetailUC.swift in Sources */,
 				297FFD592979A7E000B8AD9A /* TabbarHeaderBaseView.swift in Sources */,
 				297FFD622979C29300B8AD9A /* BannerTableViewCell.swift in Sources */,
+				29A67F2D298CEA670074EC77 /* TopComicRepository.swift in Sources */,
 				29D623CC297C0CE60081E5A7 /* DetailComicUC.swift in Sources */,
 				299265A9298A09120094EB0C /* ComicCategoryTableViewCell.swift in Sources */,
 				29D623E2297C4BF20081E5A7 /* ChapterTableViewCell.swift in Sources */,
