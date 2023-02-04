@@ -9,18 +9,24 @@ import Foundation
 import RxSwift
 import SwiftSoup
 
-struct ChapterDetailUC: ChapterDetailRepo {
-    
-    func getChapterImg(chapter: ChapterDetailModel) -> Observable<ChapterImageModel> {
-        return Service.shared.requestImage(input: ChapterDetailRouter.getChapterImg(url: chapter.url ?? ""), dataIndex: chapter.dataIndex ?? "")
-            .asObservable()
-            .catchErrReturnEmpty()
-    }
-    
-    func getDetailChapter(urlStrPath: String) -> Observable<Document> {
-        return Service.shared.request(input: ChapterDetailRouter.getChapter(url: urlStrPath))
-            .asObservable()
-            .catchErrReturnEmpty()
-    }
+protocol ChapterDetailUCType {
+    func getChapterDetail(url: String) -> Observable<[ChapterDetailModel]>
+    func getChapterImage(chapter: ChapterDetailModel) -> Observable<ChapterImageModel>
+}
 
+struct ChapterDetailUC: ChapterDetailUCType {
+    
+    private let repository: ChapterDetailRepository
+    
+    init(repository: ChapterDetailRepository) {
+        self.repository = repository
+    }
+    
+    func getChapterDetail(url: String) -> Observable<[ChapterDetailModel]> {
+        return repository.getChapterDetail(url: url)
+    }
+    
+    func getChapterImage(chapter: ChapterDetailModel) -> Observable<ChapterImageModel> {
+        return repository.getChapterImage(chapter: chapter)
+    }
 }

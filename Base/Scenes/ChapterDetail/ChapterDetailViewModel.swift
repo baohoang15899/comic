@@ -34,11 +34,13 @@ class ChapterDetailViewModel: BaseViewModel {
     private let dowloadImgSubject = PublishSubject<[Data]>()
     private var chapterDetail: [ChapterImageModel] = []
     private let chapterImageSubject = BehaviorSubject<[ChapterImageModel]>(value: [])
-    
+    private let chapterDetailUC: ChapterDetailUC
     var imgQuality: JPEGQuality = .medium
     
-    init(chapter: ChapterModel) {
+    
+    init(chapter: ChapterModel, chapterDetailUC: ChapterDetailUC) {
         self.chapter = chapter
+        self.chapterDetailUC = chapterDetailUC
     }
     
     deinit {
@@ -46,7 +48,8 @@ class ChapterDetailViewModel: BaseViewModel {
     }
     
     private func getChapterImages(data: [ChapterDetailModel]){
-        let allObservables = data.map { RepoFactory.ChapterDetailRepo().getChapterImg(chapter: $0) }
+        print(data)
+        let allObservables = data.map { chapterDetailUC.getChapterImage(chapter: $0) }
         
         let all = Observable.from(allObservables).merge().toArray()
         
@@ -81,23 +84,9 @@ class ChapterDetailViewModel: BaseViewModel {
         
         startGetChapterDetail
             .asObservable()
-            .flatMapLatest { [weak self] _ in
-                return RepoFactory.ChapterDetailRepo().getDetailChapter(urlStrPath: self?.chapter.chapterUrl ?? "")
+            .flatMapLatest { _ in
+                return self.chapterDetailUC.getChapterDetail(url: self.chapter.chapterUrl ?? "")
             }
-            .map({ data -> [ChapterDetailModel] in
-                let results = SwiftSoupService.shared.getAllElements(document: data,
-                                                                     className: "main div.reading-detail.box_doc div.page-chapter")
-                
-                
-                let chapters: [ChapterDetailModel] = results?.map({ value -> ChapterDetailModel in
-                    
-                    let img = SwiftSoupService.shared.getAttrFromHtml(element: value, className: "img", attr: "data-original")
-                    let dataIndex = SwiftSoupService.shared.getAttrFromHtml(element: value, className: "img", attr: "data-index")
-                    return ChapterDetailModel(url: ChapterDetailModel.getUrlImg(img: img), dataIndex: dataIndex)
-                }) ?? []
-                
-                return chapters
-            })
             .subscribe(onNext: { data in
                 self.getChapterImages(data: data)
             })

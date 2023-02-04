@@ -47,7 +47,7 @@ extension ComicDetailCoordinator: ComicDetailRoutes {
     // chuyển coordinator thì làm như dưới, điều hướng các màn thuộc coordinator thì push bình thường
     func navigateToChapterDetail(chapter: ChapterModel) {
         let chapterDetailVC = ChapterDetailViewController()
-        let chapterDetailVM = ChapterDetailViewModel(chapter: chapter)
+        let chapterDetailVM = ChapterDetailViewModel(chapter: chapter, chapterDetailUC: ChapterDetailUC(repository: ChapterDetailRepository()))
         chapterDetailVC.bind(to: chapterDetailVM)
         chapterDetailVC.hidesBottomBarWhenPushed = true
         navigator.pushViewController(chapterDetailVC, animated: true)
