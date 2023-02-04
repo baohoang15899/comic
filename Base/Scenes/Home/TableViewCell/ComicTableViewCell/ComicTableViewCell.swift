@@ -46,7 +46,7 @@ class ComicTableViewCell: UITableViewCell {
 extension ComicTableViewCell: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return Array(comics[0...9]).count
+        return comics.isEmpty ? 0 : Array(comics[0...9]).count
     }
     
     
