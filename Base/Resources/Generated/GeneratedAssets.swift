@@ -28,6 +28,12 @@ internal enum Asset {
     internal enum ComicDetail {
       internal static let icComicDetailSetting = ImageAsset(name: "ic_comicDetail_setting")
     }
+    internal enum Common {
+      internal static let icBook = ImageAsset(name: "ic_book")
+      internal static let icHeart = ImageAsset(name: "ic_heart")
+      internal static let icHome = ImageAsset(name: "ic_home")
+      internal static let icSearch = ImageAsset(name: "ic_search")
+    }
   }
 }
 // swiftlint:enable identifier_name line_length nesting type_body_length type_name

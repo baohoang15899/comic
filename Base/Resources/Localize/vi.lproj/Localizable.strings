@@ -41,3 +41,7 @@
 
 //common
 "Common.update.empty" = "Đang cập nhật";
+"Common.tab.search" = "Tìm kiếm";
+"Common.tab.home" = "Trang chủ";
+"Common.tab.category" = "Thể loại";
+"Common.tab.favorite" = "Yêu thích";

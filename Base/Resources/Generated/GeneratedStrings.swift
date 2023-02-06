@@ -53,6 +53,16 @@ internal enum L10n {
     }
   }
   internal enum Common {
+    internal enum Tab {
+      /// Thể loại
+      internal static let category = L10n.tr("Localizable", "Common.tab.category", fallback: "Thể loại")
+      /// Yêu thích
+      internal static let favorite = L10n.tr("Localizable", "Common.tab.favorite", fallback: "Yêu thích")
+      /// Trang chủ
+      internal static let home = L10n.tr("Localizable", "Common.tab.home", fallback: "Trang chủ")
+      /// Tìm kiếm
+      internal static let search = L10n.tr("Localizable", "Common.tab.search", fallback: "Tìm kiếm")
+    }
     internal enum Update {
       /// Đang cập nhật
       internal static let empty = L10n.tr("Localizable", "Common.update.empty", fallback: "Đang cập nhật")

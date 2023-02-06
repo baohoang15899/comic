@@ -29,22 +29,22 @@ class AppCoordinator {
         let homeVM = HomeViewModel(topComicUC: TopComicUC(repository: TopComicRepository()),
                                    coordinator: HomeCoordinator(navigator: navigationController))
         homeVC.bind(to: homeVM)
-        homeVC.tabBarItem = UITabBarItem(tabBarSystemItem: .bookmarks, tag: 0)
+        homeVC.tabBarItem = UITabBarItem(title: L10n.Common.Tab.home, image: UIImage(asset: Asset.Images.Common.icHome), tag: 0)
         
         let searchVC = SearchViewController()
         let searchVM = SearchViewModel(searchUC: SearchUC(repository: SearchRepository()),
                                        coordinator: SearchCoordinator(navigator: navigationController))
         searchVC.bind(to: searchVM)
-        searchVC.tabBarItem = UITabBarItem(tabBarSystemItem: .downloads, tag: 1)
+        searchVC.tabBarItem = UITabBarItem(title: L10n.Common.Tab.search, image: UIImage(asset: Asset.Images.Common.icSearch), tag: 1)
 
         let categoryVC = CategoryViewController()
         let categoryVM = CategoryViewModel(categoryUC: CategoryUC(repository: CategoryRepository()),
                                            coordinator: CategoryCoordinator(navigator: navigationController))
         categoryVC.bind(to: categoryVM)
-        categoryVC.tabBarItem = UITabBarItem(tabBarSystemItem: .featured, tag: 2)
+        categoryVC.tabBarItem =  UITabBarItem(title: L10n.Common.Tab.category, image: UIImage(asset: Asset.Images.Common.icBook), tag: 2)
         
         let test3 = UINavigationController(rootViewController: UIViewController())
-        test3.tabBarItem = UITabBarItem(tabBarSystemItem: .favorites, tag: 3)
+        test3.tabBarItem = UITabBarItem(title: L10n.Common.Tab.favorite, image: UIImage(asset: Asset.Images.Common.icHeart), tag: 3)
 
         tabbarController.viewControllers = [homeVC,
                                             searchVC,
