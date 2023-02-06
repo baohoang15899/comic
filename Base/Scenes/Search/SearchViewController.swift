@@ -21,9 +21,7 @@ class SearchViewController: BaseViewController<SearchViewModel> {
     @IBOutlet weak var emptyStackView: UIStackView!
     @IBOutlet weak var emptyContentLabel: UILabel!
     @IBOutlet weak var emptyTitleLabel: UILabel!
-    
-    weak var routesDelegate: SearchRoutes?
-    
+
     private let bag = DisposeBag()
     
     override func viewDidLoad() {
@@ -79,14 +77,7 @@ class SearchViewController: BaseViewController<SearchViewModel> {
                 return cell
             }
             .disposed(by: bag)
-        
-        output.selectedItem
-            .drive { [weak self] data in
-                self?.routesDelegate?.navigateToComicDetail(comicDetailUrl: data.detailUrl ?? "",
-                                                                        title: data.title ?? "")
-            }
-            .disposed(by: bag)
-        
+
         output.comicSuggestIsEmpty
             .drive(emptyStackView.rx.isHidden)
             .disposed(by: bag)

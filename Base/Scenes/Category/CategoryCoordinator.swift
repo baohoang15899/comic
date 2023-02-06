@@ -13,35 +13,29 @@ import UIKit
 
 // khai báo các phương thức điều hướng
 protocol CategoryRoutes: AnyObject {
-    func navigateExample1()
+    func navigateToComicDetail(comicDetailUrl: String, title: String)
 }
 
-class CategoryCoordinator: Coordinator {
+class CategoryCoordinator {
    
     private var navigator: UINavigationController
-//    private var ex1Coordinator: Example1Coordinator? // khai báo coordinator cần đổi nếu có
 
     init(navigator: UINavigationController) {
         self.navigator = navigator
     }
     
-    // khởi tạo màn và điều hướng
-    func start() {
-        let categoryVC = CategoryViewController()
-        let categoryVM = CategoryViewModel(categoryUC: CategoryUC(repository: CategoryRepository()))
-        categoryVC.categoryRoute = self
-        categoryVC.bind(to: categoryVM)
-        navigator.pushViewController(categoryVC, animated: true)
-    }
 }
 
 // logic các phương thức điều hướng
 extension CategoryCoordinator: CategoryRoutes {
-    // chuyển coordinator thì làm như dưới, điều hướng các màn thuộc coordinator thì push bình thường
-    func navigateExample1() {
-//        let ex1Coordinator = Example1Coordinator(navigator: navigator)
-//        ex1Coordinator.start()
-//        self.ex1Coordinator = ex1Coordinator
+    func navigateToComicDetail(comicDetailUrl: String, title: String) {
+        let comicDetailVC = ComicDetailViewController()
+        let comicDetailVM = ComicDetailViewModel(detailComicUrl: comicDetailUrl,
+                                                 comicDetailUC: ComicDetailUC(repository: ComicDetailRepository()),
+                                                 coordinator: ComicDetailCoordinator(navigator: navigator))
+        comicDetailVC.bind(to: comicDetailVM)
+        comicDetailVC.hidesBottomBarWhenPushed = true
+        comicDetailVC.title = title
+        navigator.pushViewController(comicDetailVC, animated: true)
     }
-    
 }

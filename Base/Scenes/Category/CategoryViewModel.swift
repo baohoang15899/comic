@@ -19,6 +19,7 @@ class CategoryViewModel: BaseViewModel {
     struct Input {
         let willDisplayCell: Driver<(cell: UITableViewCell, indexPath: IndexPath )>
         let didSelectedItem: Driver<(row: Int, component: Int)>
+        let didSelectedComic: Driver<ComicModel>
         let getAllCategory: Driver<Void>
         let onTapPickerView: Driver<Void>
     }
@@ -32,9 +33,11 @@ class CategoryViewModel: BaseViewModel {
     
     private let bag = DisposeBag()
     private let categoryUC: CategoryUC
+    private let coordinator: CategoryCoordinator
     
-    init(categoryUC: CategoryUC) {
+    init(categoryUC: CategoryUC, coordinator: CategoryCoordinator) {
         self.categoryUC = categoryUC
+        self.coordinator = coordinator
     }
     
     func transform(input: Input) -> Output {
@@ -70,6 +73,14 @@ class CategoryViewModel: BaseViewModel {
         .withLatestFrom(allCategoryOutput) { pickerData, categories in
             return categories[pickerData.row]
         }
+        
+        input.didSelectedComic
+            .asObservable()
+            .subscribe(onNext: { data in
+                self.coordinator.navigateToComicDetail(comicDetailUrl: data.detailUrl ?? "",
+                                                       title: data.title ?? "")
+            })
+            .disposed(by: bag)
         
         input.willDisplayCell
             .asObservable()

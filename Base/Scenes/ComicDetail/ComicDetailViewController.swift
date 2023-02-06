@@ -19,8 +19,6 @@ class ComicDetailViewController: BaseViewController<ComicDetailViewModel> {
     
     private let bag = DisposeBag()
     private var dataSource: RxTableViewSectionedReloadDataSource<ComicDetailSectionData>? = nil
-    
-    weak var routesDelegate: ComicDetailRoutes?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -125,7 +123,7 @@ extension ComicDetailViewController: UITableViewDelegate {
             if let item = dataSource?[indexPath.section].items[indexPath.row] {
                 let data = item as? ComicDetailChapterModel
                 if let chapter = data?.chapter {
-                    routesDelegate?.navigateToChapterDetail(chapter: chapter)
+                    viewModel.didSelectItem.onNext(chapter)
                 }
             }
         }

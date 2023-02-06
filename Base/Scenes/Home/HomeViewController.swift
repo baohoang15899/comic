@@ -17,9 +17,7 @@ class HomeViewController: BaseViewController<HomeViewModel> {
 
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var headerView: TabbarHeaderBaseView!
-    
-    weak var routesDelegate: HomeRoutes?
-    
+
     private let bag = DisposeBag()
     private var dataSource: RxTableViewSectionedReloadDataSource<HomeSectionData>? = nil
     
@@ -73,7 +71,7 @@ class HomeViewController: BaseViewController<HomeViewModel> {
                     cell.configCell(data: item.data ?? [])
                     cell.didSelectComic = { [weak self] comic in
                         if let url = comic.detailUrl, let title = comic.title {
-                            self?.routesDelegate?.navigateToComicDetail(comicDetailUrl: url, title: title)
+                            self?.viewModel.didSelectItem.onNext((url, title))
                         }
                     }
                     return cell

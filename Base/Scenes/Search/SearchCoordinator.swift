@@ -16,32 +16,25 @@ protocol SearchRoutes: AnyObject {
     func navigateToComicDetail(comicDetailUrl: String, title: String)
 }
 
-class SearchCoordinator: Coordinator {
+class SearchCoordinator {
    
     private var navigator: UINavigationController
-    private var ComicCoordinator: ComicDetailCoordinator?
 
     init(navigator: UINavigationController) {
         self.navigator = navigator
-    }
-    
-    // khởi tạo màn và điều hướng
-    func start() {
-        let searchVC = SearchViewController()
-        searchVC.routesDelegate = self // gán delegate cho view contoller quản lý route nếu có
-        searchVC.bind(to: SearchViewModel(searchUC: SearchUC(repository: SearchRepository())))
-        navigator.pushViewController(searchVC, animated: true)
     }
 }
 
 // logic các phương thức điều hướng
 extension SearchCoordinator: SearchRoutes {
-    // chuyển coordinator thì làm như dưới, điều hướng các màn thuộc coordinator thì push bình thường
     func navigateToComicDetail(comicDetailUrl: String, title: String) {
-        let comicDetailCoordinator = ComicDetailCoordinator(navigator: navigator,
-                                                            comicDetailUrl: comicDetailUrl,
-                                                            title: title)
-        comicDetailCoordinator.start()
-        self.ComicCoordinator = comicDetailCoordinator
+        let comicDetailVC = ComicDetailViewController()
+        let comicDetailVM = ComicDetailViewModel(detailComicUrl: comicDetailUrl,
+                                                 comicDetailUC: ComicDetailUC(repository: ComicDetailRepository()),
+                                                 coordinator: ComicDetailCoordinator(navigator: navigator))
+        comicDetailVC.bind(to: comicDetailVM)
+        comicDetailVC.hidesBottomBarWhenPushed = true
+        comicDetailVC.title = title
+        navigator.pushViewController(comicDetailVC, animated: true)
     }
 }

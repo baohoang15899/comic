@@ -16,30 +16,14 @@ protocol ComicDetailRoutes: AnyObject {
     func navigateToChapterDetail(chapter: ChapterModel)
 }
 
-class ComicDetailCoordinator: Coordinator {
-   
+class ComicDetailCoordinator {
+    
     private var navigator: UINavigationController
-    private let comicUrl: String
-    private let title: String
-//    private var ex1Coordinator: Example1Coordinator? // khai báo coordinator cần đổi nếu có
 
-    init(navigator: UINavigationController, comicDetailUrl: String, title: String) {
+    init(navigator: UINavigationController) {
         self.navigator = navigator
-        self.comicUrl = comicDetailUrl
-        self.title = title
     }
     
-    // khởi tạo màn và điều hướng
-    func start() {
-        let comicDetailVC = ComicDetailViewController()
-        let comicDetailVM = ComicDetailViewModel(detailComicUrl: comicUrl,
-                                                 comicDetailUC: ComicDetailUC(repository: ComicDetailRepository()))
-        comicDetailVC.routesDelegate = self // gán delegate cho view contoller quản lý route nếu có
-        comicDetailVC.bind(to: comicDetailVM)
-        comicDetailVC.hidesBottomBarWhenPushed = true
-        comicDetailVC.title = title
-        navigator.pushViewController(comicDetailVC, animated: true)
-    }
 }
 
 // logic các phương thức điều hướng

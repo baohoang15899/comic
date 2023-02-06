@@ -21,7 +21,6 @@ class SearchViewModel: BaseViewModel {
     
     struct Output {
         let comicSuggest: Driver<[ComicSuggestModel]>
-        let selectedItem: Driver<ComicSuggestModel>
         let comicSuggestIsEmpty: Driver<Bool>
     }
     
@@ -31,19 +30,23 @@ class SearchViewModel: BaseViewModel {
     
     private let bag = DisposeBag()
     private let searchUC: SearchUC
+    private let coordinator: SearchCoordinator
     
-    init(searchUC: SearchUC) {
+    init(searchUC: SearchUC, coordinator: SearchCoordinator) {
         self.searchUC = searchUC
+        self.coordinator = coordinator
     }
 
     func transform(input: Input) -> Output {
         
         let comicSuggestSubjectIsEmpty = BehaviorSubject<Bool>(value: true)
         
-        let selectedItemOutput = input.didSelectItem
-            .map({ data -> ComicSuggestModel in
-                return data
+        input.didSelectItem
+            .asObservable()
+            .subscribe(onNext: { data in
+                self.coordinator.navigateToComicDetail(comicDetailUrl: data.detailUrl ?? "", title: data.title ?? "")
             })
+            .disposed(by: bag)
         
        let comicSuggestOutput = input.searchString
             .debounce(RxTimeInterval.milliseconds(1000)) // Wait 0.5 for changes.
@@ -59,7 +62,6 @@ class SearchViewModel: BaseViewModel {
         let comicSuggestIsEmptyOutput = comicSuggestSubjectIsEmpty.skip(1).asDriver(onErrorJustReturn: true)
         
         return Output(comicSuggest: comicSuggestOutput,
-                      selectedItem: selectedItemOutput,
                       comicSuggestIsEmpty: comicSuggestIsEmptyOutput)
     }
 }

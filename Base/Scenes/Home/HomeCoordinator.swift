@@ -16,34 +16,27 @@ protocol HomeRoutes: AnyObject {
     func navigateToComicDetail(comicDetailUrl: String, title: String)
 }
 
-class HomeCoordinator: Coordinator {
+class HomeCoordinator {
    
     private var navigator: UINavigationController
-    private var comicCoordinator: ComicDetailCoordinator?
     
     init(navigator: UINavigationController) {
         self.navigator = navigator
     }
     
-    // khởi tạo màn và điều hướng
-    func start() {
-        let homeVC = HomeViewController()
-        let homeVM = HomeViewModel(topComicUC: TopComicUC(repository: TopComicRepository()))// gán delegate cho view contoller quản lý route nếu có
-        homeVC.bind(to: homeVM)
-        navigator.pushViewController(homeVC, animated: true)
-        homeVC.routesDelegate = self
-    }
 }
 
-// logic các phương thức điều hướng
 extension HomeCoordinator: HomeRoutes {
-    // chuyển coordinator thì làm như dưới, điều hướng các màn thuộc coordinator thì push bình thường
+    
     func navigateToComicDetail(comicDetailUrl: String, title: String) {
-        let comicDetailCoordinator = ComicDetailCoordinator(navigator: navigator,
-                                                            comicDetailUrl: comicDetailUrl,
-                                                            title: title)
-        comicDetailCoordinator.start()
-        self.comicCoordinator = comicDetailCoordinator
+        let comicDetailVC = ComicDetailViewController()
+        let comicDetailVM = ComicDetailViewModel(detailComicUrl: comicDetailUrl,
+                                                 comicDetailUC: ComicDetailUC(repository: ComicDetailRepository()),
+                                                 coordinator: ComicDetailCoordinator(navigator: navigator))
+        comicDetailVC.bind(to: comicDetailVM)
+        comicDetailVC.hidesBottomBarWhenPushed = true
+        comicDetailVC.title = title
+        navigator.pushViewController(comicDetailVC, animated: true)
     }
     
 }

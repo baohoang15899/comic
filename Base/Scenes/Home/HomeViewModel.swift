@@ -29,14 +29,24 @@ class HomeViewModel: BaseViewModel {
     
     private let bag = DisposeBag()
     private let topComicUC: TopComicUC
+    private let coordinator: HomeCoordinator
     
-    init(topComicUC: TopComicUC) {
+    let didSelectItem = PublishSubject<(String, String)>()
+    
+    init(topComicUC: TopComicUC, coordinator: HomeCoordinator) {
         self.topComicUC = topComicUC
+        self.coordinator = coordinator
     }
     
     var HomeSectionSubject = BehaviorSubject<[HomeSectionData]>(value: [])
     
     func transform(input: Input) -> Output {
+        
+        self.didSelectItem
+            .subscribe { url, title  in
+                self.coordinator.navigateToComicDetail(comicDetailUrl: url, title: title)
+            }
+            .disposed(by: bag)
         
         let nomiateOutput = input.getNominate
             .flatMap { _ in

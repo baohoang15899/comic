@@ -23,10 +23,7 @@ class CategoryViewController: BaseViewController<CategoryViewModel> {
     
     private let bag = DisposeBag()
     private let submitButton: UIBarButtonItem = UIBarButtonItem()
-    
-    weak var categoryRoute: CategoryRoutes?
-    
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
@@ -61,6 +58,7 @@ class CategoryViewController: BaseViewController<CategoryViewModel> {
     override func bindViewModel() {
         let input = CategoryViewModel.Input(willDisplayCell: tableView.rx.willDisplayCell.asDriver(),
                                             didSelectedItem: categoryPickerView.rx.itemSelected.asDriver(),
+                                            didSelectedComic: tableView.rx.modelSelected(ComicModel.self).asDriver(),
                                             getAllCategory: Driver.just(()),
                                             onTapPickerView: submitButton.rx.tap.asDriver())
         let output = viewModel.transform(input: input)
