@@ -48,7 +48,6 @@ class ChapterDetailViewModel: BaseViewModel {
     }
     
     private func getChapterImages(data: [ChapterDetailModel]){
-        print(data)
         let allObservables = data.map { chapterDetailUC.getChapterImage(chapter: $0) }
         
         let all = Observable.from(allObservables).merge().toArray()
