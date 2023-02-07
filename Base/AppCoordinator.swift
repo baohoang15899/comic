@@ -25,6 +25,8 @@ class AppCoordinator {
 
     func start() {
         // khởi tạo màn home
+        window.rootViewController = self.navigationController
+        
         let homeVC = HomeViewController()
         let homeVM = HomeViewModel(topComicUC: TopComicUC(repository: TopComicRepository()),
                                    coordinator: HomeCoordinator(navigator: navigationController))
@@ -46,14 +48,20 @@ class AppCoordinator {
         let test3 = UINavigationController(rootViewController: UIViewController())
         test3.tabBarItem = UITabBarItem(title: L10n.Common.Tab.favorite, image: UIImage(asset: Asset.Images.Common.icHeart), tag: 3)
 
-        tabbarController.viewControllers = [homeVC,
-                                            searchVC,
-                                            categoryVC,
-                                            test3]
+        tabbarController.setViewControllers([homeVC,
+                                             searchVC,
+                                             categoryVC,
+                                             test3], animated: true)
         
+        if #available(iOS 13.0, *) {
+            navigationController.view.backgroundColor = UIColor.systemBackground
+        } else {
+            navigationController.view.backgroundColor = UIColor.white
+        }
+        
+        navigationController.setNavigationBarHidden(true, animated: false)
         navigationController.pushViewController(tabbarController, animated: true) // nếu có authen có thể check token ở đây, nếu có thì push vào login
 //
-        window.rootViewController = self.navigationController
         window.makeKeyAndVisible()
     }
 }

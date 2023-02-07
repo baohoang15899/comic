@@ -79,6 +79,11 @@ class HomeViewController: BaseViewController<HomeViewModel> {
                 case .banner:
                     let cell = tableView.dequeueReusableCell(type: BannerTableViewCell.self, forIndexPath: indexPath)
                     cell.configCell(data: item.data ?? [])
+                    cell.didSelectComic = { [weak self] comic in
+                        if let url = comic.detailUrl, let title = comic.title {
+                            self?.viewModel.didSelectItem.onNext((url, title))
+                        }
+                    }
                     return cell
                     
                 }
