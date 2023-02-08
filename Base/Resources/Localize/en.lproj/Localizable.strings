@@ -22,6 +22,7 @@
 "ComicDetail.author" = "Tên tác giả: %@";
 "ComicDetail.title" = "Tên truyện: %@";
 "ComicDetail.status" = "Trạng thái: %@";
+"ComicDetail.favorite" = "Yêu thích:";
 "ComicDetail.section.category" = "Thể loại";
 "ComicDetail.section.content" = "Nội dung";
 "ComicDetail.section.chapter" = "Danh sách chương";

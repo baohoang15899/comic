@@ -19,6 +19,8 @@ internal enum L10n {
     internal static func author(_ p1: Any) -> String {
       return L10n.tr("Localizable", "ComicDetail.author", String(describing: p1), fallback: "Tên tác giả: %@")
     }
+    /// Yêu thích:
+    internal static let favorite = L10n.tr("Localizable", "ComicDetail.favorite", fallback: "Yêu thích:")
     /// Trạng thái: %@
     internal static func status(_ p1: Any) -> String {
       return L10n.tr("Localizable", "ComicDetail.status", String(describing: p1), fallback: "Trạng thái: %@")

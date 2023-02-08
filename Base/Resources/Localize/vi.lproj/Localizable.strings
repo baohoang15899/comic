@@ -22,6 +22,7 @@
 "ComicDetail.status" = "Trạng thái: %@";
 "ComicDetail.section.category" = "Thể loại";
 "ComicDetail.section.content" = "Nội dung";
+"ComicDetail.favorite" = "Yêu thích:";
 "ComicDetail.section.chapter" = "Danh sách chương";
 "ComicDetail.btn.imgQuality" = "Chọn chất lượng ảnh";
 "ComicDetail.quality.lowest" = "Ảnh chất lượng thấp nhất";

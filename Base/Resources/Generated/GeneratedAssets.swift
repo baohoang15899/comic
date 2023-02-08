@@ -27,6 +27,7 @@ internal enum Asset {
   internal enum Images {
     internal enum ComicDetail {
       internal static let icComicDetailSetting = ImageAsset(name: "ic_comicDetail_setting")
+      internal static let icHeartGray = ImageAsset(name: "ic_heart_gray")
     }
     internal enum Common {
       internal static let icBook = ImageAsset(name: "ic_book")

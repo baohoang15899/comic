@@ -65,8 +65,12 @@ struct ComicDetailRepository: ComicDetailRepositoryType {
                                                                              attr: "href")
                     
                     let date = SwiftSoupService.shared.elementToString(element: value, className: "div.col-xs-4.text-center.no-wrap.small")
-
-                    return ChapterModel(title: title, chapterUrl: chapterUrl, date: date)
+                    
+                    let id = SwiftSoupService.shared.getAttrFromHtml(element: value,
+                                                                     className: "div.col-xs-5.chapter a",
+                                                                      attr: "data-id")
+                    
+                    return ChapterModel(id: id, title: title, chapterUrl: chapterUrl, chap: "", date: date)
                 }) ?? []
 
                 let content = SwiftSoupService.shared.elementToString(element: contentInfo,

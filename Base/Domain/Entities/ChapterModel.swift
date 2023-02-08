@@ -7,10 +7,19 @@
 
 import Foundation
 
-struct ChapterModel {
-    let id: String? = ""
+public class ChapterModel: NSObject {
+    let id: String?
     let title: String?
     let chapterUrl: String?
-    let chap: String? = ""
+    let chap: String?
     let date: String?
+    
+    init(id: String?, title: String?, chapterUrl: String?, chap: String?, date: String?) {
+        self.id = id
+        self.title = title
+        self.chapterUrl = chapterUrl
+        self.chap = chap
+        self.date = date
+    }
+    
 }

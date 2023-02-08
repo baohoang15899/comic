@@ -114,6 +114,9 @@
 		29D6D0832983CE4D004EE766 /* ComicSuggestModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29D6D0822983CE4D004EE766 /* ComicSuggestModel.swift */; };
 		29D6D0892983D9B9004EE766 /* ComicSuggestTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29D6D0872983D9B9004EE766 /* ComicSuggestTableViewCell.swift */; };
 		29D6D08A2983D9B9004EE766 /* ComicSuggestTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 29D6D0882983D9B9004EE766 /* ComicSuggestTableViewCell.xib */; };
+		29DD600629934B6D004E6C96 /* CoreDataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 29DD600429934B6D004E6C96 /* CoreDataModel.xcdatamodeld */; };
+		29DD600F299356D5004E6C96 /* DetailComicCoreData+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29DD600D299356D5004E6C96 /* DetailComicCoreData+CoreDataClass.swift */; };
+		29DD6010299356D5004E6C96 /* DetailComicCoreData+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29DD600E299356D5004E6C96 /* DetailComicCoreData+CoreDataProperties.swift */; };
 		29EFDEEB28F9674D0032CF22 /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29EFDEEA28F9674D0032CF22 /* AppCoordinator.swift */; };
 		29EFDEF628FA413A0032CF22 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 29EFDEF828FA413A0032CF22 /* Localizable.strings */; };
 		29EFDF0228FA42670032CF22 /* GeneratedStrings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29EFDF0128FA42670032CF22 /* GeneratedStrings.swift */; };
@@ -252,6 +255,9 @@
 		29D6D0822983CE4D004EE766 /* ComicSuggestModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComicSuggestModel.swift; sourceTree = "<group>"; };
 		29D6D0872983D9B9004EE766 /* ComicSuggestTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComicSuggestTableViewCell.swift; sourceTree = "<group>"; };
 		29D6D0882983D9B9004EE766 /* ComicSuggestTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ComicSuggestTableViewCell.xib; sourceTree = "<group>"; };
+		29DD600529934B6D004E6C96 /* CoreDataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CoreDataModel.xcdatamodel; sourceTree = "<group>"; };
+		29DD600D299356D5004E6C96 /* DetailComicCoreData+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DetailComicCoreData+CoreDataClass.swift"; sourceTree = "<group>"; };
+		29DD600E299356D5004E6C96 /* DetailComicCoreData+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DetailComicCoreData+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		29EFDEEA28F9674D0032CF22 /* AppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
 		29EFDEF728FA413A0032CF22 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		29EFDEF928FA41640032CF22 /* vi */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = vi; path = vi.lproj/Main.strings; sourceTree = "<group>"; };
@@ -318,6 +324,7 @@
 		291E1771293600D200FCAAD9 /* Domain */ = {
 			isa = PBXGroup;
 			children = (
+				29DD600B2993566C004E6C96 /* CoreData */,
 				29F5589D29763F5700FE1386 /* Entities */,
 				291E1772293600EB00FCAAD9 /* UseCase */,
 			);
@@ -572,6 +579,7 @@
 				29D508C528F8EF5C00DD3D32 /* LaunchScreen.storyboard */,
 				29D508C828F8EF5C00DD3D32 /* Info.plist */,
 				29EFDEEA28F9674D0032CF22 /* AppCoordinator.swift */,
+				29DD600429934B6D004E6C96 /* CoreDataModel.xcdatamodeld */,
 			);
 			path = Base;
 			sourceTree = "<group>";
@@ -760,6 +768,23 @@
 				29D6D0882983D9B9004EE766 /* ComicSuggestTableViewCell.xib */,
 			);
 			path = ComicSuggestTableViewCell;
+			sourceTree = "<group>";
+		};
+		29DD600B2993566C004E6C96 /* CoreData */ = {
+			isa = PBXGroup;
+			children = (
+				29DD600C29935679004E6C96 /* DetailComicCoreData */,
+			);
+			path = CoreData;
+			sourceTree = "<group>";
+		};
+		29DD600C29935679004E6C96 /* DetailComicCoreData */ = {
+			isa = PBXGroup;
+			children = (
+				29DD600D299356D5004E6C96 /* DetailComicCoreData+CoreDataClass.swift */,
+				29DD600E299356D5004E6C96 /* DetailComicCoreData+CoreDataProperties.swift */,
+			);
+			path = DetailComicCoreData;
 			sourceTree = "<group>";
 		};
 		29EFDEEE28FA3D990032CF22 /* Libs */ = {
@@ -1048,6 +1073,7 @@
 				29D623CE297C17630081E5A7 /* DetailComicModel.swift in Sources */,
 				29F5589F29763F7C00FE1386 /* ComicModel.swift in Sources */,
 				297FFD4B2979677A00B8AD9A /* ComicCollectionViewCell.swift in Sources */,
+				29DD600629934B6D004E6C96 /* CoreDataModel.xcdatamodeld in Sources */,
 				29D6D0892983D9B9004EE766 /* ComicSuggestTableViewCell.swift in Sources */,
 				29A6182D297AAB34004A1993 /* ComicDetailViewController.swift in Sources */,
 				299265AC298B65C20094EB0C /* CategoryModel.swift in Sources */,
@@ -1071,10 +1097,12 @@
 				29D508F628F8FA2000DD3D32 /* APIRequest.swift in Sources */,
 				2905D51329835E5700CC6E72 /* SearchViewModel.swift in Sources */,
 				2905D51029835D5400CC6E72 /* SearchViewController.swift in Sources */,
+				29DD600F299356D5004E6C96 /* DetailComicCoreData+CoreDataClass.swift in Sources */,
 				29F5589C2975455600FE1386 /* SwiftSoupService.swift in Sources */,
 				291E178A2937351D00FCAAD9 /* ObservableExtension.swift in Sources */,
 				29A67F33298D00180074EC77 /* ChapterDetailRepository.swift in Sources */,
 				291E17692935E98D00FCAAD9 /* GeoCoding.swift in Sources */,
+				29DD6010299356D5004E6C96 /* DetailComicCoreData+CoreDataProperties.swift in Sources */,
 				29D623F0297C5E440081E5A7 /* CategoryCollectionViewCell.swift in Sources */,
 				29EFDF1028FA53D50032CF22 /* HomeCoordinator.swift in Sources */,
 				297905DF294086800052F6BE /* BaseSectionHeaderFooterView.swift in Sources */,
@@ -1549,6 +1577,19 @@
 			productName = SwiftSoup;
 		};
 /* End XCSwiftPackageProductDependency section */
+
+/* Begin XCVersionGroup section */
+		29DD600429934B6D004E6C96 /* CoreDataModel.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				29DD600529934B6D004E6C96 /* CoreDataModel.xcdatamodel */,
+			);
+			currentVersion = 29DD600529934B6D004E6C96 /* CoreDataModel.xcdatamodel */;
+			path = CoreDataModel.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 29D508AF28F8EF5B00DD3D32 /* Project object */;
 }
