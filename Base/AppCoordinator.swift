@@ -45,13 +45,15 @@ class AppCoordinator {
         categoryVC.bind(to: categoryVM)
         categoryVC.tabBarItem =  UITabBarItem(title: L10n.Common.Tab.category, image: UIImage(asset: Asset.Images.Common.icBook), tag: 2)
         
-        let test3 = UINavigationController(rootViewController: UIViewController())
-        test3.tabBarItem = UITabBarItem(title: L10n.Common.Tab.favorite, image: UIImage(asset: Asset.Images.Common.icHeart), tag: 3)
+        let favoriteVC = FavoriteViewController()
+        let favoriteVM = FavoriteViewModel(favoriteUC: FavoriteUC(favoriteRepository: FavoriteRepository()), coordinator: FavoriteCoordinator(navigator: navigationController))
+        favoriteVC.bind(to: favoriteVM)
+        favoriteVC.tabBarItem = UITabBarItem(title: L10n.Common.Tab.favorite, image: UIImage(asset: Asset.Images.Common.icHeart), tag: 3)
 
         tabbarController.setViewControllers([homeVC,
                                              searchVC,
                                              categoryVC,
-                                             test3], animated: true)
+                                             favoriteVC], animated: true)
         
         if #available(iOS 13.0, *) {
             navigationController.view.backgroundColor = UIColor.systemBackground

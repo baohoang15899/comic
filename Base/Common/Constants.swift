@@ -31,6 +31,10 @@ struct nettruyenPath {
     static let all = "tim-truyen"
 }
 
+struct NotificationCenterKey {
+    static let favorite = "favorite"
+}
+
 struct WeatherCaculate {
     
     static func kelvinToCelsius(K: Double) -> String {

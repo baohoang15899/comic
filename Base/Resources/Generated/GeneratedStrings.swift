@@ -70,6 +70,14 @@ internal enum L10n {
       internal static let empty = L10n.tr("Localizable", "Common.update.empty", fallback: "Đang cập nhật")
     }
   }
+  internal enum Favorite {
+    internal enum Empty {
+      /// Hãy chọn truyện mà bạn yêu thích để lưu truyện vào danh sách
+      internal static let content = L10n.tr("Localizable", "Favorite.empty.content", fallback: "Hãy chọn truyện mà bạn yêu thích để lưu truyện vào danh sách")
+      /// Bạn chưa có truyện yêu thích
+      internal static let title = L10n.tr("Localizable", "Favorite.empty.title", fallback: "Bạn chưa có truyện yêu thích")
+    }
+  }
   internal enum Search {
     /// Nhập tên truyện tranh
     internal static let placeholder = L10n.tr("Localizable", "Search.placeholder", fallback: "Nhập tên truyện tranh")

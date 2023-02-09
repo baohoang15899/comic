@@ -1,17 +1,22 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="20086" systemVersion="21G115" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="21279" systemVersion="21G115" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="ChapterCoreData" representedClassName="ChapterCoreData" syncable="YES">
+        <attribute name="chap" optional="YES" attributeType="String"/>
+        <attribute name="chapterUrl" optional="YES" attributeType="String"/>
+        <attribute name="date" optional="YES" attributeType="String"/>
+        <attribute name="id" optional="YES" attributeType="String"/>
+        <attribute name="title" optional="YES" attributeType="String"/>
+        <relationship name="comic" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="DetailComicCoreData" inverseName="chapter" inverseEntity="DetailComicCoreData"/>
+    </entity>
     <entity name="DetailComicCoreData" representedClassName="DetailComicCoreData" syncable="YES">
         <attribute name="author" optional="YES" attributeType="String"/>
         <attribute name="categories" optional="YES" attributeType="Transformable" valueTransformerName="NSSecureUnarchiveFromData" customClassName="[String]"/>
-        <attribute name="chapters" optional="YES" attributeType="Transformable" valueTransformerName="NSSecureUnarchiveFromData" customClassName="[ChapterModel]"/>
         <attribute name="content" optional="YES" attributeType="String"/>
         <attribute name="id" optional="YES" attributeType="String"/>
         <attribute name="image" optional="YES" attributeType="String"/>
         <attribute name="isFavorite" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="status" optional="YES" attributeType="String"/>
         <attribute name="title" optional="YES" attributeType="String"/>
+        <relationship name="chapter" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="ChapterCoreData" inverseName="comic" inverseEntity="ChapterCoreData"/>
     </entity>
-    <elements>
-        <element name="DetailComicCoreData" positionX="-7400.72265625" positionY="-2061.14453125" width="128" height="178"/>
-    </elements>
 </model>

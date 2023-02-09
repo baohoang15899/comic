@@ -59,8 +59,7 @@ class ComicDetailViewController: BaseViewController<ComicDetailViewModel> {
 
     override func bindViewModel() {
         let input = ComicDetailViewModel.Input(getComicDetail: Driver.just(()),
-                                               setFavorite: heartButton.rx.tap.asDriver(),
-                                               getFavoriteStatus: Driver.just(()))
+                                               setFavorite: heartButton.rx.tap.asDriver())
         let output = viewModel.transform(input: input)
         
         dataSource = RxTableViewSectionedReloadDataSource<ComicDetailSectionData>(
@@ -110,7 +109,7 @@ class ComicDetailViewController: BaseViewController<ComicDetailViewModel> {
                 .disposed(by: bag)
         }
         
-        Driver.merge(output.setFavoriteStatus, output.getFavoriteStatus)
+        output.comicFavoriteStatus
             .drive {[weak self] status in
                 self?.heartButton.image = status ? Asset.Images.ComicDetail.icHeartFill.image : Asset.Images.ComicDetail.icHeartGray.image
             }

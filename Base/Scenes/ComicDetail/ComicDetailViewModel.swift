@@ -17,13 +17,11 @@ class ComicDetailViewModel: BaseViewModel {
     struct Input {
         let getComicDetail: Driver<Void>
         let setFavorite: Driver<Void>
-        let getFavoriteStatus: Driver<Void>
     }
     
     struct Output {
         let comicDetailSection: Driver<[ComicDetailSectionData]>
-        let setFavoriteStatus: Driver<Bool>
-        let getFavoriteStatus: Driver<Bool>
+        let comicFavoriteStatus: Driver<Bool>
     }
     
     private let bag = DisposeBag()
@@ -78,8 +76,13 @@ class ComicDetailViewModel: BaseViewModel {
                     .asDriver(onErrorJustReturn: false)
             }
         
+        let favoriteOutput = Driver.merge(getFavoriteOutput, setFavoriteOutput)
+            .map { status in
+                print("\(self) favorite status: \(status)")
+                return status
+            }
+        
         return Output(comicDetailSection: comicDetailSectionOutput,
-                      setFavoriteStatus: setFavoriteOutput,
-                      getFavoriteStatus: getFavoriteOutput)
+                      comicFavoriteStatus: favoriteOutput)
     }
 }

@@ -40,6 +40,10 @@
 //category
 "Category.title" = "Thể loại";
 
+//favorite
+"Favorite.empty.title" = "Bạn chưa có truyện yêu thích";
+"Favorite.empty.content" = "Hãy chọn truyện mà bạn yêu thích để lưu truyện vào danh sách";
+
 //common
 "Common.update.empty" = "Đang cập nhật";
 "Common.tab.search" = "Tìm kiếm";

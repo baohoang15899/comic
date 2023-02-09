@@ -16,11 +16,24 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var coordinator: AppCoordinator?
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+        print("CoreData path :: \(self.getCoreDataDBPath())")
         window = UIWindow(frame: UIScreen.main.bounds)
         coordinator = AppCoordinator(window: window!)
         coordinator?.start()
         return true
     }
+    
+    func getCoreDataDBPath() {
+            let path = FileManager
+                .default
+                .urls(for: .applicationSupportDirectory, in: .userDomainMask)
+                .last?
+                .absoluteString
+                .replacingOccurrences(of: "file://", with: "")
+                .removingPercentEncoding
+
+            print("Core Data DB Path :: \(path ?? "Not found")")
+        }
     
     lazy var persistentContainer: NSPersistentContainer = {
             /*

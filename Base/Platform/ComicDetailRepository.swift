@@ -99,7 +99,7 @@ struct ComicDetailRepository: ComicDetailRepositoryType {
         do {
             let items = try context.fetch(DetailComicCoreData.fetchRequest())
             let hasItem = items.first { data in
-                return data.id == detailComic.id
+                return data.id == detailComic.id && data.isFavorite
             }
             return hasItem != nil ? Observable.just(true) : Observable.just(false)
         }
@@ -117,29 +117,40 @@ struct ComicDetailRepository: ComicDetailRepositoryType {
 //            for object in items {
 //                context.delete(object)
 //            }
-            print("total item: \(items.count)")
             let hasItem = items.first { data in
                 return data.id == detailComic.id
             }
 
-            if (hasItem != nil) {
+            if (hasItem != nil && ((hasItem?.isFavorite) != nil)) {
                 if let data = hasItem {
                     context.delete(data)
                     try context.save()
                 }
+                NotificationCenter.default.post(name: NSNotification.Name(NotificationCenterKey.favorite),
+                                                        object: nil)
                 return Observable.just(false)
             } else {
                 let saveItem = DetailComicCoreData(context: context)
+                detailComic.chapters?.forEach({ data in
+                    let chapter = ChapterCoreData(context: context)
+                    chapter.id = data.id
+                    chapter.title = data.title
+                    chapter.chapterUrl = data.chapterUrl
+                    chapter.date = data.date
+                    chapter.chap = data.chap
+                    saveItem.addToChapter(chapter)
+                })
                 saveItem.id = detailComic.id
                 saveItem.title = detailComic.title
                 saveItem.image = detailComic.image
                 saveItem.author = detailComic.author
                 saveItem.categories = detailComic.categories
-                saveItem.chapters = []
                 saveItem.content = detailComic.content
                 saveItem.status = detailComic.status
-                saveItem.isFavorite = detailComic.isFavorite ?? true
+                saveItem.isFavorite = true
                 try context.save()
+                NotificationCenter.default.post(name: NSNotification.Name(NotificationCenterKey.favorite),
+                                                        object: nil)
                 return Observable.just(true)
             }
         }
@@ -147,7 +158,6 @@ struct ComicDetailRepository: ComicDetailRepositoryType {
             print("Cant fetch local data")
             return Observable.just(false)
         }
-        return Observable.just(false)
     }
     
     func getComicDetailSection(data: DetailComicModel) -> Observable<[ComicDetailSectionData]> {
