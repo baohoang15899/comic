@@ -19,6 +19,7 @@ class ComicDetailViewController: BaseViewController<ComicDetailViewModel> {
     
     private let bag = DisposeBag()
     private var dataSource: RxTableViewSectionedReloadDataSource<ComicDetailSectionData>? = nil
+    private var heartButton = UIBarButtonItem()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -27,11 +28,19 @@ class ComicDetailViewController: BaseViewController<ComicDetailViewModel> {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        navigationController?.setNavigationBarHidden(false, animated: animated)
+        setupNavigationBar()
     }
 
     deinit {
         print("ComicDetailViewController deinit ✅")
+    }
+    
+    private func setupNavigationBar() {
+        navigationController?.setNavigationBarHidden(false, animated: false)
+        heartButton.tintColor = .red
+        heartButton.image = Asset.Images.ComicDetail.icHeartGray.image
+        heartButton.style = .plain
+        navigationItem.rightBarButtonItem = heartButton
     }
     
     private func setupUI() {
@@ -49,7 +58,9 @@ class ComicDetailViewController: BaseViewController<ComicDetailViewModel> {
     }
 
     override func bindViewModel() {
-        let input = ComicDetailViewModel.Input(getComicDetail: Driver.just(()))
+        let input = ComicDetailViewModel.Input(getComicDetail: Driver.just(()),
+                                               setFavorite: heartButton.rx.tap.asDriver(),
+                                               getFavoriteStatus: Driver.just(()))
         let output = viewModel.transform(input: input)
         
         dataSource = RxTableViewSectionedReloadDataSource<ComicDetailSectionData>(
@@ -99,6 +110,11 @@ class ComicDetailViewController: BaseViewController<ComicDetailViewModel> {
                 .disposed(by: bag)
         }
         
+        Driver.merge(output.setFavoriteStatus, output.getFavoriteStatus)
+            .drive {[weak self] status in
+                self?.heartButton.image = status ? Asset.Images.ComicDetail.icHeartFill.image : Asset.Images.ComicDetail.icHeartGray.image
+            }
+            .disposed(by: bag)
     }
 }
 

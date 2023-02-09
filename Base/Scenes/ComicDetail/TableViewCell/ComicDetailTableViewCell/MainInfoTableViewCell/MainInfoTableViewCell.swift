@@ -13,10 +13,7 @@ class MainInfoTableViewCell: UITableViewCell {
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var statusLabel: UILabel!
     @IBOutlet weak var authorLabel: UILabel!
-    @IBOutlet weak var favoriteLabel: UILabel!
-    
-    private var isFavorite: Bool = false
-    
+
     override func awakeFromNib() {
         super.awakeFromNib()
         setupUI()
@@ -33,15 +30,10 @@ class MainInfoTableViewCell: UITableViewCell {
         titleLabel.text = L10n.ComicDetail.title(data.title ?? "")
         statusLabel.text = L10n.ComicDetail.status(data.status ?? "")
         authorLabel.text = L10n.ComicDetail.author(data.author ?? "")
-        favoriteLabel.text = L10n.ComicDetail.favorite
         
         titleLabel.font = UIFont.systemFont(ofSize: 16, weight: .regular)
         statusLabel.font = UIFont.systemFont(ofSize: 16, weight: .regular)
         authorLabel.font = UIFont.systemFont(ofSize: 16, weight: .regular)
-        favoriteLabel.font = UIFont.systemFont(ofSize: 16, weight: .regular)
     }
     
-    @IBAction func onFavoriteTap(_ sender: Any) {
-        isFavorite = !isFavorite
-    }
 }

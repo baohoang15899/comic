@@ -28,7 +28,7 @@
                                 </constraints>
                             </imageView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZgW-zg-NNr">
-                                <rect key="frame" x="162" y="0.0" width="344" height="132.5"/>
+                                <rect key="frame" x="162" y="0.0" width="344" height="101.5"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tYX-ph-77h">
                                         <rect key="frame" x="17" y="0.0" width="322" height="20.5"/>
@@ -48,38 +48,19 @@
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cu8-io-K8e">
-                                        <rect key="frame" x="17" y="91.5" width="42" height="21"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <nil key="textColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cEB-yi-56h">
-                                        <rect key="frame" x="61" y="90" width="24" height="24"/>
-                                        <color key="tintColor" systemColor="systemPinkColor"/>
-                                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                        <state key="normal" image="ic_heart_gray"/>
-                                        <connections>
-                                            <action selector="onFavoriteTap:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="UEr-6a-deW"/>
-                                        </connections>
-                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <constraints>
                                     <constraint firstItem="oJC-xh-tnC" firstAttribute="leading" secondItem="tYX-ph-77h" secondAttribute="leading" id="0wp-Il-btb"/>
                                     <constraint firstAttribute="trailing" secondItem="tYX-ph-77h" secondAttribute="trailing" constant="5" id="71H-S2-bOG"/>
-                                    <constraint firstItem="cu8-io-K8e" firstAttribute="top" secondItem="oJC-xh-tnC" secondAttribute="bottom" constant="10" id="8aS-l2-FP5"/>
-                                    <constraint firstItem="cu8-io-K8e" firstAttribute="leading" secondItem="tYX-ph-77h" secondAttribute="leading" id="ARW-Fd-NPh"/>
                                     <constraint firstItem="oJC-xh-tnC" firstAttribute="top" secondItem="NSv-pJ-Wkk" secondAttribute="bottom" constant="10" id="HGc-JP-vj0"/>
                                     <constraint firstItem="NSv-pJ-Wkk" firstAttribute="trailing" secondItem="tYX-ph-77h" secondAttribute="trailing" id="Pwi-Ky-y2M"/>
+                                    <constraint firstAttribute="bottom" secondItem="oJC-xh-tnC" secondAttribute="bottom" constant="20" id="SUm-1N-Ypt"/>
                                     <constraint firstItem="NSv-pJ-Wkk" firstAttribute="leading" secondItem="tYX-ph-77h" secondAttribute="leading" id="UrE-bv-Sj2"/>
                                     <constraint firstItem="NSv-pJ-Wkk" firstAttribute="top" secondItem="tYX-ph-77h" secondAttribute="bottom" constant="10" id="Wlp-BS-Tsu"/>
-                                    <constraint firstItem="cEB-yi-56h" firstAttribute="centerY" secondItem="cu8-io-K8e" secondAttribute="centerY" id="aMi-gw-e17"/>
                                     <constraint firstItem="tYX-ph-77h" firstAttribute="leading" secondItem="ZgW-zg-NNr" secondAttribute="leading" constant="17" id="dM0-FY-mM3"/>
                                     <constraint firstItem="oJC-xh-tnC" firstAttribute="trailing" secondItem="tYX-ph-77h" secondAttribute="trailing" id="lbT-mS-Yuk"/>
                                     <constraint firstItem="tYX-ph-77h" firstAttribute="top" secondItem="ZgW-zg-NNr" secondAttribute="top" id="mgL-vP-bCd"/>
-                                    <constraint firstItem="cEB-yi-56h" firstAttribute="leading" secondItem="cu8-io-K8e" secondAttribute="trailing" constant="2" id="u1B-bq-Hra"/>
-                                    <constraint firstAttribute="bottom" secondItem="cu8-io-K8e" secondAttribute="bottom" constant="20" id="zIF-J4-cR3"/>
                                 </constraints>
                             </view>
                         </subviews>
@@ -107,7 +88,6 @@
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <connections>
                 <outlet property="authorLabel" destination="NSv-pJ-Wkk" id="w4F-7E-WZU"/>
-                <outlet property="favoriteLabel" destination="cu8-io-K8e" id="uGx-40-59Z"/>
                 <outlet property="posterImageView" destination="KMp-ir-zny" id="KkA-GI-eNa"/>
                 <outlet property="statusLabel" destination="oJC-xh-tnC" id="XYO-Dc-Uqh"/>
                 <outlet property="titleLabel" destination="tYX-ph-77h" id="uuP-De-dpS"/>
@@ -116,12 +96,8 @@
         </tableViewCell>
     </objects>
     <resources>
-        <image name="ic_heart_gray" width="24" height="24"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-        </systemColor>
-        <systemColor name="systemPinkColor">
-            <color red="1" green="0.17647058823529413" blue="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

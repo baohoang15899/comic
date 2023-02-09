@@ -9,7 +9,10 @@ import Foundation
 import RxSwift
 
 protocol ComicDetailUCType {
-    func getComicDetail(url: String) -> Observable<[ComicDetailSectionData]>
+    func getComicDetailSection(data: DetailComicModel) -> Observable<[ComicDetailSectionData]>
+    func setFavorite(detailComic: DetailComicModel) -> Observable<Bool>
+    func getComicDetailData(url: String) -> Observable<DetailComicModel>
+    func getFavorite(detailComic: DetailComicModel) -> Observable<Bool>
 }
 
 struct ComicDetailUC: ComicDetailUCType {
@@ -20,7 +23,19 @@ struct ComicDetailUC: ComicDetailUCType {
         self.comicDetailRepository = repository
     }
     
-    func getComicDetail(url: String) -> Observable<[ComicDetailSectionData]> {
-        return comicDetailRepository.getComicDetail(url: url)
+    func setFavorite(detailComic: DetailComicModel) -> Observable<Bool> {
+        return comicDetailRepository.setFavorite(detailComic: detailComic)
+    }
+    
+    func getComicDetailSection(data: DetailComicModel) -> Observable<[ComicDetailSectionData]> {
+        return comicDetailRepository.getComicDetailSection(data: data)
+    }
+    
+    func getFavorite(detailComic: DetailComicModel) -> Observable<Bool> {
+        return comicDetailRepository.getFavorite(detailComic: detailComic)
+    }
+    
+    func getComicDetailData(url: String) -> Observable<DetailComicModel> {
+        return comicDetailRepository.getComicDetailData(url: url)
     }
 }

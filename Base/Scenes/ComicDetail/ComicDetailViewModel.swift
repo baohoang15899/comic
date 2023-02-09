@@ -16,10 +16,14 @@ class ComicDetailViewModel: BaseViewModel {
     
     struct Input {
         let getComicDetail: Driver<Void>
+        let setFavorite: Driver<Void>
+        let getFavoriteStatus: Driver<Void>
     }
     
     struct Output {
         let comicDetailSection: Driver<[ComicDetailSectionData]>
+        let setFavoriteStatus: Driver<Bool>
+        let getFavoriteStatus: Driver<Bool>
     }
     
     private let bag = DisposeBag()
@@ -47,12 +51,35 @@ class ComicDetailViewModel: BaseViewModel {
             })
             .disposed(by: bag)
         
-        let comicDetailSectionOutput = input.getComicDetail
+        let comicDetail = input.getComicDetail
             .flatMap { _ in
-                return self.comicDetailUC.getComicDetail(url: self.detailComicUrl)
+                return self.comicDetailUC.getComicDetailData(url: self.detailComicUrl)
+                    .asDriver(onErrorJustReturn: DetailComicModel.init())
+            }
+        
+        let comicDetailSectionOutput = comicDetail
+            .flatMap { data in
+                return self.comicDetailUC.getComicDetailSection(data: data)
                     .asDriver(onErrorJustReturn: [])
             }
         
-        return Output(comicDetailSection: comicDetailSectionOutput)
+        let setFavoriteOutput = input.setFavorite
+            .withLatestFrom(comicDetail) { _, comic in
+                return comic
+            }
+            .flatMap { data in
+                return self.comicDetailUC.setFavorite(detailComic: data)
+                    .asDriver(onErrorJustReturn: false)
+        }
+        
+        let getFavoriteOutput = comicDetail
+            .flatMap { data in
+                return self.comicDetailUC.getFavorite(detailComic: data)
+                    .asDriver(onErrorJustReturn: false)
+            }
+        
+        return Output(comicDetailSection: comicDetailSectionOutput,
+                      setFavoriteStatus: setFavoriteOutput,
+                      getFavoriteStatus: getFavoriteOutput)
     }
 }

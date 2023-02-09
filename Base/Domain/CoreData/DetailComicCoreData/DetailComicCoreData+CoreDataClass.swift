@@ -2,7 +2,7 @@
 //  DetailComicCoreData+CoreDataClass.swift
 //  Base
 //
-//  Created by BaoHoang on 08/02/2023.
+//  Created by BaoHoang on 09/02/2023.
 //
 //
 
