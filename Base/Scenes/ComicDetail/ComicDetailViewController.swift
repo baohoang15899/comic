@@ -37,10 +37,6 @@ class ComicDetailViewController: BaseViewController<ComicDetailViewModel> {
     
     private func setupNavigationBar() {
         navigationController?.setNavigationBarHidden(false, animated: false)
-        heartButton.tintColor = .red
-        heartButton.image = Asset.Images.ComicDetail.icHeartGray.image
-        heartButton.style = .plain
-        navigationItem.rightBarButtonItem = heartButton
     }
     
     private func setupUI() {
@@ -55,6 +51,10 @@ class ComicDetailViewController: BaseViewController<ComicDetailViewModel> {
         tableView.separatorStyle = .none
         tableView.showsVerticalScrollIndicator = false
         tableView.estimatedRowHeight = 300
+        heartButton.tintColor = .red
+        heartButton.image = Asset.Images.ComicDetail.icHeartGray.image
+        heartButton.style = .plain
+        navigationItem.rightBarButtonItem = heartButton
     }
 
     override func bindViewModel() {

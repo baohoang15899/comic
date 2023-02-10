@@ -104,14 +104,14 @@ struct ComicDetailRepository: ComicDetailRepositoryType {
             return hasItem != nil ? Observable.just(true) : Observable.just(false)
         }
         catch {
-            print("Cant fetch local data")
+            print("Can't fetch local data")
             return Observable.just(false)
         }
     }
     
     func setFavorite(detailComic: DetailComicModel) -> Observable<Bool> {
         let context = AppDelegate.shared.persistentContainer.viewContext
-        
+        var i = 0
         do {
             let items = try context.fetch(DetailComicCoreData.fetchRequest())
 //            for object in items {
@@ -132,12 +132,13 @@ struct ComicDetailRepository: ComicDetailRepositoryType {
             } else {
                 let saveItem = DetailComicCoreData(context: context)
                 detailComic.chapters?.forEach({ data in
+                    i += 1
                     let chapter = ChapterCoreData(context: context)
                     chapter.id = data.id
                     chapter.title = data.title
                     chapter.chapterUrl = data.chapterUrl
                     chapter.date = data.date
-                    chapter.chap = data.chap
+                    chapter.chap = "\(i)"
                     saveItem.addToChapter(chapter)
                 })
                 saveItem.id = detailComic.id
@@ -155,7 +156,7 @@ struct ComicDetailRepository: ComicDetailRepositoryType {
             }
         }
         catch {
-            print("Cant fetch local data")
+            print("Can't fetch local data")
             return Observable.just(false)
         }
     }

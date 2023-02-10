@@ -11,16 +11,17 @@
 import Foundation
 import RxSwift
 import RxCocoa
+import UIKit
 
 class FavoriteViewModel: BaseViewModel {
     
     struct Input {
         let getAllFavorite: Driver<Void>
-        let didSelectItem: Driver<ComicSuggestModel>
+        let didSelectItem: Driver<FavoriteComicItemModel>
     }
     
     struct Output {
-        let favoriteComic: Driver<[ComicSuggestModel]>
+        let favoriteComic: Driver<[FavoriteComicSection]>
         let comicSuggestIsEmpty: Driver<Bool>
     }
     
@@ -28,6 +29,7 @@ class FavoriteViewModel: BaseViewModel {
     private let favoriteUC: FavoriteUC
     private let coordinator: FavoriteCoordinator
     let getAllFavoriteSubject = PublishSubject<Void>()
+    let deleteItemSubject = PublishSubject<IndexPath>()
     
     init(favoriteUC: FavoriteUC, coordinator: FavoriteCoordinator) {
         self.favoriteUC = favoriteUC
@@ -35,17 +37,45 @@ class FavoriteViewModel: BaseViewModel {
     }
 
     func transform(input: Input) -> Output {
-        let favoriteMerge = Driver.merge(input.getAllFavorite, getAllFavoriteSubject.asDriver(onErrorJustReturn: ()))
+
         let comicSuggestSubjectIsEmpty = BehaviorSubject<Bool>(value: true)
+        let favoriteComicSectionRelay = BehaviorRelay<[FavoriteComicSection]>(value: [])
+        var favoriteComics:[FavoriteComicItemModel] = []
+        let favoriteMerge = Driver.merge(input.getAllFavorite,
+                                         getAllFavoriteSubject.asDriver(onErrorJustReturn: ()))
         
-        let favoriteComicOutput = favoriteMerge
+        deleteItemSubject
+            .asObservable()
+            .subscribe(onNext: { indexPath in
+                if (indexPath.row >= 0 && indexPath.row < favoriteComicSectionRelay.value.first?.items.count ?? 0) {
+                    if let id = favoriteComics[indexPath.row].detailUrl {
+                        favoriteComics.remove(at: indexPath.row)
+                        favoriteComicSectionRelay.accept([FavoriteComicSection(items: favoriteComics)])
+                        self.favoriteUC.deleteFavorite(id: id)
+                    }
+                }
+            })
+            .disposed(by: bag)
+        
+        favoriteMerge
+            .asObservable()
             .flatMap({ _ in
                 return self.favoriteUC.getAllFavorite()
                     .asDriver(onErrorJustReturn: [])
             })
-            .do(onNext: { data in
+            .subscribe(onNext: { data in
+                let favoriteItem = data.map { comic in
+                    return FavoriteComicItemModel(image: comic.image,
+                                                  title: comic.title,
+                                                  category: comic.category,
+                                                  chapter: comic.chapter,
+                                                  detailUrl: comic.detailUrl)
+                }
+                favoriteComics = favoriteItem
+                favoriteComicSectionRelay.accept([FavoriteComicSection(items: favoriteItem)])
                 comicSuggestSubjectIsEmpty.onNext(!data.isEmpty)
             })
+            .disposed(by: bag)
         
         input.didSelectItem
             .asObservable()
@@ -55,7 +85,8 @@ class FavoriteViewModel: BaseViewModel {
             .disposed(by: bag)
                 
         let comicSuggestIsEmptyOutput = comicSuggestSubjectIsEmpty.asDriver(onErrorJustReturn: true)
-                
+        let favoriteComicOutput = favoriteComicSectionRelay.asDriver(onErrorJustReturn: [])
+        
         return Output(favoriteComic: favoriteComicOutput,
                       comicSuggestIsEmpty: comicSuggestIsEmptyOutput)
     }

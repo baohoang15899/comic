@@ -9,7 +9,41 @@
 //  Template created by baohg - bao15899@gmail.com
 
 import UIKit
+import RxDataSources
 
-class FavoriteModel {
+struct FavoriteComicItemModel {
+    let id = UUID()
+    let image: String?
+    let title: String?
+    let category: String?
+    let chapter: String?
+    let detailUrl: String?
+}
 
+extension FavoriteComicItemModel: IdentifiableType, Equatable {
+    typealias Identity = UUID
+    
+    var identity: UUID {
+        return id
+    }
+}
+
+struct FavoriteComicSection {
+    var items: [Item]
+}
+
+extension FavoriteComicSection: AnimatableSectionModelType {
+    typealias Item = FavoriteComicItemModel
+    typealias Identity = Int
+    
+    init(original: FavoriteComicSection, items: [Item]) {
+        self = original
+        self.items = items
+    }
+    
+    // Need to provide a unique id, only one section in our model
+    var identity: Int {
+        return 0
+    }
+    
 }

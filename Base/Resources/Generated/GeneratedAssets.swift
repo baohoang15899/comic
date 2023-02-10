@@ -37,6 +37,9 @@ internal enum Asset {
       internal static let icSearch = ImageAsset(name: "ic_search")
       internal static let icSplash = ImageAsset(name: "ic_splash")
     }
+    internal enum Favorite {
+      internal static let icTrash = ImageAsset(name: "ic_trash")
+    }
   }
 }
 // swiftlint:enable identifier_name line_length nesting type_body_length type_name

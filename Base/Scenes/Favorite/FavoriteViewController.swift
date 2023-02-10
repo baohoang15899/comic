@@ -11,6 +11,7 @@
 import UIKit
 import RxSwift
 import RxCocoa
+import RxDataSources
 
 class FavoriteViewController: BaseViewController<FavoriteViewModel> {
     
@@ -26,6 +27,10 @@ class FavoriteViewController: BaseViewController<FavoriteViewModel> {
         super.viewDidLoad()
         setupUI()
         setupNotificationCenter()
+    }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.setNavigationBarHidden(true, animated: animated)
     }
     
     deinit {
@@ -59,20 +64,39 @@ class FavoriteViewController: BaseViewController<FavoriteViewModel> {
     
     override func bindViewModel() {
         let input = FavoriteViewModel.Input(getAllFavorite: Driver.just(()),
-                                            didSelectItem: tableView.rx.modelSelected(ComicSuggestModel.self).asDriver())
+                                            didSelectItem: tableView.rx.modelSelected(FavoriteComicItemModel.self).asDriver())
         let output = viewModel.transform(input: input)
         
-        output.favoriteComic
-            .drive(tableView.rx.items) { tableView, index, data in
-                let cell = tableView.dequeueReusableCell(type: ComicSuggestTableViewCell.self, forIndexPath: IndexPath.init(row: index, section: 0))
+        let dataSource = RxTableViewSectionedAnimatedDataSource<FavoriteComicSection>(
+            
+            animationConfiguration: AnimationConfiguration(insertAnimation: .fade,
+                                                           reloadAnimation: .fade,
+                                                           deleteAnimation: .fade),
+            
+            configureCell: { (dataSource, tableView, indexPath, item) in
+                let cell = tableView.dequeueReusableCell(type: ComicSuggestTableViewCell.self, forIndexPath: indexPath)
+                let data = ComicSuggestModel(image: item.image ?? "",
+                                             title: item.title ?? "",
+                                             category: item.category ?? "",
+                                             chapter: item.chapter ?? "",
+                                             detailUrl: item.detailUrl ?? "")
                 cell.configCell(data: data)
                 return cell
+            },
+            canEditRowAtIndexPath: { (dataSource, IndexPath) in
+                return true
             }
-            .disposed(by: bag)
+            
+        )
         
         output.comicSuggestIsEmpty
             .drive(stackEmptyView.rx.isHidden)
             .disposed(by: bag)
+        
+        output.favoriteComic
+            .drive(tableView.rx.items(dataSource: dataSource))
+            .disposed(by: bag)
+        
     }
 }
 
@@ -80,4 +104,16 @@ extension FavoriteViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 130
     }
+    
+    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let deleteAction = UIContextualAction(style: .normal, title: "Delete") { [weak self] (action, view, completion) in
+            self?.viewModel.deleteItemSubject.onNext(indexPath)
+            completion(true)
+        }
+        
+        deleteAction.image = Asset.Images.Favorite.icTrash.image
+        deleteAction.backgroundColor = UIColor.red
+        return UISwipeActionsConfiguration(actions: [deleteAction])
+    }
+    
 }

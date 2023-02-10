@@ -10,6 +10,7 @@ import RxSwift
 
 protocol FavoriteUCType {
     func getAllFavorite() -> Observable<[ComicSuggestModel]>
+    func deleteFavorite(id: String)
 }
 
 struct FavoriteUC: FavoriteUCType {
@@ -23,4 +24,9 @@ struct FavoriteUC: FavoriteUCType {
     func getAllFavorite() -> Observable<[ComicSuggestModel]> {
         return favoriteRepository.getAllFavorite()
     }
+    
+    func deleteFavorite(id: String) {
+        return favoriteRepository.deleteFavorite(id: id)
+    }
+    
 }
