@@ -106,7 +106,7 @@ extension FavoriteViewController: UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        let deleteAction = UIContextualAction(style: .normal, title: "Delete") { [weak self] (action, view, completion) in
+        let deleteAction = UIContextualAction(style: .normal, title: "") { [weak self] (action, view, completion) in
             self?.viewModel.deleteItemSubject.onNext(indexPath)
             completion(true)
         }
