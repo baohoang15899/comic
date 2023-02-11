@@ -93,6 +93,12 @@ internal enum L10n {
   internal enum Home {
     /// Trang chủ
     internal static let tab = L10n.tr("Localizable", "home.tab", fallback: "Trang chủ")
+    internal enum Empty {
+      /// Refresh lại trang hoặc kiểm tra kết nối mạng của bạn.
+      internal static let content = L10n.tr("Localizable", "home.empty.content", fallback: "Refresh lại trang hoặc kiểm tra kết nối mạng của bạn.")
+      /// Không thể lấy được dữ liệu
+      internal static let title = L10n.tr("Localizable", "home.empty.title", fallback: "Không thể lấy được dữ liệu")
+    }
     internal enum Section {
       /// Truyện hot
       internal static let hot = L10n.tr("Localizable", "home.section.hot", fallback: "Truyện hot")

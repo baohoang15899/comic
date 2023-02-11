@@ -20,7 +20,11 @@ class CategoryViewController: BaseViewController<CategoryViewModel> {
     @IBOutlet weak var wrapperPickerView: UIView!
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var tabBarHeaderBaseView: TabbarHeaderBaseView!
+    @IBOutlet weak var stackEmptyView: UIStackView!
+    @IBOutlet weak var emptyTitleLabel: UILabel!
+    @IBOutlet weak var emptyContentLabel: UILabel!
     
+    private let refreshControl = UIRefreshControl()
     private let bag = DisposeBag()
     private let submitButton: UIBarButtonItem = UIBarButtonItem()
 
@@ -44,8 +48,13 @@ class CategoryViewController: BaseViewController<CategoryViewModel> {
         tableView.delegate = self
         tabBarHeaderBaseView.configView(title: L10n.Category.title)
         tableView.showsVerticalScrollIndicator = false
+        tableView.refreshControl = refreshControl
         categoryButton.layer.cornerRadius = 10
         setupPickerView()
+        emptyTitleLabel.text = L10n.Home.Empty.title
+        emptyContentLabel.text = L10n.Home.Empty.content
+        emptyTitleLabel.font = UIFont.systemFont(ofSize: 18, weight: .bold)
+        emptyContentLabel.font = UIFont.systemFont(ofSize: 14, weight: .regular)
     }
     
     private func setupPickerView() {
@@ -60,7 +69,8 @@ class CategoryViewController: BaseViewController<CategoryViewModel> {
                                             didSelectedItem: categoryPickerView.rx.itemSelected.asDriver(),
                                             didSelectedComic: tableView.rx.modelSelected(ComicModel.self).asDriver(),
                                             getAllCategory: Driver.just(()),
-                                            onTapPickerView: submitButton.rx.tap.asDriver())
+                                            onTapPickerView: submitButton.rx.tap.asDriver(),
+                                            pullToRefresh: refreshControl.rx.controlEvent(.valueChanged).asDriver())
         let output = viewModel.transform(input: input)
         
         output.allComic
@@ -86,6 +96,14 @@ class CategoryViewController: BaseViewController<CategoryViewModel> {
             .drive { _ in
                 self.hidePickerView()
             }
+            .disposed(by: bag)
+        
+        output.isRefresing
+            .drive(refreshControl.rx.isRefreshing)
+            .disposed(by: bag)
+        
+        output.isEmpty
+            .drive(stackEmptyView.rx.isHidden)
             .disposed(by: bag)
         
     }

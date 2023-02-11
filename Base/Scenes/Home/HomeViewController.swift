@@ -16,11 +16,15 @@ import RxDataSources
 class HomeViewController: BaseViewController<HomeViewModel> {
 
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var stackEmptyView: UIStackView!
+    @IBOutlet weak var emptyTitleLabel: UILabel!
+    @IBOutlet weak var emptyContentLabel: UILabel!
     @IBOutlet weak var headerView: TabbarHeaderBaseView!
 
     private let bag = DisposeBag()
     private var dataSource: RxTableViewSectionedReloadDataSource<HomeSectionData>? = nil
-    
+    private let refreshControl = UIRefreshControl()
+
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
@@ -49,16 +53,17 @@ class HomeViewController: BaseViewController<HomeViewModel> {
         tableView.separatorStyle = .none
         tableView.showsVerticalScrollIndicator = false
         tableView.delegate = self
+        tableView.refreshControl = refreshControl
         headerView.configView(title: L10n.Home.tab)
+        emptyTitleLabel.text = L10n.Home.Empty.title
+        emptyContentLabel.text = L10n.Home.Empty.content
+        emptyTitleLabel.font = UIFont.systemFont(ofSize: 18, weight: .bold)
+        emptyContentLabel.font = UIFont.systemFont(ofSize: 14, weight: .regular)
     }
     
     override func bindViewModel() {
-        let input = HomeViewModel.Input(getHotComic: Driver.just(()),
-                                        getTopManga: Driver.just(()),
-                                        getTopManhwa: Driver.just(()),
-                                        getTopManhua: Driver.just(()),
-                                        getNominate: Driver.just(())
-        )
+        let input = HomeViewModel.Input(fetchData: Driver.just(()),
+                                        pullToRefresh: refreshControl.rx.controlEvent(.valueChanged).asDriver())
         let output = viewModel.transform(input: input)
         
         dataSource = RxTableViewSectionedReloadDataSource<HomeSectionData>(
@@ -96,6 +101,14 @@ class HomeViewController: BaseViewController<HomeViewModel> {
                 .drive(tableView.rx.items(dataSource: dataSource))
                 .disposed(by: bag)
         }
+        
+        output.isRefresing
+            .drive(refreshControl.rx.isRefreshing)
+            .disposed(by: bag)
+        
+        output.isEmpty
+            .drive(stackEmptyView.rx.isHidden)
+            .disposed(by: bag)
     }
 }
 

@@ -51,6 +51,7 @@ class FavoriteViewModel: BaseViewModel {
                     if let id = favoriteComics[indexPath.row].detailUrl {
                         favoriteComics.remove(at: indexPath.row)
                         favoriteComicSectionRelay.accept([FavoriteComicSection(items: favoriteComics)])
+                        comicSuggestSubjectIsEmpty.onNext(!favoriteComics.isEmpty)
                         self.favoriteUC.deleteFavorite(id: id)
                     }
                 }

@@ -22,6 +22,7 @@ class CategoryViewModel: BaseViewModel {
         let didSelectedComic: Driver<ComicModel>
         let getAllCategory: Driver<Void>
         let onTapPickerView: Driver<Void>
+        let pullToRefresh: Driver<Void>
     }
     
     struct Output {
@@ -29,6 +30,8 @@ class CategoryViewModel: BaseViewModel {
         let allCategory: Driver<[CategoryModel]>
         let categoryTitle: Driver<String>
         let pickerViewSubmit: Driver<Void>
+        let isRefresing: Driver<Bool>
+        let isEmpty: Driver<Bool>
     }
     
     private let bag = DisposeBag()
@@ -49,10 +52,12 @@ class CategoryViewModel: BaseViewModel {
         let categoryRelay = BehaviorRelay<CategoryModel>(value: CategoryModel(title: "", categoryUrl: ""))
         let pageRelay = BehaviorRelay<Int>(value: 1)
         var canLoadMore: Bool = true
-
+        let isRefreshingSubject = BehaviorSubject<Bool>(value: false)
+        let categorySubjectIsEmpty = PublishSubject<Bool>()
         
         let startGetAllComic = Driver.merge(
-            categoryRelay.skip(1).asDriver(onErrorJustReturn: CategoryModel(title: "", categoryUrl: "")).mapToVoid(), nextPageSubject.asDriver(onErrorJustReturn: ())
+            categoryRelay.skip(1).asDriver(onErrorJustReturn: CategoryModel(title: "", categoryUrl: "")).mapToVoid(), nextPageSubject.asDriver(onErrorJustReturn: ()),
+            input.pullToRefresh
         )
         
         let allCategoryOutput = input.getAllCategory
@@ -62,8 +67,12 @@ class CategoryViewModel: BaseViewModel {
             }
             .do(onNext: { data in
                 if let category = data.first {
-                    categoryTitleRelay.accept(category.title ?? "")
+                    categoryTitleRelay.accept(category.title ?? L10n.Category.title)
                     categoryRelay.accept(category)
+                }
+                if (data.isEmpty) {
+                    categoryTitleRelay.accept(L10n.Category.title)
+                    categorySubjectIsEmpty.onNext(!data.isEmpty)
                 }
             })
             .asDriver(onErrorJustReturn: [])
@@ -71,7 +80,7 @@ class CategoryViewModel: BaseViewModel {
         let selectedItem = input.didSelectedItem
         .asObservable()
         .withLatestFrom(allCategoryOutput) { pickerData, categories in
-            return categories[pickerData.row]
+            return categories.isEmpty ? categories.first : categories[pickerData.row]
         }
         
         input.didSelectedComic
@@ -107,13 +116,23 @@ class CategoryViewModel: BaseViewModel {
                 submitSubject.onNext(())
             })
             .withLatestFrom(selectedItem) { _, data in
-                return data
+                return data ?? CategoryModel(title: "", categoryUrl: "")
             }
             .subscribe(onNext: { data in
+                if (data.categoryUrl != "") {
+                    comicsRelay.accept([])
+                    pageRelay.accept(1)
+                    categoryRelay.accept(data)
+                    categoryTitleRelay.accept(data.title ?? "")
+                }
+            })
+            .disposed(by: bag)
+        
+        input.pullToRefresh
+            .asObservable()
+            .subscribe(onNext: { _ in
                 comicsRelay.accept([])
                 pageRelay.accept(1)
-                categoryRelay.accept(data)
-                categoryTitleRelay.accept(data.title ?? "")
             })
             .disposed(by: bag)
         
@@ -125,17 +144,23 @@ class CategoryViewModel: BaseViewModel {
             .subscribe(onNext: { data in
                 comicsRelay.accept(comicsRelay.value + data)
                 canLoadMore = !data.isEmpty
+                isRefreshingSubject.onNext(false)
+                categorySubjectIsEmpty.onNext(!data.isEmpty)
             })
             .disposed(by: bag)
         
         let allComicOutput = comicsRelay.asDriver(onErrorJustReturn: [])
         let categoryTitleOutput = categoryTitleRelay.skip(1).asDriver(onErrorJustReturn: "")
         let pickerViewOntapOutput = submitSubject.asDriver(onErrorJustReturn: ())
+        let isRefreshingOutput = isRefreshingSubject.asDriver(onErrorJustReturn: false)
+        let isEmptyOutput = categorySubjectIsEmpty.asDriver(onErrorJustReturn: false)
         
         return Output(allComic: allComicOutput,
                       allCategory: allCategoryOutput,
                       categoryTitle: categoryTitleOutput,
-                      pickerViewSubmit: pickerViewOntapOutput
+                      pickerViewSubmit: pickerViewOntapOutput,
+                      isRefresing: isRefreshingOutput,
+                      isEmpty: isEmptyOutput
         )
     }
 }

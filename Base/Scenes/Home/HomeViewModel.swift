@@ -16,15 +16,14 @@ import SwiftSoup
 class HomeViewModel: BaseViewModel {
     
     struct Input {
-        let getHotComic: Driver<Void>
-        let getTopManga: Driver<Void>
-        let getTopManhwa: Driver<Void>
-        let getTopManhua: Driver<Void>
-        let getNominate: Driver<Void>
+        let fetchData: Driver<Void>
+        let pullToRefresh: Driver<Void>
     }
     
     struct Output {
         let homeSection: Driver<[HomeSectionData]>
+        let isRefresing: Driver<Bool>
+        let isEmpty: Driver<Bool>
     }
     
     private let bag = DisposeBag()
@@ -37,49 +36,21 @@ class HomeViewModel: BaseViewModel {
         self.topComicUC = topComicUC
         self.coordinator = coordinator
     }
-    
-    var HomeSectionSubject = BehaviorSubject<[HomeSectionData]>(value: [])
-    
-    func transform(input: Input) -> Output {
+
+    private func fetchHomeData() -> Observable<[HomeSectionData]> {
         
-        self.didSelectItem
-            .subscribe { url, title  in
-                self.coordinator.navigateToComicDetail(comicDetailUrl: url, title: title)
-            }
-            .disposed(by: bag)
+        let nomiateOutput = topComicUC.getNominate()
         
-        let nomiateOutput = input.getNominate
-            .flatMap { _ in
-                return self.topComicUC.getNominate()
-                    .asDriver(onErrorJustReturn: [])
-            }
+        let hotComicOutput = topComicUC.getHotComic(param: ["page": 1])
         
-        let hotComicOutput = input.getHotComic
-            .flatMap { _ in
-                return self.topComicUC.getHotComic(param: ["page": 1])
-                    .asDriver(onErrorJustReturn: [])
-            }
+        let topMangaOutput = topComicUC.getTopManga(param: ["status": -1, "sort": 11])
         
-        let topMangaOutput = input.getTopManga
-            .flatMap { _ in
-                return self.topComicUC.getTopManga(param: ["status": -1, "sort": 11])
-                    .asDriver(onErrorJustReturn: [])
-            }
+        let topManhwaOutput = topComicUC.getTopManhwa(param: ["status": -1, "sort": 11])
         
-        let topManhwaOutput = input.getTopManhwa
-            .flatMap { _ in
-                return self.topComicUC.getTopManhwa(param: ["status": -1, "sort": 11])
-                    .asDriver(onErrorJustReturn: [])
-            }
+        let topManhuaOutput = topComicUC.getTopManhua(param: ["status": -1, "sort": 11])
         
-        let topManhuaOutput = input.getTopManhua
-            .flatMap { _ in
-                return self.topComicUC.getTopManhua(param: ["status": -1, "sort": 11])
-                    .asDriver(onErrorJustReturn: [])
-            }
-        
-        let allComic = Driver.zip(nomiateOutput,hotComicOutput, topMangaOutput, topManhwaOutput, topManhuaOutput)
-        
+        let allComic = Observable.zip(nomiateOutput,hotComicOutput, topMangaOutput, topManhwaOutput, topManhuaOutput)
+
         let homeSectionOutput = allComic.map {(nominate, hotComic, topManga, topManhwa, topManhua) -> [HomeSectionData] in
             let nominateSection = HomeSectionData(header: L10n.Home.Section.nominate, items: [HomeSectionModel(data: nominate)], type: .banner)
             let hotSection = HomeSectionData(header: L10n.Home.Section.hot, items: [HomeSectionModel(data: hotComic)], type: .normal)
@@ -87,9 +58,39 @@ class HomeViewModel: BaseViewModel {
             let topManhwaSection = HomeSectionData(header: L10n.Home.Section.topManhwa, items: [HomeSectionModel(data: topManhwa)], type: .normal)
             let topManhuaSection = HomeSectionData(header: L10n.Home.Section.topManhua, items: [HomeSectionModel(data: topManhua)], type: .normal)
             return [nominateSection, hotSection, topMangaSection, topManhwaSection, topManhuaSection]
-            
-        }.asDriver(onErrorJustReturn: [])
+        }
         
-        return Output(homeSection: homeSectionOutput)
+        return homeSectionOutput
+    }
+    
+    func transform(input: Input) -> Output {
+
+        let isRefreshingSubject = BehaviorSubject<Bool>(value: false)
+        let homeSubjectIsEmpty = PublishSubject<Bool>()
+        
+        self.didSelectItem
+            .subscribe { url, title  in
+                self.coordinator.navigateToComicDetail(comicDetailUrl: url, title: title)
+            }
+            .disposed(by: bag)
+        
+        let homeMerge = Driver.merge(input.fetchData, input.pullToRefresh)
+
+        let homeSectionOutput = homeMerge
+            .flatMap { _ in
+                return self.fetchHomeData()
+                    .asDriver(onErrorJustReturn: [])
+            }
+            .do(onNext: { data in
+                isRefreshingSubject.onNext(false)
+                homeSubjectIsEmpty.onNext(!data.isEmpty)
+            })
+
+        let isRefresingOutput = isRefreshingSubject.asDriver(onErrorJustReturn: false)
+        let isEmptyOutput = homeSubjectIsEmpty.asDriver(onErrorJustReturn: false)
+                
+        return Output(homeSection: homeSectionOutput,
+                      isRefresing: isRefresingOutput,
+                      isEmpty: isEmptyOutput)
     }
 }
