@@ -21,7 +21,8 @@ class SearchViewModel: BaseViewModel {
     
     struct Output {
         let comicSuggest: Driver<[ComicSuggestModel]>
-        let comicSuggestIsEmpty: Driver<Bool>
+        let comicSuggestKeyIsEmpty: Driver<Bool>
+        let comicSuggestDataIsEmpty: Driver<Bool>
     }
     
     deinit {
@@ -39,7 +40,9 @@ class SearchViewModel: BaseViewModel {
 
     func transform(input: Input) -> Output {
         
-        let comicSuggestSubjectIsEmpty = BehaviorSubject<Bool>(value: true)
+        let comicSuggestKeyIsEmpty = BehaviorSubject<Bool>(value: true)
+        let comicSuggestDataIsEmpty = BehaviorSubject<Bool>(value: true)
+        var keyword: String = ""
         
         input.didSelectItem
             .asObservable()
@@ -51,17 +54,25 @@ class SearchViewModel: BaseViewModel {
        let comicSuggestOutput = input.searchString
             .debounce(RxTimeInterval.milliseconds(1000)) // Wait 0.5 for changes.
             .distinctUntilChanged()
+            .do(onNext: { key in
+                comicSuggestKeyIsEmpty.onNext(key.count > 0)
+                keyword = key
+            })
             .flatMap({ key in
                 return self.searchUC.searchComic(keyword: key)
                     .asDriver(onErrorJustReturn: [])
             })
             .do(onNext: { data in
-                comicSuggestSubjectIsEmpty.onNext(!data.isEmpty)
+                if (keyword.count > 0) {
+                    comicSuggestDataIsEmpty.onNext(!data.isEmpty)
+                }
             })
         
-        let comicSuggestIsEmptyOutput = comicSuggestSubjectIsEmpty.skip(1).asDriver(onErrorJustReturn: true)
+        let comicSuggestKeyIsEmptyOutput = comicSuggestKeyIsEmpty.skip(1).asDriver(onErrorJustReturn: true)
+        let comicSuggestDataIsEmptyOutput = comicSuggestDataIsEmpty.skip(1).asDriver(onErrorJustReturn: true)
         
         return Output(comicSuggest: comicSuggestOutput,
-                      comicSuggestIsEmpty: comicSuggestIsEmptyOutput)
+                      comicSuggestKeyIsEmpty: comicSuggestKeyIsEmptyOutput,
+                      comicSuggestDataIsEmpty: comicSuggestDataIsEmptyOutput)
     }
 }

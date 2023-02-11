@@ -38,6 +38,8 @@
 "Search.placeholder" = "Nhập tên truyện tranh";
 "Search.empty.title" = "Bạn chưa nhập từ khóa tìm kiếm";
 "Search.empty.content" = "Vui lòng nhập từ khóa, hoặc tên truyện bạn muốn tìm kiếm.";
+"Search.emptyData.title" = "Truyện bạn tìm kiếm hiện không có";
+"Search.emptyData.content" = "Vui lòng nhập đúng tên truyện hoặc tên truyện khác.";
 
 //category
 "Category.title" = "Thể loại";

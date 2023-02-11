@@ -55,8 +55,6 @@ class SearchViewController: BaseViewController<SearchViewModel> {
         tableView.delegate = self
         tableView.registerCell(type: ComicSuggestTableViewCell.self)
         
-        emptyTitleLabel.text = L10n.Search.Empty.title
-        emptyContentLabel.text = L10n.Search.Empty.content
         emptyTitleLabel.font = UIFont.systemFont(ofSize: 18, weight: .bold)
         emptyContentLabel.font = UIFont.systemFont(ofSize: 14, weight: .regular)
     }
@@ -78,8 +76,20 @@ class SearchViewController: BaseViewController<SearchViewModel> {
             }
             .disposed(by: bag)
 
-        output.comicSuggestIsEmpty
-            .drive(emptyStackView.rx.isHidden)
+        output.comicSuggestKeyIsEmpty
+            .drive { [weak self] status in
+                self?.emptyTitleLabel.text = L10n.Search.Empty.title
+                self?.emptyContentLabel.text = L10n.Search.Empty.content
+                self?.emptyStackView.isHidden = status
+            }
+            .disposed(by: bag)
+        
+        output.comicSuggestDataIsEmpty
+            .drive { [weak self] status in
+                self?.emptyTitleLabel.text = L10n.Search.EmptyData.title
+                self?.emptyContentLabel.text = L10n.Search.EmptyData.content
+                self?.emptyStackView.isHidden = status
+            }
             .disposed(by: bag)
 
     }

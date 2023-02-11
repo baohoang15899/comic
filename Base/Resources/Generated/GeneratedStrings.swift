@@ -89,6 +89,12 @@ internal enum L10n {
       /// Bạn chưa nhập từ khóa tìm kiếm
       internal static let title = L10n.tr("Localizable", "Search.empty.title", fallback: "Bạn chưa nhập từ khóa tìm kiếm")
     }
+    internal enum EmptyData {
+      /// Vui lòng nhập đúng tên truyện hoặc tên truyện khác.
+      internal static let content = L10n.tr("Localizable", "Search.emptyData.content", fallback: "Vui lòng nhập đúng tên truyện hoặc tên truyện khác.")
+      /// Truyện bạn tìm kiếm hiện không có
+      internal static let title = L10n.tr("Localizable", "Search.emptyData.title", fallback: "Truyện bạn tìm kiếm hiện không có")
+    }
   }
   internal enum Home {
     /// Trang chủ
