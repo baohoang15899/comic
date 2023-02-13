@@ -145,7 +145,7 @@ class CategoryViewModel: BaseViewModel {
                 comicsRelay.accept(comicsRelay.value + data)
                 canLoadMore = !data.isEmpty
                 isRefreshingSubject.onNext(false)
-                categorySubjectIsEmpty.onNext(!data.isEmpty)
+                categorySubjectIsEmpty.onNext(!comicsRelay.value.isEmpty)
             })
             .disposed(by: bag)
         
