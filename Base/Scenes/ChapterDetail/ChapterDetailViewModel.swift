@@ -20,12 +20,14 @@ class ChapterDetailViewModel: BaseViewModel {
         let getImgQualityRows: Driver<Void>
         let didSelectedItem: Driver<(row: Int, component: Int)>
         let getImgQualityDefault: Driver<Void>
+        let goBack: Driver<Void>
     }
     
     struct Output {
         let chapterImageOutput: Driver<[ChapterImageModel]>
         let imgQualityRows: Driver<[ImageQualityModel]>
         let defaultQuality: Driver<Int>
+        let isShowConfigView: Driver<Bool>
     }
     
     private let bag = DisposeBag()
@@ -35,11 +37,14 @@ class ChapterDetailViewModel: BaseViewModel {
     private var chapterDetail: [ChapterImageModel] = []
     private let chapterImageSubject = BehaviorSubject<[ChapterImageModel]>(value: [])
     private let chapterDetailUC: ChapterDetailUC
+    private let coordinator: ComicDetailCoordinator
+    let viewOnTapSubject = PublishSubject<Void>()
     var imgQuality: JPEGQuality = .medium
     
     
-    init(chapter: ChapterModel, chapterDetailUC: ChapterDetailUC) {
+    init(chapter: ChapterModel, chapterDetailUC: ChapterDetailUC, coordinator: ComicDetailCoordinator) {
         self.chapter = chapter
+        self.coordinator = coordinator
         self.chapterDetailUC = chapterDetailUC
     }
     
@@ -80,6 +85,7 @@ class ChapterDetailViewModel: BaseViewModel {
     func transform(input: Input) -> Output {
         
         let startGetChapterDetail = Driver.merge(input.getChapterDetail, input.didSelectedItem.mapToVoid())
+        var isShowConfigView = false
         
         startGetChapterDetail
             .asObservable()
@@ -111,6 +117,23 @@ class ChapterDetailViewModel: BaseViewModel {
                 return data.firstIndex { $0.quality == self.imgQuality } ?? 0
             })
         
+        let isShowConfigViewOutput = viewOnTapSubject
+            .map { _ -> Bool in
+                isShowConfigView = !isShowConfigView
+                return !isShowConfigView
+            }
+            .flatMap { status in
+                return Observable.just(status)
+            }
+            .asDriver(onErrorJustReturn: true)
+
+        input.goBack
+            .asObservable()
+            .subscribe(onNext: {
+                self.coordinator.goBack()
+            })
+            .disposed(by: bag)
+        
         input.didSelectedItem
             .asObservable()
             .withLatestFrom(imgQualityRowsOutput) { pickerData, imgQuality in
@@ -125,6 +148,7 @@ class ChapterDetailViewModel: BaseViewModel {
         
         return Output(chapterImageOutput: chapterImageOutput,
                       imgQualityRows: imgQualityRowsOutput,
-                      defaultQuality: defaultQualityOutput)
+                      defaultQuality: defaultQualityOutput,
+                      isShowConfigView: isShowConfigViewOutput)
     }
 }

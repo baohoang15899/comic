@@ -14,6 +14,7 @@ import UIKit
 // khai báo các phương thức điều hướng
 protocol ComicDetailRoutes: AnyObject {
     func navigateToChapterDetail(chapter: ChapterModel)
+    func goBack()
 }
 
 class ComicDetailCoordinator {
@@ -31,11 +32,17 @@ extension ComicDetailCoordinator: ComicDetailRoutes {
     // chuyển coordinator thì làm như dưới, điều hướng các màn thuộc coordinator thì push bình thường
     func navigateToChapterDetail(chapter: ChapterModel) {
         let chapterDetailVC = ChapterDetailViewController()
-        let chapterDetailVM = ChapterDetailViewModel(chapter: chapter, chapterDetailUC: ChapterDetailUC(repository: ChapterDetailRepository()))
+        let chapterDetailVM = ChapterDetailViewModel(chapter: chapter,
+                                                     chapterDetailUC: ChapterDetailUC(repository: ChapterDetailRepository()),
+                                                     coordinator: self)
         chapterDetailVC.bind(to: chapterDetailVM)
         chapterDetailVC.hidesBottomBarWhenPushed = true
         chapterDetailVC.title = chapter.title ?? ""
         navigator.pushViewController(chapterDetailVC, animated: true)
+    }
+    
+    func goBack() {
+        navigator.popViewController(animated: true)
     }
     
 }

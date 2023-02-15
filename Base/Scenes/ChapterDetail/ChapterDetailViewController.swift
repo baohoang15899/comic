@@ -18,6 +18,10 @@ class ChapterDetailViewController: BaseViewController<ChapterDetailViewModel> {
     @IBOutlet weak var imgQualityPickerView: UIPickerView!
     @IBOutlet weak var pickerWrapperView: UIView!
     @IBOutlet weak var pickerToolBar: UIToolbar!
+    @IBOutlet weak var headerView: UIView!
+    @IBOutlet weak var backButton: UIButton!
+    @IBOutlet weak var titleLabel: UILabel!
+    @IBOutlet weak var configButton: UIButton!
     
     private let bag = DisposeBag()
     
@@ -29,18 +33,17 @@ class ChapterDetailViewController: BaseViewController<ChapterDetailViewModel> {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        navigationController?.setNavigationBarHidden(false, animated: animated)
-        navigationItem.rightBarButtonItem = UIBarButtonItem(image: Asset.Images.ComicDetail.icComicDetailSetting.image,
-                                                            style: .plain,
-                                                            target: self,
-                                                            action: #selector(showPickerView))
+        titleLabel.text = title ?? ""
+        navigationController?.setNavigationBarHidden(true, animated: animated)
     }
-
+    
     deinit {
         print("ChapterDetailViewController deinit ✅")
     }
     
     private func setupUI() {
+        let tap = UITapGestureRecognizer(target: self, action: #selector(showConfigView))
+        tableView.addGestureRecognizer(tap)
         tableView.delegate = self
         tableView.registerCell(type: ChapterImgTableViewCell.self)
         tableView.sectionFooterHeight = 0.01
@@ -48,6 +51,9 @@ class ChapterDetailViewController: BaseViewController<ChapterDetailViewModel> {
         tableView.separatorStyle = .none
         tableView.showsVerticalScrollIndicator = false
         tableView.estimatedRowHeight = 100
+        headerView.alpha = 0
+        backButton.setTitle("", for: .normal)
+        configButton.setTitle("", for: .normal)
         setupPickerView()
     }
     
@@ -62,7 +68,8 @@ class ChapterDetailViewController: BaseViewController<ChapterDetailViewModel> {
         let input = ChapterDetailViewModel.Input(getChapterDetail: Driver.just(()),
                                                  getImgQualityRows: Driver.just(()),
                                                  didSelectedItem: imgQualityPickerView.rx.itemSelected.asDriver(),
-                                                 getImgQualityDefault: Driver.just(()))
+                                                 getImgQualityDefault: Driver.just(()),
+                                                 goBack: backButton.rx.tap.asDriver())
         
         let output = viewModel.transform(input: input)
         
@@ -87,20 +94,31 @@ class ChapterDetailViewController: BaseViewController<ChapterDetailViewModel> {
                 self?.imgQualityPickerView.selectRow(row, inComponent: 0, animated: true)
             }
             .disposed(by: bag)
+        
+        output.isShowConfigView
+            .drive { [weak self] status in
+                UIView.animate(withDuration: 0.2, delay: 0, animations: {
+                    self?.headerView.alpha = status ? 0 : 1
+                }, completion: nil)
+            }
+            .disposed(by: bag)
+        
+    }
+    @IBAction func onConfigTap(_ sender: Any) {
+        UIView.animate(withDuration: 0.2, delay: 0, animations: {
+            self.pickerWrapperView.alpha = 1
+        }, completion: nil)
     }
     
     @objc func hidePickerView() {
         UIView.animate(withDuration: 0.2, delay: 0, animations: {
             self.pickerWrapperView.alpha = 0
-            }, completion: nil)
+        }, completion: nil)
     }
     
-    @objc func showPickerView() {
-        UIView.animate(withDuration: 0.2, delay: 0, animations: {
-            self.pickerWrapperView.alpha = 1
-            }, completion: nil)
+    @objc func showConfigView() {
+        viewModel.viewOnTapSubject.onNext(())
     }
-    
 }
 
 extension ChapterDetailViewController: UITableViewDelegate {
@@ -111,29 +129,5 @@ extension ChapterDetailViewController: UITableViewDelegate {
         return ratio > 0 ? ratio : 1
     }
 }
-extension SharedSequenceConvertibleType {
-    func mapToVoid() -> SharedSequence<SharingStrategy, Void> {
-        return map { _ in }
-    }
-}
 
-extension UIImageView {
-    var contentClippingRect: CGRect {
-        guard let image = image else { return bounds }
-        guard contentMode == .scaleAspectFit else { return bounds }
-        guard image.size.width > 0 && image.size.height > 0 else { return bounds }
 
-        let scale: CGFloat
-        if image.size.width > image.size.height {
-            scale = bounds.width / image.size.width
-        } else {
-            scale = bounds.height / image.size.height
-        }
-
-        let size = CGSize(width: image.size.width * scale, height: image.size.height * scale)
-        let x = (bounds.width - size.width) / 2.0
-        let y = (bounds.height - size.height) / 2.0
-
-        return CGRect(x: x, y: y, width: size.width, height: size.height)
-    }
-}

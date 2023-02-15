@@ -31,6 +31,7 @@ internal enum Asset {
       internal static let icHeartGray = ImageAsset(name: "ic_heart_gray")
     }
     internal enum Common {
+      internal static let icBack = ImageAsset(name: "Ic_back")
       internal static let icBook = ImageAsset(name: "ic_book")
       internal static let icHeart = ImageAsset(name: "ic_heart")
       internal static let icHome = ImageAsset(name: "ic_home")
