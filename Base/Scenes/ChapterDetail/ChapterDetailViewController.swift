@@ -15,13 +15,16 @@ import RxCocoa
 class ChapterDetailViewController: BaseViewController<ChapterDetailViewModel> {
     
     @IBOutlet weak var tableView: UITableView!
-    @IBOutlet weak var imgQualityPickerView: UIPickerView!
+    @IBOutlet weak var chapterPickerView: UIPickerView!
     @IBOutlet weak var pickerWrapperView: UIView!
     @IBOutlet weak var pickerToolBar: UIToolbar!
     @IBOutlet weak var headerView: UIView!
     @IBOutlet weak var backButton: UIButton!
     @IBOutlet weak var titleLabel: UILabel!
-    @IBOutlet weak var configButton: UIButton!
+    @IBOutlet weak var previousButton: UIButton!
+    @IBOutlet weak var nextButton: UIButton!
+    @IBOutlet weak var bottomView: UIView!
+    @IBOutlet weak var chapterButton: UIButton!
     
     private let bag = DisposeBag()
     
@@ -33,7 +36,6 @@ class ChapterDetailViewController: BaseViewController<ChapterDetailViewModel> {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        titleLabel.text = title ?? ""
         navigationController?.setNavigationBarHidden(true, animated: animated)
     }
     
@@ -52,23 +54,29 @@ class ChapterDetailViewController: BaseViewController<ChapterDetailViewModel> {
         tableView.showsVerticalScrollIndicator = false
         tableView.estimatedRowHeight = 100
         headerView.alpha = 0
+        bottomView.alpha = 0
+        chapterButton.titleLabel?.font = UIFont.boldSystemFont(ofSize: 17)
+        chapterButton.setImage(Asset.Images.Common.icDownArrow.image, for: .normal)
+        chapterButton.semanticContentAttribute = .forceRightToLeft
         backButton.setTitle("", for: .normal)
-        configButton.setTitle("", for: .normal)
+        previousButton.setTitle(L10n.ComicDetail.Chapter.previous, for: .normal)
+        nextButton.setTitle(L10n.ComicDetail.Chapter.next, for: .normal)
         setupPickerView()
     }
     
     private func setupPickerView() {
         let flexSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
         let done: UIBarButtonItem = UIBarButtonItem(title: "Done", style: .done, target: self, action: #selector(self.hidePickerView))
-        pickerToolBar.items = [flexSpace, done]
+        let cancel: UIBarButtonItem = UIBarButtonItem(title: "Cancel", style: .done, target: self, action: #selector(self.hidePickerView))
+        pickerToolBar.items = [cancel,flexSpace, done]
         pickerWrapperView.alpha = 0.0
     }
     
     override func bindViewModel() {
         let input = ChapterDetailViewModel.Input(getChapterDetail: Driver.just(()),
-                                                 getImgQualityRows: Driver.just(()),
-                                                 didSelectedItem: imgQualityPickerView.rx.itemSelected.asDriver(),
-                                                 getImgQualityDefault: Driver.just(()),
+                                                 getChapterRows: Driver.just(()),
+                                                 didSelectedItem: chapterPickerView.rx.itemSelected.asDriver(),
+                                                 getCurrentChapter: Driver.just(()),
                                                  goBack: backButton.rx.tap.asDriver())
         
         let output = viewModel.transform(input: input)
@@ -83,15 +91,25 @@ class ChapterDetailViewController: BaseViewController<ChapterDetailViewModel> {
             }
             .disposed(by: bag)
         
-        output.imgQualityRows
-            .drive(imgQualityPickerView.rx.itemTitles) { (row, element) in
+        output.allChapter
+            .drive(chapterPickerView.rx.itemTitles) { (row, element) in
                 return element.title ?? ""
             }
             .disposed(by: bag)
-        
-        output.defaultQuality
+
+        output.currentChapterIndex
             .drive { [weak self] row in
-                self?.imgQualityPickerView.selectRow(row, inComponent: 0, animated: true)
+                self?.chapterPickerView.selectRow(row, inComponent: 0, animated: true)
+            }
+            .disposed(by: bag)
+        
+        output.comicTitle
+            .drive(titleLabel.rx.text)
+            .disposed(by: bag)
+        
+        output.chapterTitle
+            .drive { [weak self] title in
+                self?.chapterButton.setTitle(title, for: .normal)
             }
             .disposed(by: bag)
         
@@ -99,12 +117,13 @@ class ChapterDetailViewController: BaseViewController<ChapterDetailViewModel> {
             .drive { [weak self] status in
                 UIView.animate(withDuration: 0.2, delay: 0, animations: {
                     self?.headerView.alpha = status ? 0 : 1
+                    self?.bottomView.alpha = status ? 0 : 1
                 }, completion: nil)
             }
             .disposed(by: bag)
         
     }
-    @IBAction func onConfigTap(_ sender: Any) {
+    @IBAction func onChapterTap(_ sender: Any) {
         UIView.animate(withDuration: 0.2, delay: 0, animations: {
             self.pickerWrapperView.alpha = 1
         }, completion: nil)

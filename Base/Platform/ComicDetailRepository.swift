@@ -63,7 +63,7 @@ struct ComicDetailRepository: ComicDetailRepositoryType {
                 let chapters: [ChapterModel] = listChapterInfo?.map({ value -> ChapterModel in
                     let title = SwiftSoupService.shared.elementToString(element: value,
                                                                         className: "div.col-xs-5.chapter a")
-                    
+               
                     let chapterUrl = SwiftSoupService.shared.getAttrFromHtml(element: value,
                                                                              className: "div.col-xs-5.chapter a",
                                                                              attr: "href")

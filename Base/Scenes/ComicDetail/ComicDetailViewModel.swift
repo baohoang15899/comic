@@ -26,7 +26,6 @@ class ComicDetailViewModel: BaseViewModel {
     
     private let bag = DisposeBag()
     private let detailComicUrl: String
-    private let comicDetailSectionSubject = BehaviorSubject<[ComicDetailSectionData]>(value: [])
     private let comicDetailUC: ComicDetailUC
     private let coordinator: ComicDetailCoordinator
     let didSelectItem = PublishSubject<ChapterModel>()
@@ -42,10 +41,15 @@ class ComicDetailViewModel: BaseViewModel {
     }
 
     func transform(input: Input) -> Output {
+
+        var listChapter: [ChapterModel] = []
+        var comicName: String = ""
         
         self.didSelectItem
             .subscribe(onNext: { [weak self] data in
-                self?.coordinator.navigateToChapterDetail(chapter: data)
+                self?.coordinator.navigateToChapterDetail(chapter: data,
+                                                          listChapter: listChapter,
+                                                          comicName: comicName)
             })
             .disposed(by: bag)
         
@@ -54,6 +58,10 @@ class ComicDetailViewModel: BaseViewModel {
                 return self.comicDetailUC.getComicDetailData(url: self.detailComicUrl)
                     .asDriver(onErrorJustReturn: DetailComicModel.init())
             }
+            .do(onNext: { data in
+                listChapter = data.chapters ?? []
+                comicName = data.title ?? ""
+            })
         
         let comicDetailSectionOutput = comicDetail
             .flatMap { data in

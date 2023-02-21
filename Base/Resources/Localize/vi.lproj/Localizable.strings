@@ -32,6 +32,8 @@
 "ComicDetail.quality.medium" = "Ảnh chất lượng trung bình";
 "ComicDetail.quality.high" = "Ảnh chất lượng cao";
 "ComicDetail.quality.highest" = "Ảnh chất lượng cao nhất";
+"ComicDetail.chapter.next" = "Next";
+"ComicDetail.chapter.previous" = "Previous";
 
 //search
 "Search.title" = "Tìm kiếm";

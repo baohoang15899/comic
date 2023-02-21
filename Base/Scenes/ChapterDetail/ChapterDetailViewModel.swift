@@ -17,35 +17,41 @@ class ChapterDetailViewModel: BaseViewModel {
     
     struct Input {
         let getChapterDetail: Driver<Void>
-        let getImgQualityRows: Driver<Void>
+        let getChapterRows: Driver<Void>
         let didSelectedItem: Driver<(row: Int, component: Int)>
-        let getImgQualityDefault: Driver<Void>
+        let getCurrentChapter: Driver<Void>
         let goBack: Driver<Void>
     }
     
     struct Output {
         let chapterImageOutput: Driver<[ChapterImageModel]>
-        let imgQualityRows: Driver<[ImageQualityModel]>
-        let defaultQuality: Driver<Int>
         let isShowConfigView: Driver<Bool>
+        let comicTitle: Driver<String>
+        let allChapter: Driver<[ChapterModel]>
+        let chapterTitle: Driver<String>
+        let currentChapterIndex: Driver<Int>
     }
     
     private let bag = DisposeBag()
-    private let chapter: ChapterModel
+    private var chapter: ChapterModel
+    private let listChapter: [ChapterModel]
     private let getChapterImgSubject = BehaviorSubject<[ChapterDetailModel]>.init(value: [])
     private let dowloadImgSubject = PublishSubject<[Data]>()
     private var chapterDetail: [ChapterImageModel] = []
     private let chapterImageSubject = BehaviorSubject<[ChapterImageModel]>(value: [])
     private let chapterDetailUC: ChapterDetailUC
     private let coordinator: ComicDetailCoordinator
+    private let comicName: String
     let viewOnTapSubject = PublishSubject<Void>()
-    var imgQuality: JPEGQuality = .medium
+    var imgQuality: JPEGQuality = .high
     
     
-    init(chapter: ChapterModel, chapterDetailUC: ChapterDetailUC, coordinator: ComicDetailCoordinator) {
+    init(chapter: ChapterModel, chapterDetailUC: ChapterDetailUC, coordinator: ComicDetailCoordinator, listChapter: [ChapterModel], comicName: String) {
         self.chapter = chapter
+        self.listChapter = listChapter
         self.coordinator = coordinator
         self.chapterDetailUC = chapterDetailUC
+        self.comicName = comicName
     }
     
     deinit {
@@ -75,7 +81,7 @@ class ChapterDetailViewModel: BaseViewModel {
         if (index > 0 && index < chapterDetail.count) {
             let currentImage = chapterDetail[index].image
             if let imgHeight = currentImage?.size.height, let imgWidth = currentImage?.size.width {
-//                print("current height: \(imgHeight), frame width \(frameWidth), current width: \(imgWidth), width ratio: \(frameWidth/imgWidth)")
+                //                print("current height: \(imgHeight), frame width \(frameWidth), current width: \(imgWidth), width ratio: \(frameWidth/imgWidth)")
                 ratio = imgHeight * (frameWidth / imgWidth)
             }
         }
@@ -85,36 +91,32 @@ class ChapterDetailViewModel: BaseViewModel {
     func transform(input: Input) -> Output {
         
         let startGetChapterDetail = Driver.merge(input.getChapterDetail, input.didSelectedItem.mapToVoid())
+        var currentChapterTitle = ""
+        var currentIndex = 0
         var isShowConfigView = false
         
         startGetChapterDetail
             .asObservable()
+            .do(onNext: { _ in
+                currentIndex = self.listChapter.firstIndex(of: self.chapter) ?? 0
+                currentChapterTitle = self.listChapter[currentIndex].title ?? ""
+            })
             .flatMapLatest { _ in
-                return self.chapterDetailUC.getChapterDetail(url: self.chapter.chapterUrl ?? "")
+                return self.chapterDetailUC.getChapterDetail(url: self.listChapter[currentIndex].chapterUrl ?? "")
             }
             .subscribe(onNext: { data in
                 self.getChapterImages(data: data)
             })
             .disposed(by: bag)
         
-        let imgQualityRowsOutput = input.getImgQualityRows
-            .map { _ -> [ImageQualityModel] in
-                let data: [ImageQualityModel] = [
-                    ImageQualityModel(title: L10n.ComicDetail.Quality.lowest, quality: .lowest),
-                    ImageQualityModel(title: L10n.ComicDetail.Quality.low, quality: .low),
-                    ImageQualityModel(title: L10n.ComicDetail.Quality.medium, quality: .medium),
-                    ImageQualityModel(title: L10n.ComicDetail.Quality.high, quality: .high),
-                    ImageQualityModel(title: L10n.ComicDetail.Quality.highest, quality: .highest),
-                ]
-                return data
+        let chapterRowsOutput = input.getChapterRows
+            .map { _ -> [ChapterModel] in
+                return self.listChapter
             }
-        
-       let defaultQualityOutput = input.getImgQualityDefault
-            .flatMap({ _ in
-                return imgQualityRowsOutput
-            })
-            .map({ data -> Int in
-                return data.firstIndex { $0.quality == self.imgQuality } ?? 0
+
+        let currentChapterIndexOutput = input.getCurrentChapter
+            .map({ _ -> Int in
+                return self.listChapter.firstIndex { $0 == self.chapter } ?? 0
             })
         
         let isShowConfigViewOutput = viewOnTapSubject
@@ -126,7 +128,11 @@ class ChapterDetailViewModel: BaseViewModel {
                 return Observable.just(status)
             }
             .asDriver(onErrorJustReturn: true)
-
+        
+        let comicNameOutput = Observable.just(self.comicName).asDriver(onErrorJustReturn: "")
+        
+        let chapterTitleOutput = Observable.just(currentChapterTitle).asDriver(onErrorJustReturn: "")
+        
         input.goBack
             .asObservable()
             .subscribe(onNext: {
@@ -134,21 +140,13 @@ class ChapterDetailViewModel: BaseViewModel {
             })
             .disposed(by: bag)
         
-        input.didSelectedItem
-            .asObservable()
-            .withLatestFrom(imgQualityRowsOutput) { pickerData, imgQuality in
-                return imgQuality[pickerData.row]
-            }
-            .subscribe(onNext: { data in
-                self.imgQuality = data.quality ?? .medium
-            })
-            .disposed(by: bag)
-
         let chapterImageOutput = chapterImageSubject.asDriver(onErrorJustReturn: [])
         
         return Output(chapterImageOutput: chapterImageOutput,
-                      imgQualityRows: imgQualityRowsOutput,
-                      defaultQuality: defaultQualityOutput,
-                      isShowConfigView: isShowConfigViewOutput)
+                      isShowConfigView: isShowConfigViewOutput,
+                      comicTitle: comicNameOutput,
+                      allChapter: chapterRowsOutput,
+                      chapterTitle: chapterTitleOutput,
+                      currentChapterIndex: currentChapterIndexOutput)
     }
 }

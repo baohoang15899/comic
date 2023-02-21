@@ -33,6 +33,12 @@ internal enum L10n {
       /// Chọn chất lượng ảnh
       internal static let imgQuality = L10n.tr("Localizable", "ComicDetail.btn.imgQuality", fallback: "Chọn chất lượng ảnh")
     }
+    internal enum Chapter {
+      /// Next
+      internal static let next = L10n.tr("Localizable", "ComicDetail.chapter.next", fallback: "Next")
+      /// Previous
+      internal static let previous = L10n.tr("Localizable", "ComicDetail.chapter.previous", fallback: "Previous")
+    }
     internal enum Quality {
       /// Ảnh chất lượng cao
       internal static let high = L10n.tr("Localizable", "ComicDetail.quality.high", fallback: "Ảnh chất lượng cao")
