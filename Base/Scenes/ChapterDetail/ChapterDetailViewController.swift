@@ -77,6 +77,8 @@ class ChapterDetailViewController: BaseViewController<ChapterDetailViewModel> {
                                                  getChapterRows: Driver.just(()),
                                                  didSelectedItem: chapterPickerView.rx.itemSelected.asDriver(),
                                                  getCurrentChapter: Driver.just(()),
+                                                 nextChapter: nextButton.rx.tap.asDriver(),
+                                                 previousChapter: previousButton.rx.tap.asDriver(),
                                                  goBack: backButton.rx.tap.asDriver())
         
         let output = viewModel.transform(input: input)

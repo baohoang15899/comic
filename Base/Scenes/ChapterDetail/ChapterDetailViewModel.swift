@@ -20,6 +20,8 @@ class ChapterDetailViewModel: BaseViewModel {
         let getChapterRows: Driver<Void>
         let didSelectedItem: Driver<(row: Int, component: Int)>
         let getCurrentChapter: Driver<Void>
+        let nextChapter: Driver<Void>
+        let previousChapter: Driver<Void>
         let goBack: Driver<Void>
     }
     
@@ -42,6 +44,7 @@ class ChapterDetailViewModel: BaseViewModel {
     private let chapterDetailUC: ChapterDetailUC
     private let coordinator: ComicDetailCoordinator
     private let comicName: String
+    private let loadingRelay = BehaviorRelay(value: true)
     let viewOnTapSubject = PublishSubject<Void>()
     var imgQuality: JPEGQuality = .high
     
@@ -72,6 +75,7 @@ class ChapterDetailViewModel: BaseViewModel {
         sortArray.subscribe(onNext: { chapter in
             self.chapterDetail = chapter
             self.chapterImageSubject.onNext(chapter)
+            self.loadingRelay.accept(false)
         })
         .disposed(by: bag)
     }
@@ -90,30 +94,61 @@ class ChapterDetailViewModel: BaseViewModel {
     
     func transform(input: Input) -> Output {
         
-        let startGetChapterDetail = Driver.merge(input.getChapterDetail, input.didSelectedItem.mapToVoid())
-        var currentChapterTitle = ""
-        var currentIndex = 0
+        var currentChapterTitleSubject = BehaviorSubject(value: "")
+        var currentIndex = BehaviorRelay(value: 0)
         var isShowConfigView = false
+        let changeChapterSubject = PublishSubject<Void>()
+        let startGetChapterDetail = Driver.merge(input.getChapterDetail,
+                                                 changeChapterSubject.asDriver(onErrorJustReturn: ()))
+
+        input.nextChapter
+            .asObservable()
+            .subscribe(onNext: { _ in
+                if (currentIndex.value > 0 && currentIndex.value < self.listChapter.count - 1 && !self.loadingRelay.value) {
+                    self.chapterDetail = []
+                    self.chapterImageSubject.onNext([])
+                    currentIndex.accept(currentIndex.value + 1)
+                    self.chapter = self.listChapter[currentIndex.value]
+                    changeChapterSubject.onNext(())
+                }
+            })
+            .disposed(by: bag)
+        
+        input.previousChapter
+            .asObservable()
+            .subscribe(onNext: { _ in
+                if (currentIndex.value > 0 && !self.loadingRelay.value) {
+                    self.chapterDetail = []
+                    self.chapterImageSubject.onNext([])
+                    currentIndex.accept(currentIndex.value - 1)
+                    self.chapter = self.listChapter[currentIndex.value]
+                    changeChapterSubject.onNext(())
+                }
+            })
+            .disposed(by: bag)
         
         startGetChapterDetail
             .asObservable()
-            .do(onNext: { _ in
-                currentIndex = self.listChapter.firstIndex(of: self.chapter) ?? 0
-                currentChapterTitle = self.listChapter[currentIndex].title ?? ""
+            .do(onNext: { [weak self] _ in
+                self?.loadingRelay.accept(true)
+                if let chapter = self?.chapter {
+                    currentIndex.accept(self?.listChapter.firstIndex(of: chapter) ?? 0)
+                    currentChapterTitleSubject.onNext(chapter.title ?? "")
+                }
             })
-            .flatMapLatest { _ in
-                return self.chapterDetailUC.getChapterDetail(url: self.listChapter[currentIndex].chapterUrl ?? "")
-            }
-            .subscribe(onNext: { data in
-                self.getChapterImages(data: data)
-            })
-            .disposed(by: bag)
+                .flatMap { [weak self] _ in
+                    return self?.chapterDetailUC.getChapterDetail(url: self?.chapter.chapterUrl ?? "") ?? Observable.just([])
+                }
+                .subscribe(onNext: { [weak self] data in
+                    self?.getChapterImages(data: data)
+                })
+                .disposed(by: bag)
         
         let chapterRowsOutput = input.getChapterRows
             .map { _ -> [ChapterModel] in
                 return self.listChapter
             }
-
+        
         let currentChapterIndexOutput = input.getCurrentChapter
             .map({ _ -> Int in
                 return self.listChapter.firstIndex { $0 == self.chapter } ?? 0
@@ -131,7 +166,7 @@ class ChapterDetailViewModel: BaseViewModel {
         
         let comicNameOutput = Observable.just(self.comicName).asDriver(onErrorJustReturn: "")
         
-        let chapterTitleOutput = Observable.just(currentChapterTitle).asDriver(onErrorJustReturn: "")
+        let chapterTitleOutput = currentChapterTitleSubject.asDriver(onErrorJustReturn: "")
         
         input.goBack
             .asObservable()
