@@ -59,8 +59,9 @@ class CategoryViewController: BaseViewController<CategoryViewModel> {
     
     private func setupPickerView() {
         let flexSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+        let cancel: UIBarButtonItem = UIBarButtonItem(title: "Cancel", style: .done, target: self, action: #selector(self.hidePickerView))
         submitButton.title = "Done"
-        pickerViewToolBar.items = [flexSpace, submitButton]
+        pickerViewToolBar.items = [cancel, flexSpace, submitButton]
         wrapperPickerView.alpha = 0.0
     }
     
@@ -112,7 +113,7 @@ class CategoryViewController: BaseViewController<CategoryViewModel> {
         showPickerView()
     }
     
-    func hidePickerView() {
+    @objc func hidePickerView() {
         UIView.animate(withDuration: 0.2, delay: 0, animations: {
             self.wrapperPickerView.alpha = 0
         }, completion: nil)
