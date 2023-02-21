@@ -25,6 +25,8 @@ class ChapterDetailViewController: BaseViewController<ChapterDetailViewModel> {
     @IBOutlet weak var nextButton: UIButton!
     @IBOutlet weak var bottomView: UIView!
     @IBOutlet weak var chapterButton: UIButton!
+    @IBOutlet weak var dummyHeaderViewHeightConstraint: NSLayoutConstraint!
+    @IBOutlet weak var dummyHeaderView: UIView!
     
     private let bag = DisposeBag()
     
@@ -42,6 +44,17 @@ class ChapterDetailViewController: BaseViewController<ChapterDetailViewModel> {
     deinit {
         print("ChapterDetailViewController deinit ✅")
     }
+    
+    private func getStatusBarHeight() -> CGFloat {
+       var statusBarHeight: CGFloat = 0
+       if #available(iOS 13.0, *) {
+           let window = UIApplication.shared.windows.filter {$0.isKeyWindow}.first
+           statusBarHeight = window?.windowScene?.statusBarManager?.statusBarFrame.height ?? 0
+       } else {
+           statusBarHeight = UIApplication.shared.statusBarFrame.height
+       }
+       return statusBarHeight
+   }
     
     private func setupUI() {
         let tap = UITapGestureRecognizer(target: self, action: #selector(showConfigView))
@@ -61,6 +74,7 @@ class ChapterDetailViewController: BaseViewController<ChapterDetailViewModel> {
         backButton.setTitle("", for: .normal)
         previousButton.setTitle(L10n.ComicDetail.Chapter.previous, for: .normal)
         nextButton.setTitle(L10n.ComicDetail.Chapter.next, for: .normal)
+        dummyHeaderViewHeightConstraint.constant = getStatusBarHeight()
         setupPickerView()
     }
     
@@ -119,6 +133,7 @@ class ChapterDetailViewController: BaseViewController<ChapterDetailViewModel> {
             .drive { [weak self] status in
                 UIView.animate(withDuration: 0.2, delay: 0, animations: {
                     self?.headerView.alpha = status ? 0 : 1
+                    self?.dummyHeaderView.alpha = status ? 0 : 1
                     self?.bottomView.alpha = status ? 0 : 1
                 }, completion: nil)
             }

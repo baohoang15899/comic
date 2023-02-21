@@ -15,6 +15,8 @@
                 <outlet property="bottomView" destination="xS2-wI-jTz" id="cAb-5S-nWX"/>
                 <outlet property="chapterButton" destination="FUs-Q7-3vU" id="Bv4-kU-oez"/>
                 <outlet property="chapterPickerView" destination="IB7-5G-tYe" id="z2W-pD-Rh5"/>
+                <outlet property="dummyHeaderView" destination="gkK-zm-DCv" id="lm7-AW-gmi"/>
+                <outlet property="dummyHeaderViewHeightConstraint" destination="C66-F1-h10" id="C56-hA-JCD"/>
                 <outlet property="headerView" destination="Xsh-fS-5wT" id="QLV-X8-RTA"/>
                 <outlet property="nextButton" destination="Fex-fU-VvJ" id="qFC-YT-9FX"/>
                 <outlet property="pickerToolBar" destination="Ljd-2h-RM2" id="ds2-uJ-rM0"/>
@@ -31,11 +33,18 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="VHL-ig-krS">
-                    <rect key="frame" x="0.0" y="48" width="414" height="848"/>
+                    <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                 </tableView>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gkK-zm-DCv">
+                    <rect key="frame" x="0.0" y="0.0" width="414" height="20"/>
+                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="20" id="C66-F1-h10"/>
+                    </constraints>
+                </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Xsh-fS-5wT" userLabel="Header View">
-                    <rect key="frame" x="0.0" y="48" width="414" height="44"/>
+                    <rect key="frame" x="0.0" y="20" width="414" height="44"/>
                     <subviews>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="d3i-Fn-P8c">
                             <rect key="frame" x="2" y="4" width="44" height="35"/>
@@ -125,24 +134,26 @@
                 </view>
             </subviews>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
-            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
                 <constraint firstItem="VHL-ig-krS" firstAttribute="trailing" secondItem="fnl-2z-Ty3" secondAttribute="trailing" id="2r1-4Q-oRf"/>
-                <constraint firstItem="VHL-ig-krS" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="5Vx-dx-w0z"/>
+                <constraint firstItem="Xsh-fS-5wT" firstAttribute="top" secondItem="gkK-zm-DCv" secondAttribute="bottom" id="30M-hH-Zw4"/>
+                <constraint firstItem="gkK-zm-DCv" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="8uJ-p3-OhN"/>
+                <constraint firstItem="gkK-zm-DCv" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="B8e-hU-EyY"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="xS2-wI-jTz" secondAttribute="trailing" id="CZE-ht-imV"/>
                 <constraint firstItem="VHL-ig-krS" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="GMt-hg-XFW"/>
                 <constraint firstItem="Xsh-fS-5wT" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="Mz5-6h-Nzf"/>
                 <constraint firstAttribute="bottom" secondItem="xS2-wI-jTz" secondAttribute="bottom" id="Prj-ZY-A1D"/>
                 <constraint firstAttribute="bottom" secondItem="Uiv-EV-kkp" secondAttribute="bottom" id="QSH-gL-Vz5"/>
-                <constraint firstItem="Xsh-fS-5wT" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="Qpe-8c-hc0"/>
                 <constraint firstItem="Uiv-EV-kkp" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="R9r-IF-r0s"/>
                 <constraint firstAttribute="bottom" secondItem="VHL-ig-krS" secondAttribute="bottom" id="hUc-YP-aJO"/>
-                <constraint firstItem="VHL-ig-krS" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="l8X-pp-YjR"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="VHL-ig-krS" secondAttribute="trailing" id="s9R-aQ-xrs"/>
                 <constraint firstItem="VHL-ig-krS" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="ssn-lJ-4Fo"/>
                 <constraint firstItem="Xsh-fS-5wT" firstAttribute="trailing" secondItem="fnl-2z-Ty3" secondAttribute="trailing" id="vUD-Av-gUx"/>
                 <constraint firstItem="xS2-wI-jTz" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="wcp-t4-RS0"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="Uiv-EV-kkp" secondAttribute="trailing" id="yu1-PF-jR0"/>
+                <constraint firstItem="VHL-ig-krS" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="zP5-GZ-YBM"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="gkK-zm-DCv" secondAttribute="trailing" id="zfw-u4-TxX"/>
             </constraints>
             <point key="canvasLocation" x="140.57971014492756" y="82.366071428571431"/>
         </view>
