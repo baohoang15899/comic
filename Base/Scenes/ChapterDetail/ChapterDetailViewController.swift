@@ -139,10 +139,16 @@ class ChapterDetailViewController: BaseViewController<ChapterDetailViewModel> {
             }
             .disposed(by: bag)
         
+        output.canNextChap
+            .drive(nextButton.rx.isEnabled)
+            .disposed(by: bag)
+        
+        output.canBackChap
+            .drive(previousButton.rx.isEnabled)
+            .disposed(by: bag)
+        
         output.isLoading
             .drive { [weak self] isLoading in
-                self?.nextButton.isEnabled = !isLoading
-                self?.previousButton.isEnabled = !isLoading
                 self?.chapterButton.isEnabled = !isLoading
             }
             .disposed(by: bag)

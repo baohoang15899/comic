@@ -35,6 +35,8 @@ class ChapterDetailViewModel: BaseViewModel {
         let currentChapterIndex: Driver<Int>
         let isLoading: Driver<Bool>
         let changingChapter: Driver<Void>
+        let canNextChap: Driver<Bool>
+        let canBackChap: Driver<Bool>
     }
     
     private let bag = DisposeBag()
@@ -48,6 +50,9 @@ class ChapterDetailViewModel: BaseViewModel {
     private let coordinator: ComicDetailCoordinator
     private let comicName: String
     private let loadingRelay = BehaviorRelay(value: true)
+    private let currentIndex = BehaviorRelay(value: 0)
+    private let canNextChapSubject = BehaviorSubject(value: true)
+    private let canBackChapSubject = BehaviorSubject(value: true)
     let viewOnTapSubject = PublishSubject<Void>()
     var imgQuality: JPEGQuality = .high
     
@@ -79,6 +84,8 @@ class ChapterDetailViewModel: BaseViewModel {
             self.chapterDetail = chapter
             self.chapterImageSubject.onNext(chapter)
             self.loadingRelay.accept(false)
+            self.canNextChapSubject.onNext((self.currentIndex.value < self.listChapter.count - 1 && !self.loadingRelay.value))
+            self.canBackChapSubject.onNext((self.currentIndex.value > 0 && !self.loadingRelay.value))
         })
         .disposed(by: bag)
     }
@@ -98,22 +105,21 @@ class ChapterDetailViewModel: BaseViewModel {
     func transform(input: Input) -> Output {
         
         let currentChapterTitleSubject = BehaviorSubject(value: "")
-        let currentIndex = BehaviorRelay(value: 0)
         let submitChangeChapterSubject = PublishSubject<Void>()
         var isShowConfigView = false
         let startGetChapterDetail = Driver.merge(input.getChapterDetail,
                                                  input.nextChapter,
                                                  input.previousChapter,
                                                  input.submitChangeChapter)
-
+        
         input.nextChapter
             .asObservable()
             .subscribe(onNext: { _ in
-                if (currentIndex.value > 0 && currentIndex.value < self.listChapter.count - 1 && !self.loadingRelay.value) {
+                if (self.currentIndex.value > 0 && self.currentIndex.value < self.listChapter.count - 1 && !self.loadingRelay.value) {
                     self.chapterDetail = []
                     self.chapterImageSubject.onNext([])
-                    currentIndex.accept(currentIndex.value + 1)
-                    self.chapter = self.listChapter[currentIndex.value]
+                    self.currentIndex.accept(self.currentIndex.value + 1)
+                    self.chapter = self.listChapter[self.currentIndex.value]
                 }
             })
             .disposed(by: bag)
@@ -121,11 +127,11 @@ class ChapterDetailViewModel: BaseViewModel {
         input.previousChapter
             .asObservable()
             .subscribe(onNext: { _ in
-                if (currentIndex.value > 0 && !self.loadingRelay.value) {
+                if (self.currentIndex.value > 0 && !self.loadingRelay.value) {
                     self.chapterDetail = []
                     self.chapterImageSubject.onNext([])
-                    currentIndex.accept(currentIndex.value - 1)
-                    self.chapter = self.listChapter[currentIndex.value]
+                    self.currentIndex.accept(self.currentIndex.value - 1)
+                    self.chapter = self.listChapter[self.currentIndex.value]
                 }
             })
             .disposed(by: bag)
@@ -152,7 +158,9 @@ class ChapterDetailViewModel: BaseViewModel {
             .asObservable()
             .do(onNext: { _ in
                 self.loadingRelay.accept(true)
-                currentIndex.accept(self.listChapter.firstIndex(of: self.chapter) ?? 0)
+                self.canNextChapSubject.onNext(false)
+                self.canBackChapSubject.onNext(false)
+                self.currentIndex.accept(self.listChapter.firstIndex(of: self.chapter) ?? 0)
                 currentChapterTitleSubject.onNext(self.chapter.title ?? "")
             })
                 .flatMap { _ in
@@ -197,6 +205,8 @@ class ChapterDetailViewModel: BaseViewModel {
         let chapterImageOutput = chapterImageSubject.asDriver(onErrorJustReturn: [])
         let loadingOutput = loadingRelay.asDriver(onErrorJustReturn: false)
         let changingChapterOutput = submitChangeChapterSubject.asDriver(onErrorJustReturn: ())
+        let canNextChapOutput = canNextChapSubject.asDriver(onErrorJustReturn: false)
+        let canBackChapOutput = canBackChapSubject.asDriver(onErrorJustReturn: false)
         
         return Output(chapterImageOutput: chapterImageOutput,
                       isShowConfigView: isShowConfigViewOutput,
@@ -205,6 +215,8 @@ class ChapterDetailViewModel: BaseViewModel {
                       chapterTitle: chapterTitleOutput,
                       currentChapterIndex: currentChapterIndexOutput,
                       isLoading: loadingOutput,
-                      changingChapter: changingChapterOutput)
+                      changingChapter: changingChapterOutput,
+                      canNextChap: canNextChapOutput,
+                      canBackChap: canBackChapOutput)
     }
 }

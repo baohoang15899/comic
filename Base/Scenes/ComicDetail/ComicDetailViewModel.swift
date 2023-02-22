@@ -86,7 +86,6 @@ class ComicDetailViewModel: BaseViewModel {
         
         let favoriteOutput = Driver.merge(getFavoriteOutput, setFavoriteOutput)
             .map { status in
-                print("\(self) favorite status: \(status)")
                 return status
             }
         
