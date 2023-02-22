@@ -19,6 +19,7 @@ class ChapterDetailViewModel: BaseViewModel {
         let getChapterDetail: Driver<Void>
         let getChapterRows: Driver<Void>
         let didSelectedItem: Driver<(row: Int, component: Int)>
+        let willDisplayCell: Driver<(cell: UITableViewCell, indexPath: IndexPath )>
         let getCurrentChapter: Driver<Void>
         let nextChapter: Driver<Void>
         let previousChapter: Driver<Void>
@@ -106,7 +107,7 @@ class ChapterDetailViewModel: BaseViewModel {
         
         let currentChapterTitleSubject = BehaviorSubject(value: "")
         let submitChangeChapterSubject = PublishSubject<Void>()
-        var isShowConfigView = false
+        var isShowConfigView = BehaviorRelay(value: false)
         let startGetChapterDetail = Driver.merge(input.getChapterDetail,
                                                  input.nextChapter,
                                                  input.previousChapter,
@@ -154,6 +155,16 @@ class ChapterDetailViewModel: BaseViewModel {
             })
             .disposed(by: bag)
         
+        input.willDisplayCell
+            .asObservable()
+            .subscribe(onNext: { cell in
+                let lastRow = self.chapterDetail.count - 1
+                if(cell.indexPath.row == lastRow) {
+                    isShowConfigView.accept(true)
+                }
+            })
+            .disposed(by: bag)
+        
         startGetChapterDetail
             .asObservable()
             .do(onNext: { _ in
@@ -181,15 +192,11 @@ class ChapterDetailViewModel: BaseViewModel {
                 return self.listChapter.firstIndex { $0 == self.chapter } ?? 0
             })
         
-        let isShowConfigViewOutput = viewOnTapSubject
-            .map { _ -> Bool in
-                isShowConfigView = !isShowConfigView
-                return !isShowConfigView
-            }
-            .flatMap { status in
-                return Observable.just(status)
-            }
-            .asDriver(onErrorJustReturn: true)
+        viewOnTapSubject
+            .subscribe(onNext: {
+                isShowConfigView.accept(!isShowConfigView.value)
+            })
+            .disposed(by: bag)
         
         let comicNameOutput = Observable.just(self.comicName).asDriver(onErrorJustReturn: "")
         
@@ -207,6 +214,7 @@ class ChapterDetailViewModel: BaseViewModel {
         let changingChapterOutput = submitChangeChapterSubject.asDriver(onErrorJustReturn: ())
         let canNextChapOutput = canNextChapSubject.asDriver(onErrorJustReturn: false)
         let canBackChapOutput = canBackChapSubject.asDriver(onErrorJustReturn: false)
+        let isShowConfigViewOutput = isShowConfigView.asDriver(onErrorJustReturn: false)
         
         return Output(chapterImageOutput: chapterImageOutput,
                       isShowConfigView: isShowConfigViewOutput,

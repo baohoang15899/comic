@@ -83,6 +83,7 @@ class ChapterDetailViewController: BaseViewController<ChapterDetailViewModel> {
         let input = ChapterDetailViewModel.Input(getChapterDetail: Driver.just(()),
                                                  getChapterRows: Driver.just(()),
                                                  didSelectedItem: chapterPickerView.rx.itemSelected.asDriver(),
+                                                 willDisplayCell: tableView.rx.willDisplayCell.asDriver(),
                                                  getCurrentChapter: Driver.just(()),
                                                  nextChapter: nextButton.rx.tap.asDriver(),
                                                  previousChapter: previousButton.rx.tap.asDriver(),
@@ -126,9 +127,9 @@ class ChapterDetailViewController: BaseViewController<ChapterDetailViewModel> {
         output.isShowConfigView
             .drive { [weak self] status in
                 UIView.animate(withDuration: 0.2, delay: 0, animations: {
-                    self?.headerView.alpha = status ? 0 : 1
-                    self?.dummyHeaderView.alpha = status ? 0 : 1
-                    self?.bottomView.alpha = status ? 0 : 1
+                    self?.headerView.alpha = !status ? 0 : 1
+                    self?.dummyHeaderView.alpha = !status ? 0 : 1
+                    self?.bottomView.alpha = !status ? 0 : 1
                 }, completion: nil)
             }
             .disposed(by: bag)
