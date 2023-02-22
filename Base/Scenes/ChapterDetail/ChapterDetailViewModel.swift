@@ -107,7 +107,7 @@ class ChapterDetailViewModel: BaseViewModel {
         
         let currentChapterTitleSubject = BehaviorSubject(value: "")
         let submitChangeChapterSubject = PublishSubject<Void>()
-        var isShowConfigView = BehaviorRelay(value: false)
+        let isShowConfigViewRelay = BehaviorRelay(value: false)
         let startGetChapterDetail = Driver.merge(input.getChapterDetail,
                                                  input.nextChapter,
                                                  input.previousChapter,
@@ -116,7 +116,7 @@ class ChapterDetailViewModel: BaseViewModel {
         input.nextChapter
             .asObservable()
             .subscribe(onNext: { _ in
-                if (self.currentIndex.value > 0 && self.currentIndex.value < self.listChapter.count - 1 && !self.loadingRelay.value) {
+                if (self.currentIndex.value >= 0 && self.currentIndex.value < self.listChapter.count - 1 && !self.loadingRelay.value) {
                     self.chapterDetail = []
                     self.chapterImageSubject.onNext([])
                     self.currentIndex.accept(self.currentIndex.value + 1)
@@ -160,7 +160,7 @@ class ChapterDetailViewModel: BaseViewModel {
             .subscribe(onNext: { cell in
                 let lastRow = self.chapterDetail.count - 1
                 if(cell.indexPath.row == lastRow) {
-                    isShowConfigView.accept(true)
+                    isShowConfigViewRelay.accept(true)
                 }
             })
             .disposed(by: bag)
@@ -194,7 +194,7 @@ class ChapterDetailViewModel: BaseViewModel {
         
         viewOnTapSubject
             .subscribe(onNext: {
-                isShowConfigView.accept(!isShowConfigView.value)
+                isShowConfigViewRelay.accept(!isShowConfigViewRelay.value)
             })
             .disposed(by: bag)
         
@@ -214,7 +214,7 @@ class ChapterDetailViewModel: BaseViewModel {
         let changingChapterOutput = submitChangeChapterSubject.asDriver(onErrorJustReturn: ())
         let canNextChapOutput = canNextChapSubject.asDriver(onErrorJustReturn: false)
         let canBackChapOutput = canBackChapSubject.asDriver(onErrorJustReturn: false)
-        let isShowConfigViewOutput = isShowConfigView.asDriver(onErrorJustReturn: false)
+        let isShowConfigViewOutput = isShowConfigViewRelay.asDriver(onErrorJustReturn: false)
         
         return Output(chapterImageOutput: chapterImageOutput,
                       isShowConfigView: isShowConfigViewOutput,
