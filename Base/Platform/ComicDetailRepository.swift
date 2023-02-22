@@ -23,61 +23,61 @@ struct ComicDetailRepository: ComicDetailRepositoryType {
             .asObservable()
             .map({ data -> DetailComicModel in
                 
-                let results = SwiftSoupService.shared.getSingleElement(document: data,
+                let results = SwiftSoupService.getSingleElement(document: data,
                                                                        className: "main article")
                 
-                let imageInfo = SwiftSoupService.shared.getSingleElement(document: data,
+                let imageInfo = SwiftSoupService.getSingleElement(document: data,
                                                                          className: "main article div.detail-info")
                 
-                let comicInfo = SwiftSoupService.shared.getSingleElement(document: data,
+                let comicInfo = SwiftSoupService.getSingleElement(document: data,
                                                                          className: "main article div.detail-info div.col-xs-8.col-info")
                 
-                let kindInfo = SwiftSoupService.shared.getAllElements(document: data,
+                let kindInfo = SwiftSoupService.getAllElements(document: data,
                                                                       className: "div.col-xs-8.col-info li.kind.row p.col-xs-8 a")
                 
-                let contentInfo = SwiftSoupService.shared.getSingleElement(document: data,
+                let contentInfo = SwiftSoupService.getSingleElement(document: data,
                                                                            className: "main div.detail-content p")
                 
-                let listChapterInfo = SwiftSoupService.shared.getAllElements(document: data,
+                let listChapterInfo = SwiftSoupService.getAllElements(document: data,
                                                                              className: "main div.list-chapter nav ul li.row")
                 
                 // data
-                let title = SwiftSoupService.shared.elementToString(element: results,
+                let title = SwiftSoupService.elementToString(element: results,
                                                                     className: "h1.title-detail")
                 
-                let img = SwiftSoupService.shared.getAttrFromHtml(element: imageInfo,
+                let img = SwiftSoupService.getAttrFromHtml(element: imageInfo,
                                                                   className: "div.row div.col-xs-4.col-image img",
                                                                   attr: "src")
                 
-                let author = SwiftSoupService.shared.elementToString(element: comicInfo,
+                let author = SwiftSoupService.elementToString(element: comicInfo,
                                                                      className: "ul.list-info li.author.row p.col-xs-8")
                 
-                let status = SwiftSoupService.shared.elementToString(element: comicInfo,
+                let status = SwiftSoupService.elementToString(element: comicInfo,
                                                                      className: "ul.list-info li.status.row p.col-xs-8")
                 
                 let kinds: [String] = kindInfo?.map({ value -> String in
-                    return SwiftSoupService.shared.elementToString(element: value,
+                    return SwiftSoupService.elementToString(element: value,
                                                                    className: "a") ?? ""
                 }) ?? []
                 
                 let chapters: [ChapterModel] = listChapterInfo?.map({ value -> ChapterModel in
-                    let title = SwiftSoupService.shared.elementToString(element: value,
+                    let title = SwiftSoupService.elementToString(element: value,
                                                                         className: "div.col-xs-5.chapter a")
                
-                    let chapterUrl = SwiftSoupService.shared.getAttrFromHtml(element: value,
+                    let chapterUrl = SwiftSoupService.getAttrFromHtml(element: value,
                                                                              className: "div.col-xs-5.chapter a",
                                                                              attr: "href")
                     
-                    let date = SwiftSoupService.shared.elementToString(element: value, className: "div.col-xs-4.text-center.no-wrap.small")
+                    let date = SwiftSoupService.elementToString(element: value, className: "div.col-xs-4.text-center.no-wrap.small")
                     
-                    let id = SwiftSoupService.shared.getAttrFromHtml(element: value,
+                    let id = SwiftSoupService.getAttrFromHtml(element: value,
                                                                      className: "div.col-xs-5.chapter a",
                                                                      attr: "data-id")
                     
                     return ChapterModel(id: id, title: title, chapterUrl: chapterUrl, chap: "", date: date)
                 }) ?? []
                 
-                let content = SwiftSoupService.shared.elementToString(element: contentInfo,
+                let content = SwiftSoupService.elementToString(element: contentInfo,
                                                                       className: "p")
                 
                 return DetailComicModel(image: DetailComicModel.getUrlImg(img: img),

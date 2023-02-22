@@ -22,11 +22,11 @@ struct CategoryRepository: CategoryRepositoryType {
         return Service.shared.request(input: CategoryRouter.allCategory)
             .asObservable()
             .map { data in
-                let result = SwiftSoupService.shared.getAllElements(document: data, className: "div.right-side.col-md-4.cmszone ul.nav li a")
+                let result = SwiftSoupService.getAllElements(document: data, className: "div.right-side.col-md-4.cmszone ul.nav li a")
                 
                categories = result?.map({ value in
-                   let title = SwiftSoupService.shared.elementToString(element: value, className: "a")
-                   let url = SwiftSoupService.shared.getAttrFromHtml(element: value, className: "a", attr: "href")
+                   let title = SwiftSoupService.elementToString(element: value, className: "a")
+                   let url = SwiftSoupService.getAttrFromHtml(element: value, className: "a", attr: "href")
                    return CategoryModel(title: title, categoryUrl: url)
                }) ?? []
                 
@@ -41,17 +41,17 @@ struct CategoryRepository: CategoryRepositoryType {
         return Service.shared.request(input: CategoryRouter.allComic(page: page, url: url))
             .asObservable()
             .map { data in
-                let nextPage = SwiftSoupService.shared.getSingleElement(document: data, className: "div.pagination-outter a.next-page")
+                let nextPage = SwiftSoupService.getSingleElement(document: data, className: "div.pagination-outter a.next-page")
                 
-                let results = SwiftSoupService.shared.getAllElements(document: data,
+                let results = SwiftSoupService.getAllElements(document: data,
                                                                      className: "div.Module.Module-170 div.items div.item")
             
                comics = results?.map({ value in
-                   let image = SwiftSoupService.shared.getAttrFromHtml(element: value, className: "div.image a img", attr: "data-original")
-                   let title = SwiftSoupService.shared.elementToString(element: value, className: "figcaption h3 a")
-                   let url = SwiftSoupService.shared.getAttrFromHtml(element: value, className: "figcaption h3 a", attr: "href")
-                   let newChapter = SwiftSoupService.shared.elementToString(element: value, className: "figcaption ul li a")
-                   let updateTime = SwiftSoupService.shared.elementToString(element: value, className: "figcaption ul li i.time")
+                   let image = SwiftSoupService.getAttrFromHtml(element: value, className: "div.image a img", attr: "data-original")
+                   let title = SwiftSoupService.elementToString(element: value, className: "figcaption h3 a")
+                   let url = SwiftSoupService.getAttrFromHtml(element: value, className: "figcaption h3 a", attr: "href")
+                   let newChapter = SwiftSoupService.elementToString(element: value, className: "figcaption ul li a")
+                   let updateTime = SwiftSoupService.elementToString(element: value, className: "figcaption ul li i.time")
                    return ComicModel(image: ComicModel.getUrlImg(img: image),
                                      title: title,
                                      detailUrl: url,

@@ -33,7 +33,7 @@
 "ComicDetail.quality.high" = "Ảnh chất lượng cao";
 "ComicDetail.quality.highest" = "Ảnh chất lượng cao nhất";
 "ComicDetail.chapter.next" = "Next";
-"ComicDetail.chapter.previous" = "Previous";
+"ComicDetail.chapter.previous" = "Back";
 
 //search
 "Search.title" = "Tìm kiếm";
@@ -56,3 +56,5 @@
 "Common.tab.home" = "Trang chủ";
 "Common.tab.category" = "Thể loại";
 "Common.tab.favorite" = "Yêu thích";
+"Common.done" = "Done";
+"Common.cancel" = "Cancel";

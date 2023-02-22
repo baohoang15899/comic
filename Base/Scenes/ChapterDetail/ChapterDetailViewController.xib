@@ -13,6 +13,7 @@
             <connections>
                 <outlet property="backButton" destination="d3i-Fn-P8c" id="rsh-Rw-FQp"/>
                 <outlet property="bottomView" destination="xS2-wI-jTz" id="cAb-5S-nWX"/>
+                <outlet property="bottomViewHeightConstraint" destination="QeF-z8-2hE" id="Qwg-aa-9JJ"/>
                 <outlet property="chapterButton" destination="FUs-Q7-3vU" id="Bv4-kU-oez"/>
                 <outlet property="chapterPickerView" destination="IB7-5G-tYe" id="z2W-pD-Rh5"/>
                 <outlet property="dummyHeaderView" destination="gkK-zm-DCv" id="lm7-AW-gmi"/>
@@ -71,20 +72,20 @@
                     </constraints>
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xS2-wI-jTz" userLabel="Bottom View">
-                    <rect key="frame" x="0.0" y="821" width="414" height="75"/>
+                    <rect key="frame" x="0.0" y="852" width="414" height="44"/>
                     <subviews>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2DW-M4-dgL">
-                            <rect key="frame" x="16" y="20" width="75" height="35"/>
+                            <rect key="frame" x="16" y="5" width="75" height="34.5"/>
                             <state key="normal" title="Button"/>
                             <buttonConfiguration key="configuration" style="plain" title="Button"/>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Fex-fU-VvJ">
-                            <rect key="frame" x="323" y="20" width="75" height="35"/>
+                            <rect key="frame" x="323" y="5" width="75" height="34.5"/>
                             <state key="normal" title="Button"/>
                             <buttonConfiguration key="configuration" style="plain" title="Button"/>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FUs-Q7-3vU">
-                            <rect key="frame" x="184" y="22.5" width="46" height="30"/>
+                            <rect key="frame" x="184" y="7" width="46" height="30"/>
                             <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                             <state key="normal" title="Button"/>
                             <connections>
@@ -98,7 +99,7 @@
                         <constraint firstItem="Fex-fU-VvJ" firstAttribute="centerY" secondItem="xS2-wI-jTz" secondAttribute="centerY" id="BOn-Kg-arT"/>
                         <constraint firstItem="FUs-Q7-3vU" firstAttribute="centerY" secondItem="xS2-wI-jTz" secondAttribute="centerY" id="PH5-bO-DvM"/>
                         <constraint firstItem="FUs-Q7-3vU" firstAttribute="centerX" secondItem="xS2-wI-jTz" secondAttribute="centerX" id="Pgi-9f-bGz"/>
-                        <constraint firstAttribute="height" constant="75" id="QeF-z8-2hE"/>
+                        <constraint firstAttribute="height" constant="44" id="QeF-z8-2hE"/>
                         <constraint firstItem="2DW-M4-dgL" firstAttribute="leading" secondItem="xS2-wI-jTz" secondAttribute="leading" constant="16" id="bGx-Bo-qPx"/>
                         <constraint firstAttribute="trailing" secondItem="Fex-fU-VvJ" secondAttribute="trailing" constant="16" id="yGC-5F-pnt"/>
                     </constraints>

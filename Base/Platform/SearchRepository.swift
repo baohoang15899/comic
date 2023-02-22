@@ -20,13 +20,13 @@ struct SearchRepository: SearchRepositoryType {
         return Service.shared.request(input: SearchRouter.search(keyword: keyword))
             .asObservable()
             .map({ data in
-                let results = SwiftSoupService.shared.getAllElements(document: data, className: "body ul li")
+                let results = SwiftSoupService.getAllElements(document: data, className: "body ul li")
                 results?.forEach({ value in
-                    let image = SwiftSoupService.shared.getAttrFromHtml(element: value, className: "a img", attr: "src")
-                    let title = SwiftSoupService.shared.elementToString(element: value, className: "a h3")
-                    let detailUrl = SwiftSoupService.shared.getAttrFromHtml(element: value, className: "a", attr: "href")
-                    let chapter = SwiftSoupService.shared.elementToString(element: value, className: "h4 i")
-                    let category = SwiftSoupService.shared.lastSiblingToString(element: value, className: "h4 i")
+                    let image = SwiftSoupService.getAttrFromHtml(element: value, className: "a img", attr: "src")
+                    let title = SwiftSoupService.elementToString(element: value, className: "a h3")
+                    let detailUrl = SwiftSoupService.getAttrFromHtml(element: value, className: "a", attr: "href")
+                    let chapter = SwiftSoupService.elementToString(element: value, className: "h4 i")
+                    let category = SwiftSoupService.lastSiblingToString(element: value, className: "h4 i")
                     comicSuggestData.append(ComicSuggestModel(image: ComicSuggestModel.getUrlImg(img: image),
                                                               title: title ?? L10n.Common.Update.empty,
                                                               category: category ?? L10n.Common.Update.empty,

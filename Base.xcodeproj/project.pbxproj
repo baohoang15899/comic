@@ -72,6 +72,7 @@
 		29957AB92994EAB400BE9538 /* FavoriteViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 29957AB42994EAB400BE9538 /* FavoriteViewController.xib */; };
 		29957ABD2994EECE00BE9538 /* FavoriteRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29957ABC2994EECE00BE9538 /* FavoriteRepository.swift */; };
 		29957ABF2994EF9800BE9538 /* FavoriteUC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29957ABE2994EF9800BE9538 /* FavoriteUC.swift */; };
+		29957AC329A5B20400BE9538 /* CommonMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29957AC229A5B20400BE9538 /* CommonMethod.swift */; };
 		29A6182D297AAB34004A1993 /* ComicDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29A6182B297AAB34004A1993 /* ComicDetailViewController.swift */; };
 		29A6182E297AAB34004A1993 /* ComicDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 29A6182C297AAB34004A1993 /* ComicDetailViewController.xib */; };
 		29A61830297AABFE004A1993 /* ComicDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29A6182F297AABFE004A1993 /* ComicDetailViewModel.swift */; };
@@ -221,6 +222,7 @@
 		29957AB42994EAB400BE9538 /* FavoriteViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FavoriteViewController.xib; sourceTree = "<group>"; };
 		29957ABC2994EECE00BE9538 /* FavoriteRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteRepository.swift; sourceTree = "<group>"; };
 		29957ABE2994EF9800BE9538 /* FavoriteUC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteUC.swift; sourceTree = "<group>"; };
+		29957AC229A5B20400BE9538 /* CommonMethod.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonMethod.swift; sourceTree = "<group>"; };
 		29A6182B297AAB34004A1993 /* ComicDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComicDetailViewController.swift; sourceTree = "<group>"; };
 		29A6182C297AAB34004A1993 /* ComicDetailViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ComicDetailViewController.xib; sourceTree = "<group>"; };
 		29A6182F297AABFE004A1993 /* ComicDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComicDetailViewModel.swift; sourceTree = "<group>"; };
@@ -687,6 +689,7 @@
 			children = (
 				29D5090A28F94EB900DD3D32 /* Constants.swift */,
 				29F5589B2975455600FE1386 /* SwiftSoupService.swift */,
+				29957AC229A5B20400BE9538 /* CommonMethod.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -1178,6 +1181,7 @@
 				2905D51529835F1A00CC6E72 /* SearchCoordinator.swift in Sources */,
 				29957AA92994E66D00BE9538 /* DetailComicCoreData+CoreDataClass.swift in Sources */,
 				293A1B93297EB03900F88B95 /* ChapterImageModel.swift in Sources */,
+				29957AC329A5B20400BE9538 /* CommonMethod.swift in Sources */,
 				29957ABF2994EF9800BE9538 /* FavoriteUC.swift in Sources */,
 				291E176B2935EB2E00FCAAD9 /* LocalName.swift in Sources */,
 				2992659F2988F2C80094EB0C /* CategoryAPIRouter.swift in Sources */,

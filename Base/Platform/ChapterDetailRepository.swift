@@ -26,14 +26,14 @@ struct ChapterDetailRepository: ChapterDetailRepositoryType {
         return Service.shared.request(input: ChapterDetailRouter.getChapter(url: url))
             .asObservable()
             .map { data in
-                let results = SwiftSoupService.shared.getAllElements(document: data,
+                let results = SwiftSoupService.getAllElements(document: data,
                                                                      className: "main div.reading-detail.box_doc div.page-chapter")
                 
                 
                 let chapters: [ChapterDetailModel] = results?.map({ value -> ChapterDetailModel in
                     
-                    let img = SwiftSoupService.shared.getAttrFromHtml(element: value, className: "img", attr: "data-original")
-                    let dataIndex = SwiftSoupService.shared.getAttrFromHtml(element: value, className: "img", attr: "data-index")
+                    let img = SwiftSoupService.getAttrFromHtml(element: value, className: "img", attr: "data-original")
+                    let dataIndex = SwiftSoupService.getAttrFromHtml(element: value, className: "img", attr: "data-index")
                     return ChapterDetailModel(url: ChapterDetailModel.getUrlImg(img: img), dataIndex: dataIndex)
                 }) ?? []
                 

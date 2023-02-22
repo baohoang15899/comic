@@ -36,6 +36,8 @@ internal enum Asset {
       internal static let icDownArrow = ImageAsset(name: "ic_down_arrow")
       internal static let icHeart = ImageAsset(name: "ic_heart")
       internal static let icHome = ImageAsset(name: "ic_home")
+      internal static let icNext = ImageAsset(name: "ic_next")
+      internal static let icPrevious = ImageAsset(name: "ic_previous")
       internal static let icSearch = ImageAsset(name: "ic_search")
       internal static let icSplash = ImageAsset(name: "ic_splash")
     }

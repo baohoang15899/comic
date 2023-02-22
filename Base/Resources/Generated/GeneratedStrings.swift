@@ -36,8 +36,8 @@ internal enum L10n {
     internal enum Chapter {
       /// Next
       internal static let next = L10n.tr("Localizable", "ComicDetail.chapter.next", fallback: "Next")
-      /// Previous
-      internal static let previous = L10n.tr("Localizable", "ComicDetail.chapter.previous", fallback: "Previous")
+      /// Back
+      internal static let previous = L10n.tr("Localizable", "ComicDetail.chapter.previous", fallback: "Back")
     }
     internal enum Quality {
       /// Ảnh chất lượng cao
@@ -61,6 +61,10 @@ internal enum L10n {
     }
   }
   internal enum Common {
+    /// Cancel
+    internal static let cancel = L10n.tr("Localizable", "Common.cancel", fallback: "Cancel")
+    /// Done
+    internal static let done = L10n.tr("Localizable", "Common.done", fallback: "Done")
     internal enum Tab {
       /// Thể loại
       internal static let category = L10n.tr("Localizable", "Common.tab.category", fallback: "Thể loại")

@@ -8,11 +8,9 @@
 import Foundation
 import SwiftSoup
 
-class SwiftSoupService {
-    
-    static let shared = SwiftSoupService()
-    
-    func getAllElements(document: Document?, className: String) -> Elements? {
+struct SwiftSoupService {
+
+    static func getAllElements(document: Document?, className: String) -> Elements? {
         var data: Elements?
         do {
             data = try document?.body()?.select(className)
@@ -22,7 +20,7 @@ class SwiftSoupService {
         return data
     }
     
-    func getSingleElement(document: Document?, className: String) -> Element? {
+    static func getSingleElement(document: Document?, className: String) -> Element? {
         var data: Element?
         do {
             data = try document?.body()?.select(className).first()
@@ -32,7 +30,7 @@ class SwiftSoupService {
         return data
     }
     
-    func elementToString(element: Element?, className: String) -> String? {
+    static func elementToString(element: Element?, className: String) -> String? {
         var data: String?
         do {
             data = try element?.select(className).first()?.text()
@@ -42,7 +40,7 @@ class SwiftSoupService {
         return data
     }
     
-    func nextSiblingToString(element: Element?, className: String) -> String? {
+    static func nextSiblingToString(element: Element?, className: String) -> String? {
         var data: String?
         do {
             data = try element?.select(className).first()?.nextElementSibling()?.text()
@@ -52,7 +50,7 @@ class SwiftSoupService {
         return data
     }
     
-    func lastSiblingToString(element: Element?, className: String) -> String? {
+    static func lastSiblingToString(element: Element?, className: String) -> String? {
         var data: String?
         do {
             data = try element?.select(className).first()?.lastElementSibling()?.text()
@@ -62,7 +60,7 @@ class SwiftSoupService {
         return data
     }
     
-    func getAttrFromHtml(element: Element?,className: String, attr: String) -> String? {
+    static func getAttrFromHtml(element: Element?,className: String, attr: String) -> String? {
         var data: String?
         do {
             data = try element?.select(className).first()?.attr(attr)
@@ -72,7 +70,7 @@ class SwiftSoupService {
         return data
     }
     
-    func getEmptyDocument() -> Document {
+    static func getEmptyDocument() -> Document {
         do {
            let html = "<html><head><title>First parse</title></head>"
                + "<body><p>Parsed HTML into a doc.</p></body></html>"

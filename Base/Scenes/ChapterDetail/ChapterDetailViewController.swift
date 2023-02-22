@@ -27,9 +27,10 @@ class ChapterDetailViewController: BaseViewController<ChapterDetailViewModel> {
     @IBOutlet weak var chapterButton: UIButton!
     @IBOutlet weak var dummyHeaderViewHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var dummyHeaderView: UIView!
+    @IBOutlet weak var bottomViewHeightConstraint: NSLayoutConstraint!
     
     private let bag = DisposeBag()
-    
+    private let doneButton = UIBarButtonItem()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -44,18 +45,7 @@ class ChapterDetailViewController: BaseViewController<ChapterDetailViewModel> {
     deinit {
         print("ChapterDetailViewController deinit ✅")
     }
-    
-    private func getStatusBarHeight() -> CGFloat {
-       var statusBarHeight: CGFloat = 0
-       if #available(iOS 13.0, *) {
-           let window = UIApplication.shared.windows.filter {$0.isKeyWindow}.first
-           statusBarHeight = window?.windowScene?.statusBarManager?.statusBarFrame.height ?? 0
-       } else {
-           statusBarHeight = UIApplication.shared.statusBarFrame.height
-       }
-       return statusBarHeight
-   }
-    
+
     private func setupUI() {
         let tap = UITapGestureRecognizer(target: self, action: #selector(showConfigView))
         tableView.addGestureRecognizer(tap)
@@ -68,21 +58,24 @@ class ChapterDetailViewController: BaseViewController<ChapterDetailViewModel> {
         tableView.estimatedRowHeight = 100
         headerView.alpha = 0
         bottomView.alpha = 0
+        dummyHeaderView.alpha = 0
         chapterButton.titleLabel?.font = UIFont.boldSystemFont(ofSize: 17)
         chapterButton.setImage(Asset.Images.Common.icDownArrow.image, for: .normal)
         chapterButton.semanticContentAttribute = .forceRightToLeft
         backButton.setTitle("", for: .normal)
         previousButton.setTitle(L10n.ComicDetail.Chapter.previous, for: .normal)
         nextButton.setTitle(L10n.ComicDetail.Chapter.next, for: .normal)
-        dummyHeaderViewHeightConstraint.constant = getStatusBarHeight()
+        dummyHeaderViewHeightConstraint.constant = CommonMethod.getStatusBarHeight()
+        bottomViewHeightConstraint.constant = (UIApplication.shared.keyWindow?.safeAreaInsets.bottom ?? 0) + 44.0
         setupPickerView()
     }
     
     private func setupPickerView() {
         let flexSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
-        let done: UIBarButtonItem = UIBarButtonItem(title: "Done", style: .done, target: self, action: #selector(self.hidePickerView))
-        let cancel: UIBarButtonItem = UIBarButtonItem(title: "Cancel", style: .done, target: self, action: #selector(self.hidePickerView))
-        pickerToolBar.items = [cancel,flexSpace, done]
+        doneButton.title = L10n.Common.done
+        doneButton.style = .done
+        let cancel: UIBarButtonItem = UIBarButtonItem(title: L10n.Common.cancel, style: .done, target: self, action: #selector(self.hidePickerView))
+        pickerToolBar.items = [cancel,flexSpace, doneButton]
         pickerWrapperView.alpha = 0.0
     }
     
@@ -93,6 +86,7 @@ class ChapterDetailViewController: BaseViewController<ChapterDetailViewModel> {
                                                  getCurrentChapter: Driver.just(()),
                                                  nextChapter: nextButton.rx.tap.asDriver(),
                                                  previousChapter: previousButton.rx.tap.asDriver(),
+                                                 submitChangeChapter: doneButton.rx.tap.asDriver(),
                                                  goBack: backButton.rx.tap.asDriver())
         
         let output = viewModel.transform(input: input)
@@ -136,6 +130,20 @@ class ChapterDetailViewController: BaseViewController<ChapterDetailViewModel> {
                     self?.dummyHeaderView.alpha = status ? 0 : 1
                     self?.bottomView.alpha = status ? 0 : 1
                 }, completion: nil)
+            }
+            .disposed(by: bag)
+        
+        output.changingChapter
+            .drive { [ weak self ] _ in
+                self?.hidePickerView()
+            }
+            .disposed(by: bag)
+        
+        output.isLoading
+            .drive { [weak self] isLoading in
+                self?.nextButton.isEnabled = !isLoading
+                self?.previousButton.isEnabled = !isLoading
+                self?.chapterButton.isEnabled = !isLoading
             }
             .disposed(by: bag)
         

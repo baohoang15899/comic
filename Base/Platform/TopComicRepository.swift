@@ -24,18 +24,18 @@ struct TopComicRepository: TopComicRepositoryType {
         return Service.shared.request(input: TopComicRouter.hot(param: param))
             .asObservable()
             .map { data in
-                let results = SwiftSoupService.shared.getAllElements(document: data,
+                let results = SwiftSoupService.getAllElements(document: data,
                                                                      className: "div.items-slide div.item")
                 comics = results?.map({ value in
-                    let imgUrl = SwiftSoupService.shared.getAttrFromHtml(element: value,
+                    let imgUrl = SwiftSoupService.getAttrFromHtml(element: value,
                                                                          className: "a img",
                                                                          attr: "data-src")
                     
-                    let comicDetailUrl = SwiftSoupService.shared.getAttrFromHtml(element: value,
+                    let comicDetailUrl = SwiftSoupService.getAttrFromHtml(element: value,
                                                                                  className: "a",
                                                                                  attr: "href")
                     
-                    let title = SwiftSoupService.shared.elementToString(element: value,
+                    let title = SwiftSoupService.elementToString(element: value,
                                                                         className: "h3 a")
                     return ComicModel(image: ComicModel.getUrlImg(img: imgUrl), title: title, detailUrl: comicDetailUrl ?? "", newChapter: "")
                 })
@@ -48,18 +48,18 @@ struct TopComicRepository: TopComicRepositoryType {
         return Service.shared.request(input: TopComicRouter.nominate)
             .asObservable()
             .map { data in
-                let results = SwiftSoupService.shared.getAllElements(document: data,
+                let results = SwiftSoupService.getAllElements(document: data,
                                                                      className: "div.items-slide div.item")
                 comics = results?.map({ value in
-                    let imgUrl = SwiftSoupService.shared.getAttrFromHtml(element: value,
+                    let imgUrl = SwiftSoupService.getAttrFromHtml(element: value,
                                                                          className: "a img",
                                                                          attr: "data-src")
                     
-                    let comicDetailUrl = SwiftSoupService.shared.getAttrFromHtml(element: value,
+                    let comicDetailUrl = SwiftSoupService.getAttrFromHtml(element: value,
                                                                                  className: "a",
                                                                                  attr: "href")
                     
-                    let title = SwiftSoupService.shared.elementToString(element: value,
+                    let title = SwiftSoupService.elementToString(element: value,
                                                                         className: "h3 a")
                     return ComicModel(image: ComicModel.getUrlImg(img: imgUrl), title: title, detailUrl: comicDetailUrl ?? "", newChapter: "")
                 })
@@ -72,18 +72,18 @@ struct TopComicRepository: TopComicRepositoryType {
         return Service.shared.request(input: TopComicRouter.top(param: param))
             .asObservable()
             .map { data in
-                let results = SwiftSoupService.shared.getAllElements(document: data,
+                let results = SwiftSoupService.getAllElements(document: data,
                                                                      className: "div.items div.item")
                 comics = results?.map({ value in
-                    let imgUrl = SwiftSoupService.shared.getAttrFromHtml(element: value,
+                    let imgUrl = SwiftSoupService.getAttrFromHtml(element: value,
                                                                          className: "div.image img",
                                                                          attr: "data-original")
                     
-                    let comicDetailUrl = SwiftSoupService.shared.getAttrFromHtml(element: value,
+                    let comicDetailUrl = SwiftSoupService.getAttrFromHtml(element: value,
                                                                                  className: "div.image a",
                                                                                  attr: "href")
                     
-                    let title = SwiftSoupService.shared.elementToString(element: value,
+                    let title = SwiftSoupService.elementToString(element: value,
                                                                         className: "h3 a")
                     return ComicModel(image: ComicModel.getUrlImg(img: imgUrl), title: title, detailUrl: comicDetailUrl ?? "", newChapter: "")
                 })
@@ -96,18 +96,18 @@ struct TopComicRepository: TopComicRepositoryType {
         return Service.shared.request(input: TopComicRouter.topManhwa(param: param))
             .asObservable()
             .map { data in
-                let results = SwiftSoupService.shared.getAllElements(document: data,
+                let results = SwiftSoupService.getAllElements(document: data,
                                                                      className: "div.items div.item")
                 comics = results?.map({ value in
-                    let imgUrl = SwiftSoupService.shared.getAttrFromHtml(element: value,
+                    let imgUrl = SwiftSoupService.getAttrFromHtml(element: value,
                                                                          className: "div.image img",
                                                                          attr: "data-original")
                     
-                    let comicDetailUrl = SwiftSoupService.shared.getAttrFromHtml(element: value,
+                    let comicDetailUrl = SwiftSoupService.getAttrFromHtml(element: value,
                                                                                  className: "div.image a",
                                                                                  attr: "href")
                     
-                    let title = SwiftSoupService.shared.elementToString(element: value,
+                    let title = SwiftSoupService.elementToString(element: value,
                                                                         className: "h3 a")
                     return ComicModel(image: ComicModel.getUrlImg(img: imgUrl), title: title, detailUrl: comicDetailUrl ?? "", newChapter: "")
                 })
@@ -120,18 +120,18 @@ struct TopComicRepository: TopComicRepositoryType {
         return Service.shared.request(input: TopComicRouter.topManhua(param: param))
             .asObservable()
             .map { data in
-                let results = SwiftSoupService.shared.getAllElements(document: data,
+                let results = SwiftSoupService.getAllElements(document: data,
                                                                      className: "div.items div.item")
                 comics = results?.map({ value in
-                    let imgUrl = SwiftSoupService.shared.getAttrFromHtml(element: value,
+                    let imgUrl = SwiftSoupService.getAttrFromHtml(element: value,
                                                                          className: "div.image img",
                                                                          attr: "data-original")
                     
-                    let comicDetailUrl = SwiftSoupService.shared.getAttrFromHtml(element: value,
+                    let comicDetailUrl = SwiftSoupService.getAttrFromHtml(element: value,
                                                                                  className: "div.image a",
                                                                                  attr: "href")
                     
-                    let title = SwiftSoupService.shared.elementToString(element: value,
+                    let title = SwiftSoupService.elementToString(element: value,
                                                                         className: "h3 a")
                     return ComicModel(image: ComicModel.getUrlImg(img: imgUrl), title: title, detailUrl: comicDetailUrl ?? "", newChapter: "")
                 })
