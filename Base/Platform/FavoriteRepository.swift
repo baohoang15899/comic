@@ -39,7 +39,7 @@ struct FavoriteRepository: FavoriteRepositoryType {
         let context = AppDelegate.shared.persistentContainer.viewContext
         do {
             let items = try context.fetch(DetailComicCoreData.fetchRequest())
-            let favoriteComic = items.map { data in
+            let favoriteComic = items.map { data -> ComicSuggestModel in
                 let title = (data.chapter?.allObjects as? [ChapterCoreData])?
                     .sorted(by: { Int($0.chap ?? "0") ?? 0 > Int($1.chap ?? "0") ?? 0 })
                     .last?.title
