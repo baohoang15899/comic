@@ -13,21 +13,48 @@ import RxSwift
 import RxCocoa
 import RxDataSources
 
-class HomeViewController: BaseViewController<HomeViewModel> {
+struct UserGoRest: Codable {
+    let email :String?
+    let gender:String?
+    let id: Int?
+    let name: String?
+    let status: String?
+}
 
+class HomeViewController: BaseViewController<HomeViewModel> {
+    
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var stackEmptyView: UIStackView!
     @IBOutlet weak var emptyTitleLabel: UILabel!
     @IBOutlet weak var emptyContentLabel: UILabel!
     @IBOutlet weak var headerView: TabbarHeaderBaseView!
-
+    
     private let bag = DisposeBag()
     private var dataSource: RxTableViewSectionedReloadDataSource<HomeSectionData>? = nil
     private let refreshControl = UIRefreshControl()
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
+//        var arr = [5,3,2,7,8,1,2]
+//        for number1 in (0...arr.count - 1) {
+//            for number2 in (0..<arr.count - 1) {
+//                if (arr[number2] < arr[number2 + 1]) {
+//                    var temp: Int = arr[number2] //5
+//                    arr[number2] = arr[number2 + 1]//5 = 3
+//                    arr[number2 + 1] = temp // 3=5
+//                }
+//            }
+//            print("loop \(number1), arr: \(arr)")
+//        }
+//        testUrlSession { test in
+//            switch test {
+//            case .success(let status):
+//                self.testPostRequest(id: status)
+//            case .failure(let status):
+//                print(status)
+//            }
+//        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -43,6 +70,68 @@ class HomeViewController: BaseViewController<HomeViewModel> {
     deinit {
         print("HomeViewController deinit ✅")
     }
+    
+//    private func testPostRequest(id: Int) {
+//        let token = "Bearer 632387468172edbba897008017fbc960feaa9a08e75bf6fbcbca4e8a428bc5ba"
+//        guard let url = URL(string: "https://gorest.co.in/public/v2/users/\(id)/posts") else {
+//            print("Error: cannot create URL")
+//            return
+//        }
+//        let params = ["body": "test test", "title": "troi oi"]
+//        var request = URLRequest(url: url)
+//        request.httpMethod = "POST"
+//        request.addValue(token, forHTTPHeaderField: "Authorization")
+//        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+//        request.httpBody = try? JSONSerialization.data(withJSONObject: params, options: [])
+//
+//        URLSession.shared.dataTask(with: request) { data, response, error in
+//            guard error == nil else {
+//                print("Error: error calling GET")
+//                print(error!)
+//                return
+//            }
+//            guard let response = response as? HTTPURLResponse, (200 ..< 299) ~= response.statusCode else {
+//                print("Error: HTTP request failed")
+//                return
+//            }
+//            if let data = data {
+//                do {
+//                    let json = try JSONSerialization.jsonObject(with: data)
+//                } catch  {
+//                    print("Can't parse data to JSON")
+//                }
+//
+//            }
+//        }.resume()
+//    }
+//
+//    private func testUrlSession(completion: @escaping(Result<Int, Error>) -> Void) {
+//        guard let url = URL(string: "https://gorest.co.in/public/v2/users") else {
+//            print("Error: cannot create URL")
+//            return
+//        }
+//        var request = URLRequest(url: url)
+//        request.httpMethod = "GET"
+//        URLSession.shared.dataTask(with: request) { data, response, error in
+//            guard error == nil else {
+//                print("Error: error calling GET")
+//                print(error!)
+//                completion(.success(0))
+//                return
+//            }
+//            guard let response = response as? HTTPURLResponse, (200 ..< 299) ~= response.statusCode else {
+//                print("Error: HTTP request failed")
+//                completion(.success(0))
+//                return
+//            }
+//            if let data = data {
+//                let decoder = JSONDecoder()
+//                if let jsonParse = try? decoder.decode([UserGoRest].self, from: data) {
+//                    completion(.success(jsonParse.first?.id ?? 0))
+//                }
+//            }
+//        }.resume()
+//    }
     
     private func setupUI() {
         tableView.registerHeaderFooterView(type: BaseSectionHeaderFooterView.self)
@@ -70,7 +159,7 @@ class HomeViewController: BaseViewController<HomeViewModel> {
             
             configureCell: { datasource, tableView, indexPath, item in
                 switch datasource[indexPath.section].type {
-        
+                    
                 case .normal:
                     let cell = tableView.dequeueReusableCell(type: ComicTableViewCell.self, forIndexPath: indexPath)
                     cell.configCell(data: item.data ?? [])
@@ -92,7 +181,7 @@ class HomeViewController: BaseViewController<HomeViewModel> {
                     return cell
                     
                 }
-
+                
             }
         )
         

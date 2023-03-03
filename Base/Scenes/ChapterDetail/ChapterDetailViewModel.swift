@@ -112,6 +112,7 @@ class ChapterDetailViewModel: BaseViewModel {
                                                  input.nextChapter,
                                                  input.previousChapter,
                                                  input.submitChangeChapter)
+        let changeChapterMerge = Driver.merge(input.nextChapter, input.previousChapter, input.getCurrentChapter)
         
         input.nextChapter
             .asObservable()
@@ -187,9 +188,9 @@ class ChapterDetailViewModel: BaseViewModel {
                 return self.listChapter
             }
         
-        let currentChapterIndexOutput = input.getCurrentChapter
+        let currentChapterIndexOutput = changeChapterMerge
             .map({ _ -> Int in
-                return self.listChapter.firstIndex { $0 == self.chapter } ?? 0
+                return self.currentIndex.value
             })
         
         viewOnTapSubject

@@ -23,6 +23,22 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return true
     }
     
+    func applicationDidEnterBackground(_ application: UIApplication) {
+        print("Did enter background")
+    }
+    
+    func applicationWillEnterForeground(_ application: UIApplication) {
+        print("Will enter foreground")
+    }
+    
+    func applicationDidBecomeActive(_ application: UIApplication) {
+        print("Will become active")
+    }
+    
+    func applicationWillResignActive(_ application: UIApplication) {
+        print("Will resign active")
+    }
+    
     func getCoreDataDBPath() {
             let path = FileManager
                 .default
