@@ -11,6 +11,8 @@
 		2905D51129835D5400CC6E72 /* SearchViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2905D50F29835D5400CC6E72 /* SearchViewController.xib */; };
 		2905D51329835E5700CC6E72 /* SearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2905D51229835E5700CC6E72 /* SearchViewModel.swift */; };
 		2905D51529835F1A00CC6E72 /* SearchCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2905D51429835F1A00CC6E72 /* SearchCoordinator.swift */; };
+		29157BFE29B19C1C007D42DD /* ChapterCoreData+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29157BFC29B19C1C007D42DD /* ChapterCoreData+CoreDataClass.swift */; };
+		29157BFF29B19C1C007D42DD /* ChapterCoreData+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29157BFD29B19C1C007D42DD /* ChapterCoreData+CoreDataProperties.swift */; };
 		291E17692935E98D00FCAAD9 /* GeoCoding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 291E17682935E98D00FCAAD9 /* GeoCoding.swift */; };
 		291E176B2935EB2E00FCAAD9 /* LocalName.swift in Sources */ = {isa = PBXBuildFile; fileRef = 291E176A2935EB2E00FCAAD9 /* LocalName.swift */; };
 		291E177B2936149E00FCAAD9 /* WeatherModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 291E177A2936149E00FCAAD9 /* WeatherModel.swift */; };
@@ -63,8 +65,6 @@
 		299265AE298CBBFB0094EB0C /* SearchRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 299265AD298CBBFB0094EB0C /* SearchRepository.swift */; };
 		29957AA92994E66D00BE9538 /* DetailComicCoreData+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29957AA72994E66D00BE9538 /* DetailComicCoreData+CoreDataClass.swift */; };
 		29957AAA2994E66D00BE9538 /* DetailComicCoreData+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29957AA82994E66D00BE9538 /* DetailComicCoreData+CoreDataProperties.swift */; };
-		29957AAD2994E7A800BE9538 /* ChapterCoreData+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29957AAB2994E7A800BE9538 /* ChapterCoreData+CoreDataClass.swift */; };
-		29957AAE2994E7A800BE9538 /* ChapterCoreData+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29957AAC2994E7A800BE9538 /* ChapterCoreData+CoreDataProperties.swift */; };
 		29957AB52994EAB400BE9538 /* FavoriteCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29957AB02994EAB400BE9538 /* FavoriteCoordinator.swift */; };
 		29957AB62994EAB400BE9538 /* FavoriteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29957AB12994EAB400BE9538 /* FavoriteViewController.swift */; };
 		29957AB72994EAB400BE9538 /* FavoriteModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29957AB22994EAB400BE9538 /* FavoriteModel.swift */; };
@@ -165,6 +165,8 @@
 		2905D50F29835D5400CC6E72 /* SearchViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SearchViewController.xib; sourceTree = "<group>"; };
 		2905D51229835E5700CC6E72 /* SearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewModel.swift; sourceTree = "<group>"; };
 		2905D51429835F1A00CC6E72 /* SearchCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchCoordinator.swift; sourceTree = "<group>"; };
+		29157BFC29B19C1C007D42DD /* ChapterCoreData+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ChapterCoreData+CoreDataClass.swift"; sourceTree = "<group>"; };
+		29157BFD29B19C1C007D42DD /* ChapterCoreData+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ChapterCoreData+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		291E17682935E98D00FCAAD9 /* GeoCoding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeoCoding.swift; sourceTree = "<group>"; };
 		291E176A2935EB2E00FCAAD9 /* LocalName.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalName.swift; sourceTree = "<group>"; };
 		291E177A2936149E00FCAAD9 /* WeatherModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherModel.swift; sourceTree = "<group>"; };
@@ -213,8 +215,6 @@
 		299265AD298CBBFB0094EB0C /* SearchRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchRepository.swift; sourceTree = "<group>"; };
 		29957AA72994E66D00BE9538 /* DetailComicCoreData+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DetailComicCoreData+CoreDataClass.swift"; sourceTree = "<group>"; };
 		29957AA82994E66D00BE9538 /* DetailComicCoreData+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DetailComicCoreData+CoreDataProperties.swift"; sourceTree = "<group>"; };
-		29957AAB2994E7A800BE9538 /* ChapterCoreData+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ChapterCoreData+CoreDataClass.swift"; sourceTree = "<group>"; };
-		29957AAC2994E7A800BE9538 /* ChapterCoreData+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ChapterCoreData+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		29957AB02994EAB400BE9538 /* FavoriteCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteCoordinator.swift; sourceTree = "<group>"; };
 		29957AB12994EAB400BE9538 /* FavoriteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteViewController.swift; sourceTree = "<group>"; };
 		29957AB22994EAB400BE9538 /* FavoriteModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteModel.swift; sourceTree = "<group>"; };
@@ -545,8 +545,8 @@
 		299728422994D46F0076F60D /* ChapterCoreData */ = {
 			isa = PBXGroup;
 			children = (
-				29957AAB2994E7A800BE9538 /* ChapterCoreData+CoreDataClass.swift */,
-				29957AAC2994E7A800BE9538 /* ChapterCoreData+CoreDataProperties.swift */,
+				29157BFC29B19C1C007D42DD /* ChapterCoreData+CoreDataClass.swift */,
+				29157BFD29B19C1C007D42DD /* ChapterCoreData+CoreDataProperties.swift */,
 			);
 			path = ChapterCoreData;
 			sourceTree = "<group>";
@@ -1106,6 +1106,7 @@
 				29D5091228F95C0400DD3D32 /* BindableType.swift in Sources */,
 				29957AB72994EAB400BE9538 /* FavoriteModel.swift in Sources */,
 				29D6D07D2983C7F2004EE766 /* SearchAPIRouter.swift in Sources */,
+				29157BFE29B19C1C007D42DD /* ChapterCoreData+CoreDataClass.swift in Sources */,
 				29D623F3297C6FE10081E5A7 /* TopComicUC.swift in Sources */,
 				29A67F2F298CF3830074EC77 /* ComicDetailRepository.swift in Sources */,
 				29D5091028F95B9D00DD3D32 /* BaseViewController.swift in Sources */,
@@ -1116,7 +1117,6 @@
 				299265942987AB7E0094EB0C /* ImageQualityModel.swift in Sources */,
 				299265A22989063E0094EB0C /* CategoryUC.swift in Sources */,
 				29D623E6297C5C6B0081E5A7 /* LeftAlignFlowLayout.swift in Sources */,
-				29957AAD2994E7A800BE9538 /* ChapterCoreData+CoreDataClass.swift in Sources */,
 				29EFDF1128FA53D50032CF22 /* HomeViewController.swift in Sources */,
 				291E17922937443C00FCAAD9 /* NibExtension.swift in Sources */,
 				29A61830297AABFE004A1993 /* ComicDetailViewModel.swift in Sources */,
@@ -1142,12 +1142,12 @@
 				29D5090E28F95B4D00DD3D32 /* BaseViewModel.swift in Sources */,
 				299265982988F03C0094EB0C /* CategoryViewController.swift in Sources */,
 				29EFDF0228FA42670032CF22 /* GeneratedStrings.swift in Sources */,
-				29957AAE2994E7A800BE9538 /* ChapterCoreData+CoreDataProperties.swift in Sources */,
 				299265922987516E0094EB0C /* UIImageExtension.swift in Sources */,
 				29957AB82994EAB400BE9538 /* FavoriteViewModel.swift in Sources */,
 				291E1790293743D400FCAAD9 /* UIColorExtension.swift in Sources */,
 				2992659D2988F06B0094EB0C /* CategoryCoordinator.swift in Sources */,
 				29D508F628F8FA2000DD3D32 /* APIRequest.swift in Sources */,
+				29157BFF29B19C1C007D42DD /* ChapterCoreData+CoreDataProperties.swift in Sources */,
 				2905D51329835E5700CC6E72 /* SearchViewModel.swift in Sources */,
 				2905D51029835D5400CC6E72 /* SearchViewController.swift in Sources */,
 				29F5589C2975455600FE1386 /* SwiftSoupService.swift in Sources */,

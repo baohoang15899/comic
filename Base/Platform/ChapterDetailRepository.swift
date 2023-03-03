@@ -40,4 +40,37 @@ struct ChapterDetailRepository: ChapterDetailRepositoryType {
                 return chapters
             }
     }
+    
+    func saveReadChapter(detailComic: DetailComicModel, chapter: ChapterModel) {
+        let context = AppDelegate.shared.persistentContainer.viewContext
+        
+        do {
+            let items = try context.fetch(DetailComicCoreData.fetchRequest())
+            
+            let matchItem = items.first { data in
+                return data.id == detailComic.id
+            }
+            
+            if (matchItem != nil) {
+                let saveItem = DetailComicCoreData(context: context)
+                let chapters = saveItem.chapter?.allObjects as? [ChapterCoreData]
+                
+                let matchChapter = chapters?.first{ data in
+                    return data.id == chapter.id
+                }
+                
+                if (matchChapter != nil) {
+                    if let hasMatchChapter = matchChapter {
+                        hasMatchChapter.isRead = true
+                        saveItem.addToChapter(hasMatchChapter)
+                        try context.save()
+                    }
+                }
+                
+                try context.save()
+            }
+        } catch {
+            print("Can't fetch local data")
+        }
+    }
 }

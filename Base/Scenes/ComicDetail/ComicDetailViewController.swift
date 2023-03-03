@@ -59,7 +59,8 @@ class ComicDetailViewController: BaseViewController<ComicDetailViewModel> {
 
     override func bindViewModel() {
         let input = ComicDetailViewModel.Input(getComicDetail: Driver.just(()),
-                                               setFavorite: heartButton.rx.tap.asDriver())
+                                               setFavorite: heartButton.rx.tap.asDriver(),
+                                               saveComicToLocal: Driver.just(()))
         let output = viewModel.transform(input: input)
         
         dataSource = RxTableViewSectionedReloadDataSource<ComicDetailSectionData>(

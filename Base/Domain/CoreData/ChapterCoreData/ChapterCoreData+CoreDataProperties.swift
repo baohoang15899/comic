@@ -2,7 +2,7 @@
 //  ChapterCoreData+CoreDataProperties.swift
 //  Base
 //
-//  Created by BaoHoang on 09/02/2023.
+//  Created by BaoHoang on 03/03/2023.
 //
 //
 
@@ -21,6 +21,7 @@ extension ChapterCoreData {
     @NSManaged public var date: String?
     @NSManaged public var id: String?
     @NSManaged public var title: String?
+    @NSManaged public var isRead: Bool
     @NSManaged public var comic: DetailComicCoreData?
 
 }

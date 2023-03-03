@@ -5,6 +5,7 @@
         <attribute name="chapterUrl" optional="YES" attributeType="String"/>
         <attribute name="date" optional="YES" attributeType="String"/>
         <attribute name="id" optional="YES" attributeType="String"/>
+        <attribute name="isRead" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="title" optional="YES" attributeType="String"/>
         <relationship name="comic" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="DetailComicCoreData" inverseName="chapter" inverseEntity="DetailComicCoreData"/>
     </entity>
@@ -20,7 +21,7 @@
         <relationship name="chapter" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="ChapterCoreData" inverseName="comic" inverseEntity="ChapterCoreData"/>
     </entity>
     <elements>
-        <element name="ChapterCoreData" positionX="160" positionY="192" width="128" height="133"/>
+        <element name="ChapterCoreData" positionX="160" positionY="192" width="128" height="148"/>
         <element name="DetailComicCoreData" positionX="-317.4609375" positionY="128.0390625" width="128" height="164"/>
     </elements>
 </model>

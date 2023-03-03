@@ -17,6 +17,7 @@ class ComicDetailViewModel: BaseViewModel {
     struct Input {
         let getComicDetail: Driver<Void>
         let setFavorite: Driver<Void>
+        let saveComicToLocal: Driver<Void>
     }
     
     struct Output {
@@ -59,6 +60,7 @@ class ComicDetailViewModel: BaseViewModel {
                     .asDriver(onErrorJustReturn: DetailComicModel.init())
             }
             .do(onNext: { data in
+                self.comicDetailUC.saveChapterToLocal(detailComic: data)
                 listChapter = data.chapters ?? []
                 comicName = data.title ?? ""
             })

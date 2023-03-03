@@ -27,7 +27,7 @@ struct FavoriteRepository: FavoriteRepositoryType {
             }
             
             if let item = hasItem {
-                context.delete(item)
+                item.isFavorite = false
                 try context.save()
             }
            
@@ -68,20 +68,22 @@ struct FavoriteRepository: FavoriteRepositoryType {
         
         let context = AppDelegate.shared.persistentContainer.viewContext
         do {
-            print("Core data in main: \(Thread.current)")
             let items = try context.fetch(DetailComicCoreData.fetchRequest())
-            let favoriteComic = items.map { data -> ComicSuggestModel in
+            var comics: [ComicSuggestModel] = []
+            items.forEach { data in
                 let title = (data.chapter?.allObjects as? [ChapterCoreData])?
                     .sorted(by: { Int($0.chap ?? "0") ?? 0 > Int($1.chap ?? "0") ?? 0 })
                     .last?.title
-                let comic = ComicSuggestModel(image: data.image ?? "",
-                                              title: data.title ?? "",
-                                              category: data.categories?.joined(separator: ", "),
-                                              chapter: title,
-                                              detailUrl: data.id ?? "")
-                return comic
+                if (data.isFavorite) {
+                    let comic = ComicSuggestModel(image: data.image ?? "",
+                                                  title: data.title ?? "",
+                                                  category: data.categories?.joined(separator: ", "),
+                                                  chapter: title,
+                                                  detailUrl: data.id ?? "")
+                    comics.append(comic)
+                }
             }
-            return Observable.just(favoriteComic.reversed())
+            return Observable.just(comics.reversed())
         }
         catch {
             print("Can't fetch local data")
