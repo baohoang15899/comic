@@ -56,15 +56,19 @@ class ComicDetailViewModel: BaseViewModel {
         
         let comicDetail = input.getComicDetail
             .flatMap { _ in
+                if let cacheData = CacheManager.shared.getCache(key: "\(self.detailComicUrl)") as? DetailComicModel {
+                    return Driver.just(cacheData)
+                }
                 return self.comicDetailUC.getComicDetailData(url: self.detailComicUrl)
                     .asDriver(onErrorJustReturn: DetailComicModel.init())
             }
             .do(onNext: { data in
                 self.comicDetailUC.saveChapterToLocal(detailComic: data)
+                CacheManager.shared.setCache(item: data, key: "\(self.detailComicUrl)")
                 listChapter = data.chapters ?? []
                 comicName = data.title ?? ""
             })
-        
+        //sẽ gọi lại comicDetail để lấy data
         let comicDetailSectionOutput = comicDetail
             .flatMap { data in
                 return self.comicDetailUC.getComicDetailSection(data: data)

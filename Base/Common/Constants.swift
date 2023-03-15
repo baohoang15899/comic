@@ -13,7 +13,7 @@ struct NetworkConstant {
 }
 
 struct BaseApiRequest {
-    static let url = "https://www.nettruyenking.com/"
+    static let url = "https://www.nettruyenvi.com/"
     static let apiKey = "96c4a4ab28241e28b1db73d5baf8f43f"
 }
 

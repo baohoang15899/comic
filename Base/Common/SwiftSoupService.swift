@@ -8,6 +8,21 @@
 import Foundation
 import SwiftSoup
 
+class CacheManager {
+    
+    static let shared = CacheManager()
+    
+    let cache = NSCache<NSString, AnyObject>()
+    
+    func setCache(item: AnyObject, key: String) {
+        cache.setObject(item, forKey: key as NSString)
+    }
+    
+    func getCache(key: String) -> AnyObject? {
+        return cache.object(forKey: key as NSString)
+    }
+}
+
 struct SwiftSoupService {
 
     static func getAllElements(document: Document?, className: String) -> Elements? {
