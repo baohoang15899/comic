@@ -106,6 +106,24 @@ internal enum L10n {
       internal static let title = L10n.tr("Localizable", "Search.emptyData.title", fallback: "Truyện bạn tìm kiếm hiện không có")
     }
   }
+  internal enum Setting {
+    /// Cài đặt
+    internal static let title = L10n.tr("Localizable", "Setting.title", fallback: "Cài đặt")
+    internal enum Alert {
+      /// Đã lưu domain thành công
+      internal static let message = L10n.tr("Localizable", "Setting.alert.message", fallback: "Đã lưu domain thành công")
+      /// Thông báo
+      internal static let title = L10n.tr("Localizable", "Setting.alert.title", fallback: "Thông báo")
+    }
+    internal enum Submit {
+      /// Xác nhận
+      internal static let title = L10n.tr("Localizable", "Setting.submit.title", fallback: "Xác nhận")
+    }
+    internal enum TextField {
+      /// Nhập tên domain
+      internal static let placeholder = L10n.tr("Localizable", "Setting.textField.placeholder", fallback: "Nhập tên domain")
+    }
+  }
   internal enum Home {
     /// Trang chủ
     internal static let tab = L10n.tr("Localizable", "home.tab", fallback: "Trang chủ")

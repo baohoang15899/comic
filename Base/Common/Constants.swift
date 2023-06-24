@@ -13,12 +13,15 @@ struct NetworkConstant {
 }
 
 struct BaseApiRequest {
-    static let url = "https://www.nettruyenvi.com/"
     static let apiKey = "96c4a4ab28241e28b1db73d5baf8f43f"
 }
 
 struct GeoCodingURL {
     static let getCoordinate = "/geo/1.0/direct"
+}
+
+struct CacheKey {
+    static let chapter = "MyChapter"
 }
 
 struct nettruyenPath {
@@ -33,6 +36,10 @@ struct nettruyenPath {
 
 struct NotificationCenterKey {
     static let favorite = "favorite"
+}
+
+struct DomainKey {
+    static let domain = "Domain"
 }
 
 struct WeatherCaculate {

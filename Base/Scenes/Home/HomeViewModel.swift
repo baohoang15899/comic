@@ -24,6 +24,7 @@ class HomeViewModel: BaseViewModel {
         let homeSection: Driver<[HomeSectionData]>
         let isRefresing: Driver<Bool>
         let isEmpty: Driver<Bool>
+        let isLoading: Driver<Bool>
     }
     
     private let bag = DisposeBag()
@@ -65,7 +66,8 @@ class HomeViewModel: BaseViewModel {
     
     func transform(input: Input) -> Output {
 
-        let isRefreshingSubject = BehaviorSubject<Bool>(value: false)
+        let isRefreshingRelay = BehaviorRelay<Bool>(value: false)
+        let isLoadingSubject = BehaviorSubject<Bool>(value: false)
         let homeSubjectIsEmpty = PublishSubject<Bool>()
         
         self.didSelectItem
@@ -75,22 +77,37 @@ class HomeViewModel: BaseViewModel {
             .disposed(by: bag)
         
         let homeMerge = Driver.merge(input.fetchData, input.pullToRefresh)
+        
+        input.pullToRefresh
+            .asObservable()
+            .subscribe(onNext: {
+                isRefreshingRelay.accept(true)
+            })
+            .disposed(by: bag)
 
         let homeSectionOutput = homeMerge
+            .do(onNext: { _ in
+                if (!isRefreshingRelay.value) {
+                    isLoadingSubject.onNext(true)
+                }
+            })
             .flatMap { _ in
                 return self.fetchHomeData()
                     .asDriver(onErrorJustReturn: [])
             }
             .do(onNext: { data in
-                isRefreshingSubject.onNext(false)
+                isRefreshingRelay.accept(false)
                 homeSubjectIsEmpty.onNext(!data.isEmpty)
+                isLoadingSubject.onNext(false)
             })
 
-        let isRefresingOutput = isRefreshingSubject.asDriver(onErrorJustReturn: false)
+        let isRefresingOutput = isRefreshingRelay.asDriver(onErrorJustReturn: false)
         let isEmptyOutput = homeSubjectIsEmpty.asDriver(onErrorJustReturn: false)
+        let isLoadingOutput = isLoadingSubject.asDriver(onErrorJustReturn: false)
                 
         return Output(homeSection: homeSectionOutput,
                       isRefresing: isRefresingOutput,
-                      isEmpty: isEmptyOutput)
+                      isEmpty: isEmptyOutput,
+                      isLoading: isLoadingOutput)
     }
 }

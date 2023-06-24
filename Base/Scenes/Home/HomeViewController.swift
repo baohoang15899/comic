@@ -191,6 +191,12 @@ class HomeViewController: BaseViewController<HomeViewModel> {
                 .disposed(by: bag)
         }
         
+        output.isLoading
+            .drive { [weak self] isLoading in
+                self?.setupLoadingView(isLoading: isLoading)
+            }
+            .disposed(by: bag)
+        
         output.isRefresing
             .drive(refreshControl.rx.isRefreshing)
             .disposed(by: bag)

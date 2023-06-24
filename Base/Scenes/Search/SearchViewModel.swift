@@ -23,6 +23,7 @@ class SearchViewModel: BaseViewModel {
         let comicSuggest: Driver<[ComicSuggestModel]>
         let comicSuggestKeyIsEmpty: Driver<Bool>
         let comicSuggestDataIsEmpty: Driver<Bool>
+        let isLoading: Driver<Bool>
     }
     
     deinit {
@@ -42,6 +43,8 @@ class SearchViewModel: BaseViewModel {
         
         let comicSuggestKeyIsEmpty = BehaviorSubject<Bool>(value: true)
         let comicSuggestDataIsEmpty = BehaviorSubject<Bool>(value: true)
+        let isLoadingSubject = BehaviorSubject<Bool>(value: false)
+        
         var keyword: String = ""
         
         input.didSelectItem
@@ -58,6 +61,9 @@ class SearchViewModel: BaseViewModel {
                 comicSuggestKeyIsEmpty.onNext(key.count > 0)
                 keyword = key
             })
+            .do(onNext: { _ in
+                    isLoadingSubject.onNext(true)
+            })
             .flatMap({ key in
                 return self.searchUC.searchComic(keyword: key)
                     .asDriver(onErrorJustReturn: [])
@@ -66,13 +72,16 @@ class SearchViewModel: BaseViewModel {
                 if (keyword.count > 0) {
                     comicSuggestDataIsEmpty.onNext(!data.isEmpty)
                 }
+                isLoadingSubject.onNext(false)
             })
         
         let comicSuggestKeyIsEmptyOutput = comicSuggestKeyIsEmpty.skip(1).asDriver(onErrorJustReturn: true)
         let comicSuggestDataIsEmptyOutput = comicSuggestDataIsEmpty.skip(1).asDriver(onErrorJustReturn: true)
-        
+        let isLoadingOutput = isLoadingSubject.asDriver(onErrorJustReturn: false)
+                
         return Output(comicSuggest: comicSuggestOutput,
                       comicSuggestKeyIsEmpty: comicSuggestKeyIsEmptyOutput,
-                      comicSuggestDataIsEmpty: comicSuggestDataIsEmptyOutput)
+                      comicSuggestDataIsEmpty: comicSuggestDataIsEmptyOutput,
+                      isLoading: isLoadingOutput)
     }
 }

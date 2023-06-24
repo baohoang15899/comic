@@ -21,4 +21,13 @@ struct CommonMethod {
        return statusBarHeight
    }
     
+    static func getDomainKey() -> String? {
+        let key = UserDefaults.standard.object(forKey: DomainKey.domain) as? String
+        return key
+    }
+    
+    static func saveDomain(domain: String) {
+        UserDefaults.standard.set(domain, forKey: DomainKey.domain)
+    }
+    
 }

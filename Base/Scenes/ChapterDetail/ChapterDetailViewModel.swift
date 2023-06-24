@@ -25,6 +25,7 @@ class ChapterDetailViewModel: BaseViewModel {
         let previousChapter: Driver<Void>
         let submitChangeChapter: Driver<Void>
         let goBack: Driver<Void>
+        let pullToRefresh: Driver<Void>
     }
     
     struct Output {
@@ -38,6 +39,8 @@ class ChapterDetailViewModel: BaseViewModel {
         let changingChapter: Driver<Void>
         let canNextChap: Driver<Bool>
         let canBackChap: Driver<Bool>
+        let isRefresing: Driver<Bool>
+        let isLoadingScreen: Driver<Bool>
     }
     
     private let bag = DisposeBag()
@@ -71,24 +74,33 @@ class ChapterDetailViewModel: BaseViewModel {
     }
     
     private func getChapterImages(data: [ChapterDetailModel]){
-        let allObservables = data.map { chapterDetailUC.getChapterImage(chapter: $0) }
-        
-        let all = Observable.from(allObservables).merge().toArray()
-        
-        let sortArray = all.asObservable().map { chapters in
-            return chapters.sorted {
-                $0.index ?? 0 < $1.index ?? 0
-            }
-        }
-        
-        sortArray.subscribe(onNext: { chapter in
-            self.chapterDetail = chapter
-            self.chapterImageSubject.onNext(chapter)
+        if let cacheData = CacheManager.shared.getCache(key: "\(CacheKey.chapter)\(self.chapter.chapterUrl ?? "")") as? [ChapterImageModel] {
+            self.chapterDetail = cacheData
+            self.chapterImageSubject.onNext(cacheData)
             self.loadingRelay.accept(false)
             self.canNextChapSubject.onNext((self.currentIndex.value < self.listChapter.count - 1 && !self.loadingRelay.value))
             self.canBackChapSubject.onNext((self.currentIndex.value > 0 && !self.loadingRelay.value))
-        })
-        .disposed(by: bag)
+        } else {
+            let allObservables = data.map { chapterDetailUC.getChapterImage(chapter: $0) }
+            
+            let all = Observable.from(allObservables).merge().toArray()
+            
+            let sortArray = all.asObservable().map { chapters in
+                return chapters.sorted {
+                    $0.index ?? 0 < $1.index ?? 0
+                }
+            }
+            
+            sortArray.subscribe(onNext: { chapters in
+                CacheManager.shared.setCache(item: NSArray(array: chapters), key: "\(CacheKey.chapter)\(self.chapter.chapterUrl ?? "")")
+                self.chapterDetail = chapters
+                self.chapterImageSubject.onNext(chapters)
+                self.loadingRelay.accept(false)
+                self.canNextChapSubject.onNext((self.currentIndex.value < self.listChapter.count - 1 && !self.loadingRelay.value))
+                self.canBackChapSubject.onNext((self.currentIndex.value > 0 && !self.loadingRelay.value))
+            })
+            .disposed(by: bag)
+        }
     }
     
     func calulateImgHeight(index: Int, screenRatio: CGFloat, frameWidth: CGFloat) -> CGFloat {
@@ -105,14 +117,26 @@ class ChapterDetailViewModel: BaseViewModel {
     
     func transform(input: Input) -> Output {
         
+        let isLoadingSubject = BehaviorSubject(value: false)
         let currentChapterTitleSubject = BehaviorSubject(value: "")
         let submitChangeChapterSubject = PublishSubject<Void>()
         let isShowConfigViewRelay = BehaviorRelay(value: false)
+        let isRefreshRelay = BehaviorRelay(value: false)
         let startGetChapterDetail = Driver.merge(input.getChapterDetail,
                                                  input.nextChapter,
                                                  input.previousChapter,
-                                                 input.submitChangeChapter)
+                                                 input.submitChangeChapter,
+                                                 input.pullToRefresh)
         let changeChapterMerge = Driver.merge(input.nextChapter, input.previousChapter, input.getCurrentChapter)
+        
+        input.pullToRefresh
+            .asObservable()
+            .subscribe(onNext: { value in
+                self.chapterDetail = []
+                self.chapterImageSubject.onNext([])
+                isRefreshRelay.accept(true)
+            })
+            .disposed(by: bag)
         
         input.nextChapter
             .asObservable()
@@ -169,17 +193,30 @@ class ChapterDetailViewModel: BaseViewModel {
         startGetChapterDetail
             .asObservable()
             .do(onNext: { _ in
+                if (!isRefreshRelay.value) {
+                    isLoadingSubject.onNext(true)
+                }
                 self.loadingRelay.accept(true)
                 self.canNextChapSubject.onNext(false)
                 self.canBackChapSubject.onNext(false)
                 self.currentIndex.accept(self.listChapter.firstIndex(of: self.chapter) ?? 0)
                 currentChapterTitleSubject.onNext(self.chapter.title ?? "")
             })
-                .flatMap { _ in
-                    return self.chapterDetailUC.getChapterDetail(url: self.chapter.chapterUrl ?? "")
+                .flatMap { _ -> Observable<[ChapterDetailModel]> in
+                    if isRefreshRelay.value {
+                        return self.chapterDetailUC.getChapterDetail(url: self.chapter.chapterUrl ?? "")
+                    } else {
+                        if let _ = CacheManager.shared.getCache(key: "\(CacheKey.chapter)\(self.chapter.chapterUrl ?? "")") {
+                            return Observable.just([])
+                        } else {
+                            return self.chapterDetailUC.getChapterDetail(url: self.chapter.chapterUrl ?? "")
+                        }
+                    }
                 }
                 .subscribe(onNext: { data in
                     self.getChapterImages(data: data)
+                    isRefreshRelay.accept(false)
+                    isLoadingSubject.onNext(false)
                 })
                 .disposed(by: bag)
         
@@ -216,7 +253,8 @@ class ChapterDetailViewModel: BaseViewModel {
         let canNextChapOutput = canNextChapSubject.asDriver(onErrorJustReturn: false)
         let canBackChapOutput = canBackChapSubject.asDriver(onErrorJustReturn: false)
         let isShowConfigViewOutput = isShowConfigViewRelay.asDriver(onErrorJustReturn: false)
-        
+        let isLoadingOutput = isLoadingSubject.asDriver(onErrorJustReturn: false)
+                        
         return Output(chapterImageOutput: chapterImageOutput,
                       isShowConfigView: isShowConfigViewOutput,
                       comicTitle: comicNameOutput,
@@ -226,6 +264,8 @@ class ChapterDetailViewModel: BaseViewModel {
                       isLoading: loadingOutput,
                       changingChapter: changingChapterOutput,
                       canNextChap: canNextChapOutput,
-                      canBackChap: canBackChapOutput)
+                      canBackChap: canBackChapOutput,
+                      isRefresing: isRefreshRelay.asDriver(onErrorJustReturn: false),
+                      isLoadingScreen: isLoadingOutput)
     }
 }

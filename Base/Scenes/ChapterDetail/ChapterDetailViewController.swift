@@ -29,6 +29,7 @@ class ChapterDetailViewController: BaseViewController<ChapterDetailViewModel> {
     @IBOutlet weak var dummyHeaderView: UIView!
     @IBOutlet weak var bottomViewHeightConstraint: NSLayoutConstraint!
     
+    private let refreshControl = UIRefreshControl()
     private let bag = DisposeBag()
     private let doneButton = UIBarButtonItem()
     
@@ -48,6 +49,7 @@ class ChapterDetailViewController: BaseViewController<ChapterDetailViewModel> {
 
     private func setupUI() {
         let tap = UITapGestureRecognizer(target: self, action: #selector(showConfigView))
+        tableView.refreshControl = refreshControl
         tableView.addGestureRecognizer(tap)
         tableView.delegate = self
         tableView.registerCell(type: ChapterImgTableViewCell.self)
@@ -88,7 +90,8 @@ class ChapterDetailViewController: BaseViewController<ChapterDetailViewModel> {
                                                  nextChapter: nextButton.rx.tap.asDriver(),
                                                  previousChapter: previousButton.rx.tap.asDriver(),
                                                  submitChangeChapter: doneButton.rx.tap.asDriver(),
-                                                 goBack: backButton.rx.tap.asDriver())
+                                                 goBack: backButton.rx.tap.asDriver(),
+                                                 pullToRefresh: refreshControl.rx.controlEvent(.valueChanged).asDriver())
         
         let output = viewModel.transform(input: input)
         
@@ -144,6 +147,10 @@ class ChapterDetailViewController: BaseViewController<ChapterDetailViewModel> {
             .drive(nextButton.rx.isEnabled)
             .disposed(by: bag)
         
+        output.isRefresing
+            .drive(refreshControl.rx.isRefreshing)
+            .disposed(by: bag)
+        
         output.canBackChap
             .drive(previousButton.rx.isEnabled)
             .disposed(by: bag)
@@ -151,6 +158,12 @@ class ChapterDetailViewController: BaseViewController<ChapterDetailViewModel> {
         output.isLoading
             .drive { [weak self] isLoading in
                 self?.chapterButton.isEnabled = !isLoading
+            }
+            .disposed(by: bag)
+        
+        output.isLoading
+            .drive { [weak self] isLoading in
+                self?.setupLoadingView(isLoading: isLoading)
             }
             .disposed(by: bag)
         

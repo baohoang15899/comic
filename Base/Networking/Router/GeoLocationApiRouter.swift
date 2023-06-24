@@ -24,7 +24,7 @@ extension GeoLocationRouter: APIInputBase {
     var url: String {
         switch self {
         case .geocoding:
-            return "\(BaseApiRequest.url)\(GeoCodingURL.getCoordinate)"
+            return "\(DomainUrl().domain)\(GeoCodingURL.getCoordinate)"
         }
     }
     

@@ -58,3 +58,10 @@
 "Common.tab.favorite" = "Yêu thích";
 "Common.done" = "Done";
 "Common.cancel" = "Cancel";
+
+//setting
+"Setting.title" = "Cài đặt";
+"Setting.textField.placeholder" = "Nhập tên domain";
+"Setting.submit.title" = "Xác nhận";
+"Setting.alert.title" = "Thông báo";
+"Setting.alert.message" = "Đã lưu domain thành công";

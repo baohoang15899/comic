@@ -28,15 +28,15 @@ extension TopComicRouter: APIInputBase {
     var url: String {
         switch self {
         case .hot:
-            return "\(BaseApiRequest.url)\(nettruyenPath.hotPath)"
+            return "\(DomainUrl().domain)\(nettruyenPath.hotPath)"
         case .top:
-            return "\(BaseApiRequest.url)\(nettruyenPath.manga)"
+            return "\(DomainUrl().domain)\(nettruyenPath.manga)"
         case .nominate:
-            return "\(BaseApiRequest.url)"
+            return "\(DomainUrl().domain)"
         case .topManhwa:
-            return "\(BaseApiRequest.url)\(nettruyenPath.manhwa)"
+            return "\(DomainUrl().domain)\(nettruyenPath.manhwa)"
         case .topManhua:
-            return "\(BaseApiRequest.url)\(nettruyenPath.manhua)"
+            return "\(DomainUrl().domain)\(nettruyenPath.manhua)"
         }
     }
     

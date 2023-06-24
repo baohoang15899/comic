@@ -23,6 +23,7 @@ class ComicDetailViewModel: BaseViewModel {
     struct Output {
         let comicDetailSection: Driver<[ComicDetailSectionData]>
         let comicFavoriteStatus: Driver<Bool>
+        let isLoading: Driver<Bool>
     }
     
     private let bag = DisposeBag()
@@ -44,6 +45,7 @@ class ComicDetailViewModel: BaseViewModel {
     func transform(input: Input) -> Output {
 
         var listChapter: [ChapterModel] = []
+        let isLoadingSubject = BehaviorSubject(value: false)
         var comicName: String = ""
         
         self.didSelectItem
@@ -55,7 +57,10 @@ class ComicDetailViewModel: BaseViewModel {
             .disposed(by: bag)
         
         let comicDetail = input.getComicDetail
-            .flatMap { _ in
+            .do(onNext: { _ in
+                isLoadingSubject.onNext(true)
+            })
+            .flatMap { _ -> Driver<DetailComicModel> in
                 if let cacheData = CacheManager.shared.getCache(key: "\(self.detailComicUrl)") as? DetailComicModel {
                     return Driver.just(cacheData)
                 }
@@ -67,7 +72,9 @@ class ComicDetailViewModel: BaseViewModel {
                 CacheManager.shared.setCache(item: data, key: "\(self.detailComicUrl)")
                 listChapter = data.chapters ?? []
                 comicName = data.title ?? ""
+                isLoadingSubject.onNext(false)
             })
+                
         //sẽ gọi lại comicDetail để lấy data
         let comicDetailSectionOutput = comicDetail
             .flatMap { data in
@@ -95,7 +102,10 @@ class ComicDetailViewModel: BaseViewModel {
                 return status
             }
         
+        let isLoadingOutput = isLoadingSubject.asDriver(onErrorJustReturn: false)
+        
         return Output(comicDetailSection: comicDetailSectionOutput,
-                      comicFavoriteStatus: favoriteOutput)
+                      comicFavoriteStatus: favoriteOutput,
+                      isLoading: isLoadingOutput)
     }
 }

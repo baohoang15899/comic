@@ -22,7 +22,7 @@ extension SearchRouter: APIInputBase {
     }
     
     var url: String {
-        return "\(BaseApiRequest.url)\(nettruyenPath.search)"
+        return "\(DomainUrl().domain)\(nettruyenPath.search)"
     }
     
     var method: Alamofire.HTTPMethod {

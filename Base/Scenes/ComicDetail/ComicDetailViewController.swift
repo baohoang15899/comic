@@ -110,6 +110,12 @@ class ComicDetailViewController: BaseViewController<ComicDetailViewModel> {
                 .disposed(by: bag)
         }
         
+        output.isLoading
+            .drive { [weak self] isLoading in
+                self?.setupLoadingView(isLoading: isLoading)
+            }
+            .disposed(by: bag)
+        
         output.comicFavoriteStatus
             .drive {[weak self] status in
                 self?.heartButton.image = status ? Asset.Images.ComicDetail.icHeartFill.image : Asset.Images.ComicDetail.icHeartGray.image

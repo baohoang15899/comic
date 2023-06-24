@@ -81,6 +81,12 @@
 		29A67F2F298CF3830074EC77 /* ComicDetailRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29A67F2E298CF3830074EC77 /* ComicDetailRepository.swift */; };
 		29A67F31298CFAFE0074EC77 /* ComicDetailUC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29A67F30298CFAFE0074EC77 /* ComicDetailUC.swift */; };
 		29A67F33298D00180074EC77 /* ChapterDetailRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29A67F32298D00180074EC77 /* ChapterDetailRepository.swift */; };
+		29AEA2D12A4736C4007FAF16 /* SettingCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29AEA2CC2A4736C4007FAF16 /* SettingCoordinator.swift */; };
+		29AEA2D22A4736C4007FAF16 /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29AEA2CD2A4736C4007FAF16 /* SettingViewController.swift */; };
+		29AEA2D32A4736C4007FAF16 /* SettingModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29AEA2CE2A4736C4007FAF16 /* SettingModel.swift */; };
+		29AEA2D42A4736C4007FAF16 /* SettingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29AEA2CF2A4736C4007FAF16 /* SettingViewModel.swift */; };
+		29AEA2D52A4736C4007FAF16 /* SettingViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 29AEA2D02A4736C4007FAF16 /* SettingViewController.xib */; };
+		29AEA2D72A4747DE007FAF16 /* DomainKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29AEA2D62A4747DE007FAF16 /* DomainKey.swift */; };
 		29AF6831297DB51E006DE989 /* ChapterDetailAPIRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29AF6830297DB51E006DE989 /* ChapterDetailAPIRouter.swift */; };
 		29AF6835297DB658006DE989 /* ChapterDetailUC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29AF6834297DB658006DE989 /* ChapterDetailUC.swift */; };
 		29AF6837297DB8CD006DE989 /* ChapterDetailModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29AF6836297DB8CD006DE989 /* ChapterDetailModel.swift */; };
@@ -231,6 +237,12 @@
 		29A67F2E298CF3830074EC77 /* ComicDetailRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComicDetailRepository.swift; sourceTree = "<group>"; };
 		29A67F30298CFAFE0074EC77 /* ComicDetailUC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComicDetailUC.swift; sourceTree = "<group>"; };
 		29A67F32298D00180074EC77 /* ChapterDetailRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChapterDetailRepository.swift; sourceTree = "<group>"; };
+		29AEA2CC2A4736C4007FAF16 /* SettingCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingCoordinator.swift; sourceTree = "<group>"; };
+		29AEA2CD2A4736C4007FAF16 /* SettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewController.swift; sourceTree = "<group>"; };
+		29AEA2CE2A4736C4007FAF16 /* SettingModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingModel.swift; sourceTree = "<group>"; };
+		29AEA2CF2A4736C4007FAF16 /* SettingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewModel.swift; sourceTree = "<group>"; };
+		29AEA2D02A4736C4007FAF16 /* SettingViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SettingViewController.xib; sourceTree = "<group>"; };
+		29AEA2D62A4747DE007FAF16 /* DomainKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DomainKey.swift; sourceTree = "<group>"; };
 		29AF6830297DB51E006DE989 /* ChapterDetailAPIRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChapterDetailAPIRouter.swift; sourceTree = "<group>"; };
 		29AF6834297DB658006DE989 /* ChapterDetailUC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChapterDetailUC.swift; sourceTree = "<group>"; };
 		29AF6836297DB8CD006DE989 /* ChapterDetailModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChapterDetailModel.swift; sourceTree = "<group>"; };
@@ -565,6 +577,18 @@
 			path = ComicDetail;
 			sourceTree = "<group>";
 		};
+		29AEA2CB2A4736AE007FAF16 /* Setting */ = {
+			isa = PBXGroup;
+			children = (
+				29AEA2CC2A4736C4007FAF16 /* SettingCoordinator.swift */,
+				29AEA2CD2A4736C4007FAF16 /* SettingViewController.swift */,
+				29AEA2CE2A4736C4007FAF16 /* SettingModel.swift */,
+				29AEA2CF2A4736C4007FAF16 /* SettingViewModel.swift */,
+				29AEA2D02A4736C4007FAF16 /* SettingViewController.xib */,
+			);
+			path = Setting;
+			sourceTree = "<group>";
+		};
 		29AF6838297DCA58006DE989 /* TableViewCell */ = {
 			isa = PBXGroup;
 			children = (
@@ -690,6 +714,7 @@
 				29D5090A28F94EB900DD3D32 /* Constants.swift */,
 				29F5589B2975455600FE1386 /* SwiftSoupService.swift */,
 				29957AC229A5B20400BE9538 /* CommonMethod.swift */,
+				29AEA2D62A4747DE007FAF16 /* DomainKey.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -708,6 +733,7 @@
 		29D5091328F95D6600DD3D32 /* Scenes */ = {
 			isa = PBXGroup;
 			children = (
+				29AEA2CB2A4736AE007FAF16 /* Setting */,
 				29957AAF2994EA9C00BE9538 /* Favorite */,
 				299265952988F0110094EB0C /* Category */,
 				2905D50D29835D3400CC6E72 /* Search */,
@@ -1033,6 +1059,7 @@
 				29D508C728F8EF5C00DD3D32 /* LaunchScreen.storyboard in Resources */,
 				29957AB92994EAB400BE9538 /* FavoriteViewController.xib in Resources */,
 				29D623D9297C389B0081E5A7 /* MainInfoTableViewCell.xib in Resources */,
+				29AEA2D52A4736C4007FAF16 /* SettingViewController.xib in Resources */,
 				29EFDEF628FA413A0032CF22 /* Localizable.strings in Resources */,
 				2984BD0A297AD2B500830956 /* ChapterDetailViewController.xib in Resources */,
 				297905DD2940862A0052F6BE /* BaseSectionHeaderFooterView.xib in Resources */,
@@ -1131,6 +1158,7 @@
 				29D6D0832983CE4D004EE766 /* ComicSuggestModel.swift in Sources */,
 				29EFDF1328FA53D50032CF22 /* HomeViewModel.swift in Sources */,
 				2984BD09297AD2B500830956 /* ChapterDetailViewController.swift in Sources */,
+				29AEA2D22A4736C4007FAF16 /* SettingViewController.swift in Sources */,
 				29D623D0297C2D310081E5A7 /* ChapterModel.swift in Sources */,
 				29D5092028F960CE00DD3D32 /* Coordinator.swift in Sources */,
 				291E177F2937018F00FCAAD9 /* CloudsModel.swift in Sources */,
@@ -1145,8 +1173,10 @@
 				299265922987516E0094EB0C /* UIImageExtension.swift in Sources */,
 				29957AB82994EAB400BE9538 /* FavoriteViewModel.swift in Sources */,
 				291E1790293743D400FCAAD9 /* UIColorExtension.swift in Sources */,
+				29AEA2D42A4736C4007FAF16 /* SettingViewModel.swift in Sources */,
 				2992659D2988F06B0094EB0C /* CategoryCoordinator.swift in Sources */,
 				29D508F628F8FA2000DD3D32 /* APIRequest.swift in Sources */,
+				29AEA2D32A4736C4007FAF16 /* SettingModel.swift in Sources */,
 				29157BFF29B19C1C007D42DD /* ChapterCoreData+CoreDataProperties.swift in Sources */,
 				2905D51329835E5700CC6E72 /* SearchViewModel.swift in Sources */,
 				2905D51029835D5400CC6E72 /* SearchViewController.swift in Sources */,
@@ -1179,8 +1209,10 @@
 				29D6D0812983C991004EE766 /* SearchUC.swift in Sources */,
 				29957AAA2994E66D00BE9538 /* DetailComicCoreData+CoreDataProperties.swift in Sources */,
 				2905D51529835F1A00CC6E72 /* SearchCoordinator.swift in Sources */,
+				29AEA2D12A4736C4007FAF16 /* SettingCoordinator.swift in Sources */,
 				29957AA92994E66D00BE9538 /* DetailComicCoreData+CoreDataClass.swift in Sources */,
 				293A1B93297EB03900F88B95 /* ChapterImageModel.swift in Sources */,
+				29AEA2D72A4747DE007FAF16 /* DomainKey.swift in Sources */,
 				29957AC329A5B20400BE9538 /* CommonMethod.swift in Sources */,
 				29957ABF2994EF9800BE9538 /* FavoriteUC.swift in Sources */,
 				291E176B2935EB2E00FCAAD9 /* LocalName.swift in Sources */,

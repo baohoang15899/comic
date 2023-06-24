@@ -25,7 +25,7 @@ extension CategoryRouter: APIInputBase {
     var url: String {
         switch self {
         case .allCategory:
-            return "\(BaseApiRequest.url)\(nettruyenPath.all)"
+            return "\(DomainUrl().domain)\(nettruyenPath.all)"
         case .allComic(_ , let url):
             return url
         }

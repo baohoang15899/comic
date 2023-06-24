@@ -91,6 +91,12 @@ class SearchViewController: BaseViewController<SearchViewModel> {
                 self?.emptyStackView.isHidden = status
             }
             .disposed(by: bag)
+        
+        output.isLoading
+            .drive { [weak self] isLoading in
+                self?.setupLoadingView(isLoading: isLoading)
+            }
+            .disposed(by: bag)
 
     }
 }
