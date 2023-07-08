@@ -13,13 +13,14 @@ public class ChapterModel: NSObject {
     let chapterUrl: String?
     let chap: String?
     let date: String?
+    var isRead: Bool?
     
-    init(id: String?, title: String?, chapterUrl: String?, chap: String?, date: String?) {
+    init(id: String? = nil, title: String? = nil, chapterUrl: String? = nil, chap: String? = nil, date: String? = nil, isRead: Bool? = nil) {
         self.id = id
         self.title = title
         self.chapterUrl = chapterUrl
         self.chap = chap
         self.date = date
+        self.isRead = isRead
     }
-    
 }

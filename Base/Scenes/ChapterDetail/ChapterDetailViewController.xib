@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21225" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="19529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21207"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19519"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -75,17 +75,17 @@
                     <rect key="frame" x="0.0" y="852" width="414" height="44"/>
                     <subviews>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2DW-M4-dgL">
-                            <rect key="frame" x="16" y="5" width="75" height="34.5"/>
+                            <rect key="frame" x="16" y="6.5" width="67" height="31"/>
                             <state key="normal" title="Button"/>
                             <buttonConfiguration key="configuration" style="plain" title="Button"/>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Fex-fU-VvJ">
-                            <rect key="frame" x="323" y="5" width="75" height="34.5"/>
+                            <rect key="frame" x="331" y="6.5" width="67" height="31"/>
                             <state key="normal" title="Button"/>
                             <buttonConfiguration key="configuration" style="plain" title="Button"/>
                         </button>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FUs-Q7-3vU">
-                            <rect key="frame" x="184" y="7" width="46" height="30"/>
+                        <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FUs-Q7-3vU">
+                            <rect key="frame" x="90" y="7" width="234" height="30"/>
                             <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                             <state key="normal" title="Button"/>
                             <connections>
@@ -97,10 +97,11 @@
                     <constraints>
                         <constraint firstItem="2DW-M4-dgL" firstAttribute="centerY" secondItem="xS2-wI-jTz" secondAttribute="centerY" id="2Y5-24-mOa"/>
                         <constraint firstItem="Fex-fU-VvJ" firstAttribute="centerY" secondItem="xS2-wI-jTz" secondAttribute="centerY" id="BOn-Kg-arT"/>
-                        <constraint firstItem="FUs-Q7-3vU" firstAttribute="centerY" secondItem="xS2-wI-jTz" secondAttribute="centerY" id="PH5-bO-DvM"/>
-                        <constraint firstItem="FUs-Q7-3vU" firstAttribute="centerX" secondItem="xS2-wI-jTz" secondAttribute="centerX" id="Pgi-9f-bGz"/>
                         <constraint firstAttribute="height" constant="44" id="QeF-z8-2hE"/>
+                        <constraint firstItem="FUs-Q7-3vU" firstAttribute="leading" secondItem="xS2-wI-jTz" secondAttribute="leading" constant="90" id="SE4-Fw-fsl"/>
                         <constraint firstItem="2DW-M4-dgL" firstAttribute="leading" secondItem="xS2-wI-jTz" secondAttribute="leading" constant="16" id="bGx-Bo-qPx"/>
+                        <constraint firstItem="FUs-Q7-3vU" firstAttribute="centerY" secondItem="xS2-wI-jTz" secondAttribute="centerY" id="sRT-ca-qhU"/>
+                        <constraint firstAttribute="trailing" secondItem="FUs-Q7-3vU" secondAttribute="trailing" constant="90" id="xgE-EE-81J"/>
                         <constraint firstAttribute="trailing" secondItem="Fex-fU-VvJ" secondAttribute="trailing" constant="16" id="yGC-5F-pnt"/>
                     </constraints>
                 </view>

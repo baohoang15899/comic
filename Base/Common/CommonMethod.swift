@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import CoreData
 import UIKit
 
 struct CommonMethod {
@@ -24,6 +25,19 @@ struct CommonMethod {
     static func getDomainKey() -> String? {
         let key = UserDefaults.standard.object(forKey: DomainKey.domain) as? String
         return key
+    }
+    
+    static func clearCache() {
+        let context = AppDelegate.shared.persistentContainer.viewContext
+        let fetchRequest: NSFetchRequest<NSFetchRequestResult> = NSFetchRequest(entityName: "ChapterCoreData")
+        let deleteRequest = NSBatchDeleteRequest(fetchRequest: fetchRequest)
+
+        do {
+            try context.execute(deleteRequest)
+        } catch  {
+            print("Clear Cache Failed")
+        }
+        CacheManager.shared.clearCache()
     }
     
     static func saveDomain(domain: String) {

@@ -17,18 +17,27 @@ class SettingViewModel: BaseViewModel {
     struct Input {
         let domainString: Driver<String>
         let submitAction: Driver<Void>
+        let clearCacheAtion: Driver<Void>
     }
     
     struct Output {
         let isEnableButton: Driver<Bool>
         let showAlert: Driver<Void>
+        let showClearCacheAlert: Driver<Void>
     }
     
     private let bag = DisposeBag()
-
+    let confirmClearCache = PublishSubject<Void>()
+    
     func transform(input: Input) -> Output {
         
         var keyword: String = ""
+        
+        confirmClearCache
+            .subscribe(onNext: {
+                CommonMethod.clearCache()
+            })
+            .disposed(by: bag)
         
         let canSubmit = input.domainString
             .do(onNext: { key in
@@ -42,8 +51,13 @@ class SettingViewModel: BaseViewModel {
                     CommonMethod.saveDomain(domain: keyword)
                 }
             })
-            .mapToVoid()
-        
-        return Output(isEnableButton: canSubmit, showAlert: submit)
-    }
+                .mapToVoid()
+                
+                let clearCacheAction = input.clearCacheAtion.mapToVoid()
+                
+                return Output(isEnableButton: canSubmit,
+                              showAlert: submit,
+                              showClearCacheAlert: clearCacheAction)
+                
+                }
 }

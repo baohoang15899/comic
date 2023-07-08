@@ -115,6 +115,16 @@ internal enum L10n {
       /// Thông báo
       internal static let title = L10n.tr("Localizable", "Setting.alert.title", fallback: "Thông báo")
     }
+    internal enum Cancel {
+      /// Huỷ bỏ
+      internal static let title = L10n.tr("Localizable", "Setting.cancel.title", fallback: "Huỷ bỏ")
+    }
+    internal enum ClearCache {
+      /// Xác nhận nếu bạn muốn xoá cache
+      internal static let message = L10n.tr("Localizable", "Setting.clearCache.message", fallback: "Xác nhận nếu bạn muốn xoá cache")
+      /// Clear Cache
+      internal static let title = L10n.tr("Localizable", "Setting.clearCache.title", fallback: "Clear Cache")
+    }
     internal enum Submit {
       /// Xác nhận
       internal static let title = L10n.tr("Localizable", "Setting.submit.title", fallback: "Xác nhận")

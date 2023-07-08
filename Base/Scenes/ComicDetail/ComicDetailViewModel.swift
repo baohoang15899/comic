@@ -45,22 +45,35 @@ class ComicDetailViewModel: BaseViewModel {
     func transform(input: Input) -> Output {
 
         var listChapter: [ChapterModel] = []
+        var detailComic = DetailComicModel()
         let isLoadingSubject = BehaviorSubject(value: false)
         var comicName: String = ""
+        var isSelecting = false
         
-        self.didSelectItem
+        didSelectItem
+            .do(onNext: { [weak self] data in
+                self?.comicDetailUC.saveChapterToLocal(detailComic: detailComic, chapter: data)
+                isSelecting = true
+            })
             .subscribe(onNext: { [weak self] data in
                 self?.coordinator.navigateToChapterDetail(chapter: data,
                                                           listChapter: listChapter,
                                                           comicName: comicName)
             })
             .disposed(by: bag)
+                
+        let selecteChapterMerge = Driver.merge(input.getComicDetail.mapToVoid(),
+                                               didSelectItem.asDriver(onErrorJustReturn: ChapterModel()).mapToVoid())
         
-        let comicDetail = input.getComicDetail
+        let comicDetail = selecteChapterMerge
             .do(onNext: { _ in
                 isLoadingSubject.onNext(true)
             })
             .flatMap { _ -> Driver<DetailComicModel> in
+                if (isSelecting) {
+                    return self.comicDetailUC.getComicDetailData(url: self.detailComicUrl)
+                        .asDriver(onErrorJustReturn: DetailComicModel.init())
+                }
                 if let cacheData = CacheManager.shared.getCache(key: "\(self.detailComicUrl)") as? DetailComicModel {
                     return Driver.just(cacheData)
                 }
@@ -68,11 +81,13 @@ class ComicDetailViewModel: BaseViewModel {
                     .asDriver(onErrorJustReturn: DetailComicModel.init())
             }
             .do(onNext: { data in
-                self.comicDetailUC.saveChapterToLocal(detailComic: data)
+                detailComic = data
+                self.comicDetailUC.saveComicToLocal(detailComic: data)
                 CacheManager.shared.setCache(item: data, key: "\(self.detailComicUrl)")
                 listChapter = data.chapters ?? []
                 comicName = data.title ?? ""
                 isLoadingSubject.onNext(false)
+                isSelecting = false
             })
                 
         //sẽ gọi lại comicDetail để lấy data

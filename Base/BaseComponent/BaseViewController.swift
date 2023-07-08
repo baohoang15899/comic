@@ -22,11 +22,15 @@ class BaseViewController<T: BaseViewModel>: UIViewController, BindableType {
              spinner = UIActivityIndicatorView(style: .whiteLarge)
         }
         overlay.frame = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.size.width, height: UIScreen.main.bounds.size.height)
-        overlay.backgroundColor = .black
-        overlay.alpha = 0.4
+        if #available(iOS 13.0, *) {
+            overlay.backgroundColor = .systemBackground
+        } else {
+            // Fallback on earlier versions
+            overlay.backgroundColor = .white
+        }
         
         overlay.addSubview(spinner)
-        spinner.color = .white
+        spinner.color = .gray
         spinner.translatesAutoresizingMaskIntoConstraints = false
         spinner.startAnimating()
         spinner.centerXAnchor.constraint(equalTo: self.overlay.centerXAnchor).isActive = true

@@ -59,5 +59,8 @@
 "Setting.title" = "Cài đặt";
 "Setting.textField.placeholder" = "Nhập tên domain";
 "Setting.submit.title" = "Xác nhận";
+"Setting.cancel.title" = "Huỷ bỏ";
 "Setting.alert.title" = "Thông báo";
 "Setting.alert.message" = "Đã lưu domain thành công";
+"Setting.clearCache.message" = "Xác nhận nếu bạn muốn xoá cache";
+"Setting.clearCache.title" = "Clear Cache";

@@ -13,7 +13,8 @@ protocol ComicDetailUCType {
     func setFavorite(detailComic: DetailComicModel) -> Observable<Bool>
     func getComicDetailData(url: String) -> Observable<DetailComicModel>
     func getFavorite(detailComic: DetailComicModel) -> Observable<Bool>
-    func saveChapterToLocal(detailComic: DetailComicModel)
+    func saveComicToLocal(detailComic: DetailComicModel)
+    func saveChapterToLocal(detailComic: DetailComicModel, chapter: ChapterModel)
 }
 
 struct ComicDetailUC: ComicDetailUCType {
@@ -40,7 +41,11 @@ struct ComicDetailUC: ComicDetailUCType {
         return comicDetailRepository.getComicDetailData(url: url)
     }
     
-    func saveChapterToLocal(detailComic: DetailComicModel) {
+    func saveComicToLocal(detailComic: DetailComicModel) {
         comicDetailRepository.saveComicToLocal(detailComic: detailComic)
+    }
+    
+    func saveChapterToLocal(detailComic: DetailComicModel, chapter: ChapterModel) {
+        comicDetailRepository.saveChapterToLocal(detailComic: detailComic, chapter: chapter)
     }
 }

@@ -21,6 +21,10 @@ class CacheManager {
     func getCache(key: String) -> AnyObject? {
         return cache.object(forKey: key as NSString)
     }
+    
+    func clearCache() {
+        cache.removeAllObjects()
+    }
 }
 
 struct SwiftSoupService {

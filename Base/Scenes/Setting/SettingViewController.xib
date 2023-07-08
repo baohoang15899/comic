@@ -11,6 +11,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SettingViewController" customModule="Base" customModuleProvider="target">
             <connections>
+                <outlet property="clearCacheButton" destination="XiM-V5-jWg" id="F2M-bH-31F"/>
                 <outlet property="submitButton" destination="hSK-KQ-R7h" id="oVe-fb-1do"/>
                 <outlet property="tabbarHeaderView" destination="ky3-Jn-qUI" id="sPc-lc-HOD"/>
                 <outlet property="textField" destination="sLm-VE-NH1" id="J2Z-yW-3Z4"/>
@@ -32,7 +33,7 @@
                                 <constraint firstAttribute="height" constant="44" id="eww-u5-Pdv"/>
                             </constraints>
                         </view>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hSK-KQ-R7h">
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XiM-V5-jWg">
                             <rect key="frame" x="15" y="772" width="384" height="31"/>
                             <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                             <state key="normal" title="Button"/>
@@ -46,17 +47,26 @@
                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                             <textInputTraits key="textInputTraits"/>
                         </textField>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hSK-KQ-R7h">
+                            <rect key="frame" x="15" y="113" width="384" height="31"/>
+                            <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                            <state key="normal" title="Button"/>
+                            <buttonConfiguration key="configuration" style="filled" title="Button"/>
+                        </button>
                     </subviews>
                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     <constraints>
                         <constraint firstAttribute="trailing" secondItem="ky3-Jn-qUI" secondAttribute="trailing" id="0nZ-Z2-OWJ"/>
                         <constraint firstItem="ky3-Jn-qUI" firstAttribute="leading" secondItem="1BU-2C-egz" secondAttribute="leading" id="2qu-pa-baM"/>
-                        <constraint firstAttribute="bottom" secondItem="hSK-KQ-R7h" secondAttribute="bottom" constant="15" id="48K-He-GLn"/>
                         <constraint firstItem="hSK-KQ-R7h" firstAttribute="leading" secondItem="1BU-2C-egz" secondAttribute="leading" constant="15" id="XEf-J4-nWH"/>
                         <constraint firstItem="ky3-Jn-qUI" firstAttribute="top" secondItem="1BU-2C-egz" secondAttribute="top" id="XUy-Aj-IHi"/>
                         <constraint firstAttribute="trailing" secondItem="sLm-VE-NH1" secondAttribute="trailing" constant="15" id="bcH-kq-Vup"/>
                         <constraint firstItem="sLm-VE-NH1" firstAttribute="top" secondItem="ky3-Jn-qUI" secondAttribute="bottom" constant="10" id="cSh-bv-3Fy"/>
+                        <constraint firstItem="hSK-KQ-R7h" firstAttribute="top" secondItem="sLm-VE-NH1" secondAttribute="bottom" constant="15" id="db6-LS-qgG"/>
+                        <constraint firstAttribute="trailing" secondItem="XiM-V5-jWg" secondAttribute="trailing" constant="15" id="f67-WF-NUR"/>
                         <constraint firstAttribute="trailing" secondItem="hSK-KQ-R7h" secondAttribute="trailing" constant="15" id="fpk-gL-myS"/>
+                        <constraint firstAttribute="bottom" secondItem="XiM-V5-jWg" secondAttribute="bottom" constant="15" id="k2L-2Y-FGk"/>
+                        <constraint firstItem="XiM-V5-jWg" firstAttribute="leading" secondItem="1BU-2C-egz" secondAttribute="leading" constant="15" id="sRR-6X-3ho"/>
                         <constraint firstItem="sLm-VE-NH1" firstAttribute="leading" secondItem="1BU-2C-egz" secondAttribute="leading" constant="15" id="xss-wf-tLc"/>
                     </constraints>
                 </view>

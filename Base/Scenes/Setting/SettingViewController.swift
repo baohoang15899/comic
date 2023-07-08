@@ -18,6 +18,7 @@ class SettingViewController: BaseViewController<SettingViewModel> {
     @IBOutlet weak var tabbarHeaderView: TabbarHeaderBaseView!
     @IBOutlet weak var submitButton: UIButton!
     @IBOutlet weak var textField: UITextField!
+    @IBOutlet weak var clearCacheButton: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,6 +32,7 @@ class SettingViewController: BaseViewController<SettingViewModel> {
     private func setupUI() {
         submitButton.layer.cornerRadius = 10
         submitButton.setTitle(L10n.Setting.Submit.title, for: .normal)
+        clearCacheButton.setTitle(L10n.Setting.ClearCache.title, for: .normal)
         submitButton.setTitleColor(.white, for: .normal)
         tabbarHeaderView.configView(title: L10n.Setting.title)
         textField.placeholder = L10n.Setting.TextField.placeholder
@@ -46,6 +48,16 @@ class SettingViewController: BaseViewController<SettingViewModel> {
         self.present(alert, animated: true, completion: nil)
     }
     
+    private func setupClearCacheAlert() {
+        let alert = UIAlertController(title: L10n.Setting.Alert.title, message: L10n.Setting.ClearCache.message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: L10n.Setting.Submit.title, style: .default, handler: { [weak self]_ in
+            self?.viewModel.confirmClearCache.onNext(())
+        }))
+        alert.addAction(UIAlertAction(title: L10n.Setting.Cancel.title, style: .default, handler: { _ in
+        }))
+        self.present(alert, animated: true, completion: nil)
+    }
+    
     //Calls this function when the tap is recognized.
     @objc private func dismissKeyboard() {
         view.endEditing(true)
@@ -53,7 +65,8 @@ class SettingViewController: BaseViewController<SettingViewModel> {
     
     override func bindViewModel() {
         let input = SettingViewModel.Input(domainString: textField.rx.text.orEmpty.asDriver(),
-                                           submitAction: submitButton.rx.tap.asDriver())
+                                           submitAction: submitButton.rx.tap.asDriver(),
+                                           clearCacheAtion: clearCacheButton.rx.tap.asDriver())
         let output = viewModel.transform(input: input)
         
         output.isEnableButton
@@ -63,6 +76,12 @@ class SettingViewController: BaseViewController<SettingViewModel> {
         output.showAlert
             .drive { [weak self] _ in
                 self?.setupAlert()
+            }
+            .disposed(by: bag)
+        
+        output.showClearCacheAlert
+            .drive { [weak self] _ in
+                self?.setupClearCacheAlert()
             }
             .disposed(by: bag)
     }

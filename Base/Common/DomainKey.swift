@@ -8,5 +8,5 @@
 import Foundation
 
 class DomainUrl {
-    let domain = CommonMethod.getDomainKey() ?? ""
+    let domain = CommonMethod.getDomainKey() ?? "https://www.nettruyenmax.com/"
 }

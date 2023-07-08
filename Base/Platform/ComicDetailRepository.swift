@@ -14,6 +14,8 @@ protocol ComicDetailRepositoryType {
     func setFavorite(detailComic: DetailComicModel) -> Observable<Bool>
     func getComicDetailData(url: String) -> Observable<DetailComicModel>
     func getFavorite(detailComic: DetailComicModel) -> Observable<Bool>
+    func saveComicToLocal(detailComic: DetailComicModel)
+    func saveChapterToLocal(detailComic: DetailComicModel, chapter: ChapterModel)
 }
 
 struct ComicDetailRepository: ComicDetailRepositoryType {
@@ -60,6 +62,15 @@ struct ComicDetailRepository: ComicDetailRepositoryType {
                                                             className: "a") ?? ""
                 }) ?? []
                 
+                let context = AppDelegate.shared.persistentContainer.viewContext
+                var localChapter = [ChapterCoreData]()
+                
+                do {
+                    localChapter = try context.fetch(ChapterCoreData.fetchRequest())
+                } catch {
+                    print("can't ftech local chapter")
+                }
+                
                 let chapters: [ChapterModel] = listChapterInfo?.map({ value -> ChapterModel in
                     let title = SwiftSoupService.elementToString(element: value,
                                                                  className: "div.col-xs-5.chapter a")
@@ -74,7 +85,8 @@ struct ComicDetailRepository: ComicDetailRepositoryType {
                                                               className: "div.col-xs-5.chapter a",
                                                               attr: "data-id")
                     
-                    return ChapterModel(id: id, title: title, chapterUrl: chapterUrl, chap: "", date: date)
+                    let isReadChapter = localChapter.first { $0.id == id }
+                    return ChapterModel(id: id, title: title, chapterUrl: chapterUrl, chap: "", date: date, isRead: isReadChapter?.isRead ?? false)
                 }) ?? []
                 
                 let content = SwiftSoupService.elementToString(element: contentInfo,
@@ -112,6 +124,33 @@ struct ComicDetailRepository: ComicDetailRepositoryType {
                 saveItem.categories = detailComic.categories
                 saveItem.content = detailComic.content
                 saveItem.status = detailComic.status
+                try context.save()
+            }
+        } catch {
+            print("Can't fetch local data")
+        }
+    }
+    
+    func saveChapterToLocal(detailComic: DetailComicModel, chapter: ChapterModel) {
+        let context = AppDelegate.shared.persistentContainer.viewContext
+        
+        do {
+            let items = try context.fetch(DetailComicCoreData.fetchRequest())
+            
+            let matchItem = items.first { data in
+                return data.id == detailComic.id
+            }
+            
+            if (matchItem != nil && chapter.isRead == false) {
+                let saveItem = ChapterCoreData(context: context)
+                saveItem.chapterUrl = chapter.chapterUrl
+                saveItem.chap = chapter.chap
+                saveItem.isRead = true
+                saveItem.title = chapter.title
+                saveItem.comic = matchItem
+                saveItem.date = chapter.date
+                saveItem.id = chapter.id
+                matchItem?.addToChapter(saveItem)
                 try context.save()
             }
         } catch {
